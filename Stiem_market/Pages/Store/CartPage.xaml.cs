@@ -1,0 +1,64 @@
+﻿using Stiem_market.Data;
+using Stiem_market.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace Stiem_market.Pages.Store
+{
+    /// <summary>
+    /// Логика взаимодействия для CartPage.xaml
+    /// </summary>
+    public partial class CartPage : Page
+    {
+        private AuthenticationViewModel authViewModel;
+        public CartPage(AuthenticationViewModel _authViewModel)
+        {
+            InitializeComponent();
+            authViewModel = _authViewModel;
+
+            DataContext = authViewModel;
+            CartListBox.DataContext = authViewModel;
+        }
+
+        private void RemoveFromCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            authViewModel.LoggedUser.UserGames.Where(x => x.Game_id == ((UserGames)button.DataContext).Game_id).FirstOrDefault().
+                IsInCart = false;
+            App.db.SaveChanges();
+
+            authViewModel.UpdateUserCollections();
+        }
+
+        private void MakeABuyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (authViewModel.CartCost > 0)
+            {
+                if (authViewModel.LoggedUser.Balance >= authViewModel.CartCost)
+                {
+                    authViewModel.LoggedUser.Balance -= authViewModel.CartCost;
+
+                    IEnumerable<UserGames> cartList = authViewModel.LoggedUser.UserGames.Where(x => x.IsInCart == true).ToList();
+
+                    foreach (var item in cartList)
+                    {
+                        item.IsInCart = false;
+                        item.IsWished = false;
+                        item.IsPurchased = true;
+                        item.AddDate = System.DateTime.Now;
+                    }
+                    App.db.SaveChanges();
+
+                    authViewModel.UpdateUserCollections();
+                }
+                else
+                {
+                    MakeABuyPopup.IsOpen = true;
+                }
+            }
+        }
+    }
+}

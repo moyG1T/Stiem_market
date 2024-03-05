@@ -1,0 +1,61 @@
+﻿<Window x:Class="Stiem_market.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stiem_market"
+        mc:Ignorable="d"
+        Title="Stiem" Height="720" Width="1280" MinHeight="540" MinWidth="960" Background="{DynamicResource DarkGray}"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="IsUserLoggedInConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="14*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="28*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Frame x:Name="StiemFrame" BorderThickness="0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Frame>
+
+        <Rectangle Grid.Row="0" Grid.ColumnSpan="3"></Rectangle>
+
+        <DockPanel Grid.Row="0" Grid.Column ="1" VerticalAlignment="Center">
+            <RadioButton x:Name="StoreTab" Content="Магазин" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}" Style="{StaticResource TabButton}" Checked="StoreTab_Checked" HorizontalAlignment="Left"/>
+            <RadioButton x:Name="LibraryTab" Content="Библиотека" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}" Style="{StaticResource TabButton}" Checked="LibraryTab_Checked" HorizontalAlignment="Left"/>
+            <RadioButton x:Name="FriendsTab" Content="Друзья" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}" Style="{StaticResource TabButton}" Checked="FriendsTab_Checked" HorizontalAlignment="Left"/>
+            <Button x:Name="LogOutButton" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}" Style="{StaticResource LogOutButton}" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="LogOutButton_Click">
+                <Button.ToolTip>
+                    <ToolTip Background="{StaticResource DarkGray}">
+                        <TextBlock Text="Выйти" Style="{StaticResource SmallText}"/>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <RadioButton x:Name="AccountTab" Content="{Binding LoggedUser.Nickname}" Style="{StaticResource TabButton}" Margin="10 0 10 0" DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="AccountTab_Checked">
+                <RadioButton.ToolTip>
+                    <ToolTip Background="{StaticResource DarkGray}">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding LoggedUser.Nickname}" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding LoggedUser.Balance, StringFormat=Баланс: {0}₽}" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+            <RadioButton x:Name="CartButton" Style="{StaticResource CartRadioButton}" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="CartButton_Click">
+                <RadioButton.ToolTip>
+                    <ToolTip Background="{StaticResource DarkGray}">
+                        <TextBlock Text="Корзина" Style="{StaticResource SmallText}"/>
+                    </ToolTip>
+                </RadioButton.ToolTip>
+            </RadioButton>
+        </DockPanel>
+
+    </Grid>
+</Window>

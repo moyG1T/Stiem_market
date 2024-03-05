@@ -1,0 +1,59 @@
+﻿<Page x:Class="Stiem_market.Pages.Store.GamePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stiem_market.Pages.Store"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1280"
+      Title="GamePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Fill="White" Opacity="0.1" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="5"/>
+
+        <Image x:Name="GameImage" Stretch="UniformToFill" Source="{Binding SelectedGame.ImageBin}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="3"/>
+
+        <Button x:Name="BackButton" Style="{StaticResource BackwardButton}" Grid.Row="1" Grid.Column="2" Width="50" Height="50" VerticalAlignment="Top" Click="BackButton_Click"></Button>
+
+        <DockPanel Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0 10 0 0">
+            <ListBox Background="{StaticResource DarkGray}" Grid.Column="4" Grid.Row="3" Height="100" DockPanel.Dock="Top">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}"></Image>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="{Binding SelectedGame.Title}" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="{Binding SelectedGame.Devs.Title}" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <TextBlock Text="{Binding SelectedGame.Cost, StringFormat={}{0}₽}" HorizontalAlignment="Right" Style="{StaticResource MediumText}"/>
+                <Button x:Name="AddToCart"  Content="Купить" HorizontalAlignment="Right" Style="{StaticResource ElevatedButton}" Click="AddToCart_Click"/>
+                <TextBlock x:Name="InfoText" HorizontalAlignment="Right" Style="{StaticResource MediumText}" Opacity="0.7"/>
+                <Popup x:Name="CartPopup" StaysOpen="False" Placement="Mouse">
+                    <TextBlock x:Name="PopupText" Text="Добавлено в корзину" Style="{StaticResource SmallText}" Background="{StaticResource DarkGray}" Padding="3"></TextBlock>
+                </Popup>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Page>

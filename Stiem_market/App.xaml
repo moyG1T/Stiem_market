@@ -1,0 +1,548 @@
+﻿<Application x:Class="Stiem_market.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Stiem_market"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <BooleanToVisibilityConverter x:Key="IsCartEmptyConverter"/>
+
+        <SolidColorBrush x:Key="TotallyBlack" Color="#151515"></SolidColorBrush>
+        <SolidColorBrush x:Key="DarkGray" Color="#202020"></SolidColorBrush>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="MS Open Sans"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="SmallText">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontWeight" Value="Light"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="MediumText">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontWeight" Value="Light"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="LargeText">
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontWeight" Value="Regular"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource DarkGray}"></Setter>
+        </Style>
+
+        <Style TargetType="Rectangle">
+            <Setter Property="Fill" Value="{StaticResource TotallyBlack}"></Setter>
+        </Style>
+
+        <Style x:Key="MyFocusVisualStyle">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Margin="-2" BorderThickness="1" CornerRadius="5"
+                            BorderBrush="Orange" Background="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="{x:Type TextBox}" x:Key="RoundedTextBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FontFamily" Value="MS Open Sans"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Name="Border"
+                            Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
+                            MinWidth="200" CornerRadius="12" Padding="4">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="SearchTextBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FontFamily" Value="MS Open Sans"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Name="Border"
+                            Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
+                            MinWidth="200" CornerRadius="12" Padding="4">
+                            <DockPanel>
+                                <Image Source="/Resources/search.png" Width="50" Height="50" Margin="2"
+                                   DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" 
+                                          DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </DockPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="RoundedPasswordBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FontFamily" Value="MS Open Sans"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border Name="Border"
+                            Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
+                            Width="200" CornerRadius="12" Padding="4">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="TagBorder">
+            <Setter Property="Background" Value="{DynamicResource TotallyBlack}"></Setter>
+            <Setter Property="CornerRadius" Value="4"></Setter>
+            <Setter Property="Padding" Value="5 2 5 2"></Setter>
+            <Setter Property="Margin" Value="2"></Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="BackwardButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ForwardButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Image Opacity="0.7">
+                            <Image.Source>
+                                <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
+                            </Image.Source>
+                        </Image>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Image Opacity="1">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
+                                    </Image.Source>
+                                </Image>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Image Opacity="0.3">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
+                                    </Image.Source>
+                                </Image>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="CancelButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
+                            <Image Source="/Resources/cancel.png"></Image>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" Opacity="1" Width="40" Height="40" CornerRadius="25" Padding="3">
+                                    <Image Source="/Resources/cancel.png"></Image>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" Opacity="0.3" Width="40" Height="40" CornerRadius="25" Padding="3">
+                                    <Image Source="/Resources/cancel.png"></Image>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="LoginButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="White" CornerRadius="10" Padding="4" Opacity="0.8">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="Black" 
+                                   Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" CornerRadius="10" Padding="4" Opacity="1">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
+                                           Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" CornerRadius="10" Padding="4" Opacity="0.3">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
+                                           Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ElevatedButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Opacity="0.8">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="White" 
+                                   Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Opacity="1">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
+                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Opacity="0.3">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="White"
+                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="RegisterButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock Text="{TemplateBinding Content}" Opacity="0.7"
+                               Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <TextBlock Text="{TemplateBinding Content}" Opacity="1"
+                                       Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="LogOutButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="White" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
+                            <Image Source="/Resources/quit.png"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" Opacity="0.8" CornerRadius="10" Width="30" Height="30" Padding="3">
+                                    <Image Source="/Resources/quit.png"></Image>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="RadioButton" x:Key="CartRadioButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid Width="45">
+                            <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
+                                <Image Source="/Resources/cart.png"></Image>
+                            </Border>
+                            <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}" Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
+                                <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid Width="45">
+                                    <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.8" CornerRadius="10" Width="30" Height="30" Padding="3">
+                                        <Image Source="/Resources/cart.png"></Image>
+                                    </Border>
+                                    <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}"  Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
+                                        <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid Width="45">
+                                    <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="30" Height="30" Padding="3">
+                                        <Image Source="/Resources/cart.png"></Image>
+                                    </Border>
+                                    <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}"  Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
+                                        <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="RadioButton" x:Key="TabButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="Margin" Value="10 0 10 0"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.7"></TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.8"></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="1"></TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="RadioButton" x:Key="SliderButton">
+            <Setter Property="Width" Value="25"></Setter>
+            <Setter Property="Height" Value="7"></Setter>
+            <Setter Property="Margin" Value="5 0 5 0"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="White" Opacity="0.4" CornerRadius="3"></Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Background="White" Opacity="0.6" CornerRadius="3"></Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Background="White" Opacity="1" CornerRadius="3"></Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="UserList">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="65"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="3" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
+                                        <Image Source="{Binding Avatar}" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
+                                        <TextBlock Text="{Binding Nickname}" Grid.Column="2" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="GameList">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5">
+                                        <Image Source="{Binding ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="450" Height="75"/>
+                                        <Border Background="{StaticResource TotallyBlack}" Width="450" Height="75" Opacity="0.7"/>
+                                        <TextBlock Text="{Binding Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
+</Application>

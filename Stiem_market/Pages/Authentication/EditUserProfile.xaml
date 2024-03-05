@@ -1,0 +1,47 @@
+﻿<Page x:Class="Stiem_market.Pages.Authentication.EditUserProfile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stiem_market.Pages.Authentication"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1280"
+      Title="EditUserProfile">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition MinWidth="900"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="1" Background="White" CornerRadius="0 0 50 50" Opacity="0.1"/>
+
+        <Button x:Name="BackButton" Grid.Column="1" Style="{StaticResource BackwardButton}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25 25 25 0" Click="BackButton_Click"></Button>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 25 0 0">
+            <StackPanel Orientation="Vertical" Margin="0 0 25 0">
+                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="200" Height="200">
+                    <Image x:Name="ProfileImage" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
+                </Border>
+                <Button x:Name="SelectAPicture" Style="{StaticResource LoginButton}" Width="150" Margin="0 5 0 5" Click="SelectAPicture_Click">Выбрать аватар</Button>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Vertical" Width="350">
+                <DockPanel Margin="0 5 0 5">
+                    <TextBlock Text="Ник" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
+                    <TextBox x:Name="NicknameTextBox" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="NicknameTextBox_TextChanged"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="0 5 0 5">
+                    <TextBlock Text="Описание" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
+                    <TextBox x:Name="DescriptionTextBox" Text="{Binding SelectedUser.Description}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="DescriptionTextBox_TextChanged"></TextBox>
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="SaveChanges" Style="{StaticResource ElevatedButton}" Content="Сохранить" Grid.Column="1" Margin="0 0 0 25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="SaveChanges_Click"></Button>
+    </Grid>
+</Page>

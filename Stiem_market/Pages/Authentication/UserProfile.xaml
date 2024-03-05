@@ -1,0 +1,62 @@
+﻿<Page x:Class="Stiem_market.Pages.Authentication.UserProfile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stiem_market.Pages.Authentication"
+      mc:Ignorable="d" 
+        d:DesignHeight="620" d:DesignWidth="1280"
+  Title="UserProfile">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition MinWidth="250" Width="5*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" Background="White" CornerRadius="0 0 50 50" Opacity="0.1"/>
+
+        <Button x:Name="BackButton" Style="{StaticResource BackwardButton}" Grid.Row="1" Grid.Column="2" Width="50" Height="50" VerticalAlignment="Top" Click="BackButton_Click"></Button>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4" Width="475" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="200" Height="200">
+                    <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
+                </Border>
+                <Button x:Name="EditProfile" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="EditProfile_Click">Редактировать</Button>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" Margin="25 0 0 0">
+                <TextBlock x:Name="NicknameText" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="DescriptionText" Text="{Binding SelectedUser.Description}" Style="{StaticResource MediumText}" HorizontalAlignment="Left"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Text="Игры" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"></TextBlock>
+        <ListBox Grid.Row="2" Grid.Column="4" ItemsSource="{Binding Games}" Margin="0 40 0 0"
+             x:Name="GameList" ItemContainerStyle="{StaticResource GameList}" 
+             VerticalAlignment="Top" HorizontalAlignment="Left"
+             ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             Background="Transparent" BorderThickness="0"/>
+
+        <TextBlock Text="Друзья" Grid.Row="1" Grid.Column="5" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"></TextBlock>
+        <ListBox x:Name="FriendList" ItemsSource="{Binding UserCollection}"
+             Grid.Row="1" Grid.Column="5" Grid.RowSpan="2" Margin="0 40 0 0"
+             ItemContainerStyle="{StaticResource UserList}" 
+             VerticalAlignment="Top" HorizontalAlignment="Stretch"
+             ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             Background="Transparent" BorderThickness="0"/>
+    </Grid>
+</Page>
