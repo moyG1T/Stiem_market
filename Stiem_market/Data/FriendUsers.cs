@@ -17,8 +17,10 @@ namespace Stiem_market.Data
         public int ID { get; set; }
         public Nullable<int> User_id { get; set; }
         public Nullable<int> Friend_id { get; set; }
+        public Nullable<int> RelationType { get; set; }
         public Nullable<System.DateTime> AddDate { get; set; }
     
+        public virtual FriendsRelations FriendsRelations { get; set; }
         public virtual Users Users { get; set; }
         public virtual Users Users1 { get; set; }
     }

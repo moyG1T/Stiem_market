@@ -9,20 +9,15 @@
   Title="StorePage">
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
-            <StackPanel Height="3000">
-                <ListBox x:Name="GameBox" Height="500" Background="{StaticResource DarkGray}" ItemsSource="{Binding Games}" ItemContainerStyle="{StaticResource GameList}" MouseDoubleClick="ListBox_MouseDoubleClick"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Vertical">
-                    <WrapPanel x:Name="GamesPanel" Orientation="Horizontal"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <RadioButton x:Name="Radio1" Style="{StaticResource SliderButton}"></RadioButton>
-                        <RadioButton x:Name="Radio2" Style="{StaticResource SliderButton}"></RadioButton>
-                        <RadioButton x:Name="Radio3" Style="{StaticResource SliderButton}"></RadioButton>
-                        <RadioButton x:Name="Radio4" Style="{StaticResource SliderButton}"></RadioButton>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
+        <ListBox x:Name="GameBox" ItemsSource="{Binding Games}" Margin="0 40 0 0"
+         ItemContainerStyle="{StaticResource GameList}" Grid.Row="0"
+         VerticalAlignment="Top" HorizontalAlignment="Stretch"
+         ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+         Background="Transparent" BorderThickness="0" MouseDoubleClick="ListBox_MouseDoubleClick"/>
     </Grid>
 </Page>

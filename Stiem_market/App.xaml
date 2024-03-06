@@ -521,9 +521,29 @@
                             <ContentPresenter.ContentTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5">
-                                        <Image Source="{Binding ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="450" Height="75"/>
-                                        <Border Background="{StaticResource TotallyBlack}" Width="450" Height="75" Opacity="0.7"/>
+                                        <Image Source="{Binding ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
+                                        <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
                                         <TextBlock Text="{Binding Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="LibraryList">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5">
+                                        <Image Source="{Binding Games.ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
+                                        <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
+                                        <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Grid>
                                 </DataTemplate>
                             </ContentPresenter.ContentTemplate>

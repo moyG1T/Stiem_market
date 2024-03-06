@@ -11,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="300"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="1*"/>
@@ -21,9 +21,10 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition MinWidth="250" Width="5*"/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition MinWidth="500" Width="5*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition MinWidth="300" Width="3*"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
@@ -33,30 +34,37 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4" Width="475" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="200" Height="200">
+                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="250" Height="250">
                     <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
                 </Border>
-                <Button x:Name="EditProfile" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="EditProfile_Click">Редактировать</Button>
+                <Button x:Name="EditProfile" Content="Редактировать" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="EditProfile_Click"/>
+                <Button x:Name="InviteUser" Content="Добавить в друзья" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="InviteUser_Click">
+                    <Button.ToolTip>
+                        <ToolTip x:Name="RequestSendToolTip" Background="{StaticResource TotallyBlack}" StaysOpen="False" IsOpen="False" Placement="Mouse">
+                            <TextBlock Text="Заявка отправлена" Style="{StaticResource SmallText}"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
             </StackPanel>
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" Margin="25 0 0 0">
-                <TextBlock x:Name="NicknameText" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
-                <TextBlock x:Name="DescriptionText" Text="{Binding SelectedUser.Description}" Style="{StaticResource MediumText}" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="NicknameText" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="DescriptionText" Text="{Binding SelectedUser.Description}" Style="{StaticResource MediumText}" HorizontalAlignment="Left"/>
             </StackPanel>
         </StackPanel>
 
-        <TextBlock Text="Игры" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"></TextBlock>
-        <ListBox Grid.Row="2" Grid.Column="4" ItemsSource="{Binding Games}" Margin="0 40 0 0"
-             x:Name="GameList" ItemContainerStyle="{StaticResource GameList}" 
+        <TextBlock Text="Игры" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
+        <ListBox Grid.Row="2" Grid.Column="4" ItemsSource="{Binding LibraryCollection}" Margin="0 40 0 0"
+             x:Name="GameList" ItemContainerStyle="{StaticResource LibraryList}" 
              VerticalAlignment="Top" HorizontalAlignment="Left"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
              Background="Transparent" BorderThickness="0"/>
 
-        <TextBlock Text="Друзья" Grid.Row="1" Grid.Column="5" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"></TextBlock>
-        <ListBox x:Name="FriendList" ItemsSource="{Binding UserCollection}"
-             Grid.Row="1" Grid.Column="5" Grid.RowSpan="2" Margin="0 40 0 0"
+        <TextBlock Text="Друзья" Grid.Row="1" Grid.Column="6" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
+        <ListBox x:Name="FriendList" ItemsSource="{Binding FriendsCollection}"
+             Grid.Row="1" Grid.Column="6" Grid.RowSpan="2" Margin="0 40 0 0"
              ItemContainerStyle="{StaticResource UserList}" 
              VerticalAlignment="Top" HorizontalAlignment="Stretch"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             Background="Transparent" BorderThickness="0"/>
+             Background="Transparent" BorderThickness="0" MinWidth="300"/>
     </Grid>
 </Page>

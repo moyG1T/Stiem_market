@@ -24,7 +24,7 @@ namespace Stiem_market.Data
         public int ID { get; set; }
         public string Title { get; set; }
         public Nullable<int> Dev_id { get; set; }
-        public int Cost { get; set; }
+        public Nullable<int> Cost { get; set; }
         public byte[] ImageBin { get; set; }
         public string ImgPath { get; set; }
     

@@ -27,7 +27,7 @@ namespace Stiem_market.Pages.Store
             Button button = sender as Button;
 
             authViewModel.LoggedUser.UserGames.Where(x => x.Game_id == ((UserGames)button.DataContext).Game_id).FirstOrDefault().
-                IsInCart = false;
+                RelationType = 1;
             App.db.SaveChanges();
 
             authViewModel.UpdateUserCollections();
@@ -37,24 +37,7 @@ namespace Stiem_market.Pages.Store
         {
             if (authViewModel.CartCost > 0)
             {
-                if (authViewModel.LoggedUser.Balance >= authViewModel.CartCost)
-                {
-                    authViewModel.LoggedUser.Balance -= authViewModel.CartCost;
-
-                    IEnumerable<UserGames> cartList = authViewModel.LoggedUser.UserGames.Where(x => x.IsInCart == true).ToList();
-
-                    foreach (var item in cartList)
-                    {
-                        item.IsInCart = false;
-                        item.IsWished = false;
-                        item.IsPurchased = true;
-                        item.AddDate = System.DateTime.Now;
-                    }
-                    App.db.SaveChanges();
-
-                    authViewModel.UpdateUserCollections();
-                }
-                else
+                if (authViewModel.PayCart() == false)
                 {
                     MakeABuyPopup.IsOpen = true;
                 }

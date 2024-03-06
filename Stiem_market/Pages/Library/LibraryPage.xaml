@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" MinWidth="300">
-            <ListBox x:Name="GameListBox" ItemsSource="{Binding GameCollection}" 
+            <ListBox x:Name="GameListBox" ItemsSource="{Binding LibraryCollection}" 
              HorizontalAlignment="Stretch"
              Background="Transparent" BorderThickness="0"  MinWidth="300">
                 <ListBox.ItemTemplate>

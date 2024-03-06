@@ -26,6 +26,7 @@ namespace Stiem_market.Data
         }
     
         public virtual DbSet<Devs> Devs { get; set; }
+        public virtual DbSet<FriendsRelations> FriendsRelations { get; set; }
         public virtual DbSet<FriendUsers> FriendUsers { get; set; }
         public virtual DbSet<Games> Games { get; set; }
         public virtual DbSet<GameTags> GameTags { get; set; }
@@ -33,5 +34,6 @@ namespace Stiem_market.Data
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<UserGames> UserGames { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UserToGameRelation> UserToGameRelation { get; set; }
     }
 }

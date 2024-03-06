@@ -4,22 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5896d39ce76d449b9ceed9522cc99176" Name="Diagram1">
-        <EntityTypeShape EntityType="StiemModel.Devs" Width="1.5" PointX="1.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.FriendUsers" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.Games" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.GameTags" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.Tags" Width="1.5" PointX="3.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.UserGames" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="StiemModel.Users" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <AssociationConnector Association="StiemModel.FK_Games_Devs" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_FriendUsers_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_FriendUsers_Users1" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_GameTags_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_UserGames_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_GameTags_Tags" ManuallyRouted="false" />
-        <AssociationConnector Association="StiemModel.FK_UserGames_Users" ManuallyRouted="false" />
+      <Diagram DiagramId="5896d39ce76d449b9ceed9522cc99176" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="StiemModel.Devs" Width="1.5" PointX="1.5" PointY="12.5" />
+        <EntityTypeShape EntityType="StiemModel.FriendsRelations" Width="1.5" PointX="3.75" PointY="1.5" />
+        <EntityTypeShape EntityType="StiemModel.FriendUsers" Width="1.5" PointX="6" PointY="4" />
+        <EntityTypeShape EntityType="StiemModel.Games" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="StiemModel.GameTags" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="StiemModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.875" />
+        <EntityTypeShape EntityType="StiemModel.Tags" Width="1.5" PointX="0.75" PointY="15.625" />
+        <EntityTypeShape EntityType="StiemModel.UserGames" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="StiemModel.Users" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="StiemModel.UserToGameRelation" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="StiemModel.FK_Games_Devs" />
+        <AssociationConnector Association="StiemModel.FK_FriendUsers_FriendsRelations" />
+        <AssociationConnector Association="StiemModel.FK_FriendUsers_Users" />
+        <AssociationConnector Association="StiemModel.FK_FriendUsers_Users1" />
+        <AssociationConnector Association="StiemModel.FK_GameTags_Games" />
+        <AssociationConnector Association="StiemModel.FK_UserGames_Games" />
+        <AssociationConnector Association="StiemModel.FK_GameTags_Tags" />
+        <AssociationConnector Association="StiemModel.FK_UserGames_Users" />
+        <AssociationConnector Association="StiemModel.FK_UserGames_UserToGameRelation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

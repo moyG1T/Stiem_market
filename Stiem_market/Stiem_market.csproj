@@ -64,6 +64,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\Devs.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\FriendsRelations.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\FriendUsers.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Games.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\GameTags.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sysdiagrams.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Tags.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserGames.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Users.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserToGameRelation.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Authentication\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
     </Compile>
@@ -103,18 +133,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Devs.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\FriendUsers.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Games.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\GameTags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\StiemDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,18 +147,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StiemDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\sysdiagrams.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Tags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\UserGames.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Users.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

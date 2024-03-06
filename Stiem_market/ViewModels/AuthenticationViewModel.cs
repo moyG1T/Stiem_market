@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace Stiem_market.ViewModels
 {
@@ -17,7 +18,9 @@ namespace Stiem_market.ViewModels
 
             UserCollection = App.db.Users.ToList();
 
-            GameCollection = App.db.UserGames.Where(x => x.IsPurchased == true && x.User_id == LoggedUser.ID).ToList();
+            FriendsCollection = ConcatFriendList();
+
+            LibraryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
 
             UpdateUserCollections();
         }
@@ -127,27 +130,51 @@ namespace Stiem_market.ViewModels
 
         public void UpdateUserCollections()
         {
-            CartCounter = App.db.UserGames.Where(x => x.IsInCart == true && x.User_id == LoggedUser.ID).Count();
+            CartCounter = App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID).Count();
 
             int sum = 0;
-            foreach (var item in App.db.UserGames.Where(x => x.IsInCart == true && x.User_id == LoggedUser.ID))
-                sum += item.Games.Cost;
+            foreach (var item in App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID))
+                sum += item.Games.Cost ?? 0;
             CartCost = sum;
 
             IsCartEmpty = cartCounter != 0;
 
-            CartCollection = App.db.UserGames.Where(x => x.IsInCart == true && x.User_id == LoggedUser.ID).ToList();
-            GameCollection = App.db.UserGames.Where(x => x.IsPurchased == true && x.User_id == LoggedUser.ID).ToList();
+            CartCollection = App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID).ToList();
+
+            LibraryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
         }
 
-        private IEnumerable<UserGames> gameCollection;
-        public IEnumerable<UserGames> GameCollection
+        public bool PayCart()
         {
-            get => gameCollection;
+            if (App.db.Users.Where(x => x.ID == LoggedUser.ID).FirstOrDefault().Balance < CartCost)
+            {
+                return false;
+            }
+            else
+            {
+                IEnumerable<UserGames> cartList = CartCollection;
+                foreach (var item in cartList)
+                {
+                    item.RelationType = 4;
+                    item.AddDate = System.DateTime.Now;
+                }
+
+                LoggedUser.Balance -= CartCost;
+                App.db.SaveChanges();
+
+            }
+            UpdateUserCollections();
+            return true;
+        }
+
+        private IEnumerable<UserGames> libraryCollection;
+        public IEnumerable<UserGames> LibraryCollection
+        {
+            get => libraryCollection;
             set
             {
-                gameCollection = value;
-                OnPropertyChanged(nameof(GameCollection));
+                libraryCollection = value;
+                OnPropertyChanged(nameof(LibraryCollection));
             }
         }
 
@@ -187,6 +214,34 @@ namespace Stiem_market.ViewModels
                 userCollection = value;
                 OnPropertyChanged(nameof(UserCollection));
             }
+        }
+
+        private IEnumerable<Users> friendsCollection;
+        public IEnumerable<Users> FriendsCollection
+        {
+            get => friendsCollection;
+            set
+            {
+                friendsCollection = value;
+                OnPropertyChanged(nameof(FriendsCollection));
+            }
+        }
+
+        public IEnumerable<Users> ConcatFriendList() 
+        {
+            List<int> IDs = new List<int>();
+            List<Users> users = new List<Users>();
+
+            foreach (var item in App.db.FriendUsers.Where(x => x.User_id == LoggedUser.ID && x.RelationType == 3))
+                IDs.Add((int)item.Friend_id);
+
+            foreach (var item in App.db.FriendUsers.Where(x => x.Friend_id == LoggedUser.ID && x.RelationType == 3))
+                IDs.Add((int)item.User_id);
+
+            foreach (var item in IDs)
+                users.Add(App.db.Users.Where(x => x.ID == item).FirstOrDefault());
+
+            return users;
         }
 
         public void SaveLoggedUser(int id)

@@ -42,7 +42,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Text="{Binding CartCost, StringFormat= {}{0}₽}" Style="{StaticResource LargeText}" FontSize="16" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="{Binding CartCost, StringFormat= {}{0}₽}" Style="{StaticResource LargeText}" FontSize="16" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="MakeABuyButton" Content="Перейти к покупке" Style="{StaticResource ElevatedButton}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MakeABuyButton_Click"/>
         <Popup x:Name="MakeABuyPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
             <StackPanel Orientation="Vertical" Background="{StaticResource DarkGray}">

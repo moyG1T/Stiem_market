@@ -64,7 +64,7 @@ namespace Stiem_market.Data
         public int Balance
         {
             get => balance;
-            set { balance = value; OnPropertyChanged("Balance"); }
+            set { balance = value; OnPropertyChanged(nameof(Balance)); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

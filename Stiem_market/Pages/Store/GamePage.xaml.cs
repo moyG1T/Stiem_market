@@ -41,12 +41,12 @@ namespace Stiem_market.Pages.Store
             if (gameViewModel.SelectedGame != null
                 && gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault() != null)
             {
-                if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().IsPurchased == true)
+                if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().RelationType == 4)
                 {
                     InfoText.Text = "Товар в библиотеке";
                     AddToCart.IsEnabled = false;
                 }
-                else if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().IsInCart == true)
+                else if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().RelationType == 2)
                 {
                     InfoText.Text = "Товар в корзине";
                     AddToCart.IsEnabled = false;
@@ -70,8 +70,7 @@ namespace Stiem_market.Pages.Store
                     User_id = authViewModel.LoggedUser.ID,
                     Game_id = gameViewModel.SelectedGame.ID,
                     IsWished = false,
-                    IsInCart = true,
-                    IsPurchased = false
+                    RelationType = 2,
                 });
                 App.db.SaveChanges();
                 authViewModel.UpdateUserCollections();
@@ -81,11 +80,11 @@ namespace Stiem_market.Pages.Store
             {
                 if (authViewModel.LoggedUser.UserGames.
                         Where(x => x.Game_id == gameViewModel.SelectedGame.ID && x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().
-                        IsInCart == false)
+                        RelationType != 2)
                 {
                     authViewModel.LoggedUser.UserGames.
                         Where(x => x.Game_id == gameViewModel.SelectedGame.ID && x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().
-                        IsInCart = true;
+                        RelationType = 2;
 
                     App.db.SaveChanges();
 
