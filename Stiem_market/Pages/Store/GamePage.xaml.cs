@@ -37,16 +37,14 @@ namespace Stiem_market.Pages.Store
 
             DataContext = gameViewModel;
 
-            // проверка на существование записи пользователя и игры
-            if (gameViewModel.SelectedGame != null
-                && gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault() != null)
+            if (gameViewModel.SelectedGame != null)
             {
-                if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().RelationType == 4)
+                if (authViewModel.LibraryCollection.Any(x => x.Game_id == gameViewModel.SelectedGame.ID))
                 {
                     InfoText.Text = "Товар в библиотеке";
                     AddToCart.IsEnabled = false;
                 }
-                else if (gameViewModel.SelectedGame.UserGames.Where(x => x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().RelationType == 2)
+                else if (authViewModel.CartCollection.Any(x => x.Game_id == gameViewModel.SelectedGame.ID))
                 {
                     InfoText.Text = "Товар в корзине";
                     AddToCart.IsEnabled = false;
@@ -57,40 +55,33 @@ namespace Stiem_market.Pages.Store
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (canNavigateBack)
+            {
                 NavigationService.GoBack();
+                gameViewModel.SelectedGame = new Games();
+            }
         }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            // если пользователь никак не взаимодействовал с игрой
-            if (App.db.UserGames.Where(x => x.Game_id == gameViewModel.SelectedGame.ID && x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault() == null)
+            Carts cart = App.db.Carts.Where(c => c.User_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
+            if (cart == null)
             {
-                App.db.UserGames.Add(new UserGames()
+                App.db.Carts.Add(new Carts()
                 {
                     User_id = authViewModel.LoggedUser.ID,
-                    Game_id = gameViewModel.SelectedGame.ID,
-                    IsWished = false,
                     RelationType = 2,
                 });
                 App.db.SaveChanges();
-                authViewModel.UpdateUserGames();
+                cart = App.db.Carts.Where(c => c.User_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
             }
-            // изменение существующей записи
-            else
+
+            App.db.GameInCarts.Add(new GameInCarts()
             {
-                if (authViewModel.LoggedUser.UserGames.
-                        Where(x => x.Game_id == gameViewModel.SelectedGame.ID && x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().
-                        RelationType != 2)
-                {
-                    authViewModel.LoggedUser.UserGames.
-                        Where(x => x.Game_id == gameViewModel.SelectedGame.ID && x.User_id == authViewModel.LoggedUser.ID).FirstOrDefault().
-                        RelationType = 2;
-
-                    App.db.SaveChanges();
-
-                    authViewModel.UpdateUserGames();
-                }
-            }
+                Game_id = gameViewModel.SelectedGame.ID,
+                Cart_id = cart.ID,
+            });
+            App.db.SaveChanges();
+            authViewModel.UpdateUserGames();
 
             CartPopup.IsOpen = true;
             InfoText.Text = "Товар в корзине";

@@ -22,12 +22,11 @@ namespace Stiem_market.Pages.Store
             CartListBox.DataContext = authViewModel;
         }
 
+
         private void RemoveFromCartButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-
-            authViewModel.LoggedUser.UserGames.Where(x => x.Game_id == ((UserGames)button.DataContext).Game_id).FirstOrDefault().
-                RelationType = 1;
+            App.db.GameInCarts.Remove((GameInCarts)button.DataContext);
             App.db.SaveChanges();
 
             authViewModel.UpdateUserGames();

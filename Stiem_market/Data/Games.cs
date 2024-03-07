@@ -17,8 +17,8 @@ namespace Stiem_market.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Games()
         {
+            this.GameInCarts = new HashSet<GameInCarts>();
             this.GameTags = new HashSet<GameTags>();
-            this.UserGames = new HashSet<UserGames>();
         }
     
         public int ID { get; set; }
@@ -30,8 +30,8 @@ namespace Stiem_market.Data
     
         public virtual Devs Devs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GameTags> GameTags { get; set; }
+        public virtual ICollection<GameInCarts> GameInCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGames> UserGames { get; set; }
+        public virtual ICollection<GameTags> GameTags { get; set; }
     }
 }

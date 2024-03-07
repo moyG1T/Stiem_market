@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\Carts.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Devs.cs">
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
@@ -71,6 +74,9 @@
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendUsers.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\GameInCarts.cs">
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Games.cs">
@@ -83,9 +89,6 @@
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Tags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\UserGames.cs">
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Users.cs">

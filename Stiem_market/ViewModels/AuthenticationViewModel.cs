@@ -1,5 +1,7 @@
 ﻿using Stiem_market.Data;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -17,10 +19,6 @@ namespace Stiem_market.ViewModels
                 LoggedUser = App.db.Users.Where(x => x.ID == Properties.Settings.Default.LoggedUserID).FirstOrDefault();
 
             UserCollection = App.db.Users.ToList();
-
-            LibraryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
-
-            HistoryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
 
             UpdateUserGames();
         }
@@ -48,7 +46,6 @@ namespace Stiem_market.ViewModels
                 }
 
                 loggedUser = value;
-
                 OnPropertyChanged("LoggedUser");
             }
         }
@@ -119,11 +116,11 @@ namespace Stiem_market.ViewModels
             }
         }
 
-        private IEnumerable<UserGames> cartCollection;
-        public IEnumerable<UserGames> CartCollection
+        private IEnumerable<GameInCarts> cartCollection;
+        public IEnumerable<GameInCarts> CartCollection
         {
             get => cartCollection;
-            private set
+            set
             {
                 cartCollection = value;
                 OnPropertyChanged(nameof(CartCollection));
@@ -132,18 +129,24 @@ namespace Stiem_market.ViewModels
 
         public void UpdateUserGames()
         {
-            CartCounter = App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID).Count();
+            List<GameInCarts> gameInCarts = App.db.GameInCarts.
+                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 2)).ToList();
+
+            CartCounter = gameInCarts.Count();
+
+            IsCartEmpty = CartCounter != 0;
 
             int sum = 0;
-            foreach (var item in App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID))
+            foreach (var item in gameInCarts)
                 sum += item.Games.Cost ?? 0;
             CartCost = sum;
 
-            IsCartEmpty = cartCounter != 0;
+            CartCollection = gameInCarts;
 
-            CartCollection = App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID).ToList();
+            LibraryCollection = App.db.GameInCarts.
+                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 3)).ToList();
 
-            LibraryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
+            HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && h.RelationType == 3).ToList();
         }
 
         public bool PayCart()
@@ -154,23 +157,20 @@ namespace Stiem_market.ViewModels
             }
             else
             {
-                IEnumerable<UserGames> cartList = CartCollection;
-                foreach (var item in cartList)
-                {
-                    item.RelationType = 4;
-                    item.AddDate = System.DateTime.Now;
-                }
+                App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().RelationType = 3;
+                App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().AddDate = DateTime.Now;
 
                 LoggedUser.Balance -= CartCost;
+
                 App.db.SaveChanges();
 
+                UpdateUserGames();
+                return true;
             }
-            UpdateUserGames();
-            return true;
         }
 
-        private IEnumerable<UserGames> libraryCollection;
-        public IEnumerable<UserGames> LibraryCollection
+        private IEnumerable<GameInCarts> libraryCollection;
+        public IEnumerable<GameInCarts> LibraryCollection
         {
             get => libraryCollection;
             set
@@ -180,8 +180,8 @@ namespace Stiem_market.ViewModels
             }
         }
 
-        private IEnumerable<UserGames> historyCollection;
-        public IEnumerable<UserGames> HistoryCollection
+        private IEnumerable<Carts> historyCollection;
+        public IEnumerable<Carts> HistoryCollection
         {
             get => historyCollection;
             set
@@ -240,7 +240,7 @@ namespace Stiem_market.ViewModels
             }
         }
 
-        public IEnumerable<Users> ConcatFriendList() 
+        public IEnumerable<Users> ConcatFriendList()
         {
             List<int> IDs = new List<int>();
             List<Users> users = new List<Users>();

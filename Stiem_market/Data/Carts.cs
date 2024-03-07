@@ -12,17 +12,21 @@ namespace Stiem_market.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserGames
+    public partial class Carts
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Carts()
+        {
+            this.GameInCarts = new HashSet<GameInCarts>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> User_id { get; set; }
-        public Nullable<int> Game_id { get; set; }
         public Nullable<int> RelationType { get; set; }
-        public Nullable<bool> IsWished { get; set; }
         public Nullable<System.DateTime> AddDate { get; set; }
     
-        public virtual Games Games { get; set; }
-        public virtual Users Users { get; set; }
         public virtual UserToGameRelation UserToGameRelation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GameInCarts> GameInCarts { get; set; }
     }
 }

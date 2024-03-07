@@ -19,7 +19,6 @@ namespace Stiem_market.Data
         {
             this.FriendUsers = new HashSet<FriendUsers>();
             this.FriendUsers1 = new HashSet<FriendUsers>();
-            this.UserGames = new HashSet<UserGames>();
         }
     
         //public int ID { get; set; }
@@ -36,7 +35,5 @@ namespace Stiem_market.Data
         public virtual ICollection<FriendUsers> FriendUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FriendUsers> FriendUsers1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGames> UserGames { get; set; }
     }
 }

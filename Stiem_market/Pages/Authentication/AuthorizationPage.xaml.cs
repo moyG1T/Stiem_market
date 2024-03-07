@@ -22,12 +22,12 @@ namespace Stiem_market.Pages.Authentication
     /// </summary>
     public partial class AuthorizationPage : Page
     {
-        AuthenticationViewModel viewModel;
-        public AuthorizationPage(bool _canNavigateBack, AuthenticationViewModel _viewModel)
+        AuthenticationViewModel authViewModel;
+        public AuthorizationPage(bool _canNavigateBack, AuthenticationViewModel _authviewModel)
         {
             InitializeComponent();
 
-            viewModel = _viewModel;
+            authViewModel = _authviewModel;
 
             LoginTextBox.Focus();
         }
@@ -49,16 +49,17 @@ namespace Stiem_market.Pages.Authentication
                 }
                 else
                 {
-                    viewModel.SelectedUser = user;
-                    viewModel.LoggedUser = user;
-                    NavigationService.Navigate(new UserProfile(false, viewModel));
+                    authViewModel.LoggedUser = user;
+                    authViewModel.SelectedUser = user;
+                    authViewModel.UpdateUserGames();
+                    NavigationService.Navigate(new UserProfile(false, authViewModel));
                 }
             }
         }
 
         private void RegistAccount_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RegistrationPage(viewModel));
+            NavigationService.Navigate(new RegistrationPage(authViewModel));
         }
     }
 }
