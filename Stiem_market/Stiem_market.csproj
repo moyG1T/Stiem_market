@@ -118,6 +118,9 @@
     <Compile Include="Pages\Store\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Store\PurchaseHistoryPage.xaml.cs">
+      <DependentUpon>PurchaseHistoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Store\StorePage.xaml.cs">
       <DependentUpon>StorePage.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Store\GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Store\PurchaseHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

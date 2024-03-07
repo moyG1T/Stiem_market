@@ -28,7 +28,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" Background="White" CornerRadius="0 0 50 50" Opacity="0.1"/>
+        <Border Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="White" CornerRadius="0 0 50 50" Opacity="0.1"/>
 
         <Button x:Name="BackButton" Style="{StaticResource BackwardButton}" Grid.Row="1" Grid.Column="2" Width="50" Height="50" VerticalAlignment="Top" Click="BackButton_Click"></Button>
 
@@ -37,8 +37,8 @@
                 <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="250" Height="250">
                     <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
                 </Border>
-                <Button x:Name="EditProfile" Content="Редактировать" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="EditProfile_Click"/>
-                <Button x:Name="InviteUser" Content="Добавить в друзья" Style="{StaticResource LoginButton}" Margin="0 5 0 5" Click="InviteUser_Click">
+                <Button x:Name="EditProfile" Content="Редактировать" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="EditProfile_Click"/>
+                <Button x:Name="InviteUser" Content="Добавить в друзья" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="InviteUser_Click">
                     <Button.ToolTip>
                         <ToolTip x:Name="RequestSendToolTip" Background="{StaticResource TotallyBlack}" StaysOpen="False" IsOpen="False" Placement="Mouse">
                             <TextBlock Text="Заявка отправлена" Style="{StaticResource SmallText}"/>

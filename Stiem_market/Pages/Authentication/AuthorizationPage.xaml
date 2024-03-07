@@ -26,10 +26,10 @@
                 <PasswordBox x:Name="PasswordTextBox"  Style="{StaticResource RoundedPasswordBox}" HorizontalAlignment="Right"></PasswordBox>
             </DockPanel>
 
-            <DockPanel Width="150">
-                <Button x:Name="LoginAccount"  DockPanel.Dock="Left" Style="{StaticResource LoginButton}" Click="LoginAccount_Click">Войти</Button>
-                <Button x:Name="RegistAccount" DockPanel.Dock="Right" Style="{StaticResource RegisterButton}" HorizontalAlignment="Right" Click="RegistAccount_Click">Нет аккаунта?</Button>
-            </DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="LoginAccount" Content="Войти" Style="{StaticResource ElevatedButton}" Click="LoginAccount_Click"/>
+                <Button x:Name="RegistAccount" Content="Нет аккаунта?" Style="{StaticResource TextButton}" Click="RegistAccount_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

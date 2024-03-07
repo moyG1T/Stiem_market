@@ -30,7 +30,7 @@ namespace Stiem_market.Pages.Store
                 RelationType = 1;
             App.db.SaveChanges();
 
-            authViewModel.UpdateUserCollections();
+            authViewModel.UpdateUserGames();
         }
 
         private void MakeABuyButton_Click(object sender, RoutedEventArgs e)
@@ -42,6 +42,11 @@ namespace Stiem_market.Pages.Store
                     MakeABuyPopup.IsOpen = true;
                 }
             }
+        }
+
+        private void ShowHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PurchaseHistoryPage(true, authViewModel));
         }
     }
 }

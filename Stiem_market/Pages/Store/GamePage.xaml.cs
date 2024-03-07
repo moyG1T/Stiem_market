@@ -73,7 +73,7 @@ namespace Stiem_market.Pages.Store
                     RelationType = 2,
                 });
                 App.db.SaveChanges();
-                authViewModel.UpdateUserCollections();
+                authViewModel.UpdateUserGames();
             }
             // изменение существующей записи
             else
@@ -88,7 +88,7 @@ namespace Stiem_market.Pages.Store
 
                     App.db.SaveChanges();
 
-                    authViewModel.UpdateUserCollections();
+                    authViewModel.UpdateUserGames();
                 }
             }
 

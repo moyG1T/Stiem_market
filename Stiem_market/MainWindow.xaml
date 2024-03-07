@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <Frame x:Name="StiemFrame" BorderThickness="0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Frame>
+        <Frame x:Name="StiemFrame" Focusable="False" BorderThickness="0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Frame>
 
         <Rectangle Grid.Row="0" Grid.ColumnSpan="3"></Rectangle>
 

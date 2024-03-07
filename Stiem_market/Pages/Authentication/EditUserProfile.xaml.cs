@@ -37,8 +37,11 @@ namespace Stiem_market.Pages.Authentication
         {
             if (openFileDialog != null)
             {
-                App.db.Users.Where(x =>
-                    x.ID == authViewModel.LoggedUser.ID).FirstOrDefault().Avatar = File.ReadAllBytes(openFileDialog.FileName);
+                if (openFileDialog.FileName != "")
+                {
+                    App.db.Users.Where(x =>
+                        x.ID == authViewModel.LoggedUser.ID).FirstOrDefault().Avatar = File.ReadAllBytes(openFileDialog.FileName);
+                }
             }
 
             App.db.Users.Where(x =>

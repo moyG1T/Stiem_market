@@ -10,9 +10,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -42,8 +42,16 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Text="{Binding CartCost, StringFormat= {}{0}₽}" Style="{StaticResource LargeText}" FontSize="16" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="MakeABuyButton" Content="Перейти к покупке" Style="{StaticResource ElevatedButton}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="MakeABuyButton_Click"/>
+        <TextBlock Text="{Binding CartCost, StringFormat= Сумма к оплате: {0}₽}" Style="{StaticResource LargeText}" FontSize="16" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                <Button x:Name="MakeABuyButton" Content="Купить для себя" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyButton_Click"/>
+                <Button x:Name="MakeABuyForFriendButton" Content="Купить для друга" Style="{StaticResource HighlightedElevatedButton}"/>
+            </StackPanel>
+            <Button x:Name="ShowHistoryButton" Content="История покупок" Style="{StaticResource TextButton}" Opacity="0.7" Click="ShowHistoryButton_Click"/>
+        </StackPanel>
+
         <Popup x:Name="MakeABuyPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
             <StackPanel Orientation="Vertical" Background="{StaticResource DarkGray}">
                 <TextBlock Text="Недостаточно средств" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 3 3 0"/>

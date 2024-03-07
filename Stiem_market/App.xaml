@@ -143,7 +143,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                                <Image Source="/Resources/arrow.png" Opacity="1"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -152,7 +152,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                                <Image Source="/Resources/arrow.png" Opacity="0.3"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -207,7 +207,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
-                            <Image Source="/Resources/cancel.png"></Image>
+                            <Image Source="/Resources/cancel.png"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -218,7 +218,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Background="White" Opacity="1" Width="40" Height="40" CornerRadius="25" Padding="3">
-                                    <Image Source="/Resources/cancel.png"></Image>
+                                    <Image Source="/Resources/cancel.png"/>
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
@@ -229,47 +229,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Background="White" Opacity="0.3" Width="40" Height="40" CornerRadius="25" Padding="3">
-                                    <Image Source="/Resources/cancel.png"></Image>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="Button" x:Key="LoginButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="White" CornerRadius="10" Padding="4" Opacity="0.8">
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="Black" 
-                                   Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="4" Opacity="1">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
-                                           Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="4" Opacity="0.3">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
-                                           Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                                    <Image Source="/Resources/cancel.png"/>
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
@@ -279,11 +239,51 @@
         </Style>
 
         <Style TargetType="Button" x:Key="ElevatedButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="Black" 
+                                   Style="{StaticResource LargeText}" FontSize="16"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="1">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
+                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.3">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
+                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="HighlightedElevatedButton">
             <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Opacity="0.8">
+                        <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
                             <TextBlock Text="{TemplateBinding Content}" Foreground="White" 
                                    Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
                         </Border>
@@ -295,7 +295,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Opacity="1">
+                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="1">
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
                                            Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
                                 </Border>
@@ -307,7 +307,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Opacity="0.3">
+                                <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.3">
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="White"
                                            Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
                                 </Border>
@@ -318,13 +318,13 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="Button" x:Key="RegisterButton">
+        <Style TargetType="Button" x:Key="TextButton">
             <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <TextBlock Text="{TemplateBinding Content}" Opacity="0.7"
-                               Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                        <TextBlock Text="{TemplateBinding Content}" Opacity="0.7" 
+                               Style="{StaticResource LargeText}" FontSize="16" Padding="8 4 8 4"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -334,7 +334,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <TextBlock Text="{TemplateBinding Content}" Opacity="1"
-                                       Style="{StaticResource LargeText}" FontSize="14"></TextBlock>
+                                       Style="{StaticResource LargeText}" FontSize="16" Padding="8 4 8 4"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

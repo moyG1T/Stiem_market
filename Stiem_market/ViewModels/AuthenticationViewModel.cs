@@ -18,11 +18,11 @@ namespace Stiem_market.ViewModels
 
             UserCollection = App.db.Users.ToList();
 
-            FriendsCollection = ConcatFriendList();
-
             LibraryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
 
-            UpdateUserCollections();
+            HistoryCollection = App.db.UserGames.Where(x => x.RelationType == 4 && x.User_id == LoggedUser.ID).ToList();
+
+            UpdateUserGames();
         }
 
         private Users loggedUser;
@@ -75,6 +75,8 @@ namespace Stiem_market.ViewModels
             {
                 selectedUser = value;
                 OnPropertyChanged("User");
+
+                FriendsCollection = ConcatFriendList();
             }
         }
 
@@ -128,7 +130,7 @@ namespace Stiem_market.ViewModels
             }
         }
 
-        public void UpdateUserCollections()
+        public void UpdateUserGames()
         {
             CartCounter = App.db.UserGames.Where(x => x.RelationType == 2 && x.User_id == LoggedUser.ID).Count();
 
@@ -163,7 +165,7 @@ namespace Stiem_market.ViewModels
                 App.db.SaveChanges();
 
             }
-            UpdateUserCollections();
+            UpdateUserGames();
             return true;
         }
 
@@ -175,6 +177,17 @@ namespace Stiem_market.ViewModels
             {
                 libraryCollection = value;
                 OnPropertyChanged(nameof(LibraryCollection));
+            }
+        }
+
+        private IEnumerable<UserGames> historyCollection;
+        public IEnumerable<UserGames> HistoryCollection
+        {
+            get => historyCollection;
+            set
+            {
+                historyCollection = value;
+                OnPropertyChanged(nameof(HistoryCollection));
             }
         }
 
@@ -232,10 +245,10 @@ namespace Stiem_market.ViewModels
             List<int> IDs = new List<int>();
             List<Users> users = new List<Users>();
 
-            foreach (var item in App.db.FriendUsers.Where(x => x.User_id == LoggedUser.ID && x.RelationType == 3))
+            foreach (var item in App.db.FriendUsers.Where(x => x.User_id == SelectedUser.ID && x.RelationType == 3))
                 IDs.Add((int)item.Friend_id);
 
-            foreach (var item in App.db.FriendUsers.Where(x => x.Friend_id == LoggedUser.ID && x.RelationType == 3))
+            foreach (var item in App.db.FriendUsers.Where(x => x.Friend_id == SelectedUser.ID && x.RelationType == 3))
                 IDs.Add((int)item.User_id);
 
             foreach (var item in IDs)
