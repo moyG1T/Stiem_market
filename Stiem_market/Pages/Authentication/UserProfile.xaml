@@ -7,6 +7,10 @@
       mc:Ignorable="d" 
         d:DesignHeight="620" d:DesignWidth="1280"
   Title="UserProfile">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="HasFriendsConverter"/>
+        <BooleanToVisibilityConverter x:Key="HasGamesConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -34,9 +38,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="4" Width="475" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="250" Height="250">
-                    <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
-                </Border>
+                <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Width="250" Height="250" Stretch="UniformToFill"/>
                 <Button x:Name="EditProfile" Content="Редактировать" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="EditProfile_Click"/>
                 <Button x:Name="InviteUser" Content="Добавить в друзья" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="InviteUser_Click">
                     <Button.ToolTip>
@@ -53,16 +55,20 @@
         </StackPanel>
 
         <TextBlock Text="Игры" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
-        <ListBox Grid.Row="2" Grid.Column="4" ItemsSource="{Binding LibraryCollection}" Margin="0 40 0 0"
+        <TextBlock Text="Нет игр" Grid.Row="2" Grid.Column="4" Margin="0 40 0 0" Visibility="{Binding HasGames, Converter= {StaticResource HasGamesConverter}}" Opacity="0.7" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
+        <ListBox ItemsSource="{Binding LibraryCollection}"
              x:Name="GameList" ItemContainerStyle="{StaticResource LibraryList}" 
              VerticalAlignment="Top" HorizontalAlignment="Left"
+             Grid.Row="2" Grid.Column="4" Margin="0 40 0 0"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             Background="Transparent" BorderThickness="0"/>
+             Background="Transparent" BorderThickness="0">
+        </ListBox>
 
         <TextBlock Text="Друзья" Grid.Row="1" Grid.Column="6" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
+        <TextBlock Text="Нет друзей" Grid.Row="1" Grid.Column="6" Margin="0 40 0 0" Visibility="{Binding HasFriends, Converter = {StaticResource HasFriendsConverter}}" Opacity="0.7" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
         <ListBox x:Name="FriendList" ItemsSource="{Binding FriendsCollection}"
-             Grid.Row="1" Grid.Column="6" Grid.RowSpan="2" Margin="0 40 0 0"
              ItemContainerStyle="{StaticResource UserList}" 
+             Grid.Row="1" Grid.Column="6" Grid.RowSpan="2" Margin="0 40 0 0"
              VerticalAlignment="Top" HorizontalAlignment="Stretch"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
              Background="Transparent" BorderThickness="0" MinWidth="300"/>

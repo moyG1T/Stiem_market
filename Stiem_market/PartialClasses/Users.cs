@@ -49,7 +49,7 @@ namespace Stiem_market.Data
         public byte[] Avatar
         {
 
-            get => avatar == null ? File.ReadAllBytes(".\\Resources\\profileIcon.png") : avatar;
+            get => avatar ?? File.ReadAllBytes(".\\Resources\\profileIcon.png");
             set
             {
                 avatar = value;
@@ -58,7 +58,7 @@ namespace Stiem_market.Data
         }
         public string Description
         {
-            get => description;
+            get => description == "" ? "Нет описания" : description;
             set { description = value; OnPropertyChanged("Description"); }
         }
         public int Balance

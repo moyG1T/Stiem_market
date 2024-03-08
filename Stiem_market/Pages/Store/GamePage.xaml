@@ -37,7 +37,7 @@
             <ListBox Background="{StaticResource DarkGray}" Grid.Column="4" Grid.Row="3" Height="100" DockPanel.Dock="Top">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}"></Image>
+                        <Image Source="{Binding}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

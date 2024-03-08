@@ -19,5 +19,13 @@ namespace Stiem_market.Pages.Store
 
             DataContext = authViewModel;
         }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
     }
 }

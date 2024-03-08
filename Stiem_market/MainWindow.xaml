@@ -40,10 +40,20 @@
             </Button>
             <RadioButton x:Name="AccountTab" Content="{Binding LoggedUser.Nickname}" Style="{StaticResource TabButton}" Margin="10 0 10 0" DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="AccountTab_Checked">
                 <RadioButton.ToolTip>
-                    <ToolTip Background="{StaticResource DarkGray}">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding LoggedUser.Nickname}" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
-                            <TextBlock Text="{Binding LoggedUser.Balance, StringFormat=Баланс: {0}₽}" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                    <ToolTip Background="{StaticResource DarkGray}" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource IsUserLoggedInConverter}}">
+                        <StackPanel Orientation="Vertical" Width="150">
+                            <DockPanel>
+                                <TextBlock Text="Никнейм" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding LoggedUser.Nickname}" Style="{StaticResource SmallText}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Почта" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding LoggedUser.Email}" Style="{StaticResource SmallText}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Баланс" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding LoggedUser.Balance, StringFormat= {}{0}₽}" Style="{StaticResource SmallText}" HorizontalAlignment="Right"/>
+                            </DockPanel>
                         </StackPanel>
                     </ToolTip>
                 </RadioButton.ToolTip>

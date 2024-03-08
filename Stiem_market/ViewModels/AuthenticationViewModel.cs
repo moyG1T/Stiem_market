@@ -61,6 +61,28 @@ namespace Stiem_market.ViewModels
             }
         }
 
+        private bool hasFriends;
+        public bool HasFriends
+        {
+            get => hasFriends;
+            set
+            {
+                hasFriends = value;
+                OnPropertyChanged(nameof(HasFriends));
+            }
+        }
+
+        private bool hasGames;
+        public bool HasGames
+        {
+            get => hasGames;
+            set
+            {
+                hasGames = value;
+                OnPropertyChanged(nameof(HasGames));
+            }
+        }
+
         private Users selectedUser;
         public Users SelectedUser
         {
@@ -133,7 +155,6 @@ namespace Stiem_market.ViewModels
                 Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 2)).ToList();
 
             CartCounter = gameInCarts.Count();
-
             IsCartEmpty = CartCounter != 0;
 
             int sum = 0;
@@ -145,6 +166,7 @@ namespace Stiem_market.ViewModels
 
             LibraryCollection = App.db.GameInCarts.
                 Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 3)).ToList();
+            HasGames = !(LibraryCollection.Count() > 0);
 
             HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && h.RelationType == 3).ToList();
         }
@@ -159,6 +181,7 @@ namespace Stiem_market.ViewModels
             {
                 App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().RelationType = 3;
                 App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().AddDate = DateTime.Now;
+                App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().CartCost = -CartCost;
 
                 LoggedUser.Balance -= CartCost;
 
@@ -253,6 +276,8 @@ namespace Stiem_market.ViewModels
 
             foreach (var item in IDs)
                 users.Add(App.db.Users.Where(x => x.ID == item).FirstOrDefault());
+
+            HasFriends = !(users.Count() > 0);
 
             return users;
         }

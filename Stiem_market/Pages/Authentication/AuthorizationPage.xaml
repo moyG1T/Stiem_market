@@ -11,14 +11,14 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="320"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Focusable="False">
             <TextBlock x:Name="ErrorText" Style="{StaticResource SmallText}"></TextBlock>
             <DockPanel Margin="0 5 0 5">
-                <TextBlock x:Name="LoginText" Text="Логин" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="LoginText" Text="Эл. почта" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
                 <TextBox x:Name="LoginTextBox" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right"></TextBox>
             </DockPanel>
             <DockPanel Margin="0 0 0 10">

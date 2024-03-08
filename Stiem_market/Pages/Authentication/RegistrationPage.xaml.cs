@@ -2,6 +2,7 @@
 using Stiem_market.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,31 +23,68 @@ namespace Stiem_market.Pages.Authentication
     /// </summary>
     public partial class RegistrationPage : Page
     {
-        AuthenticationViewModel viewModel;
-        public RegistrationPage(AuthenticationViewModel _viewModel)
+        AuthenticationViewModel authViewModel;
+        private string error;
+        public RegistrationPage(AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
-            viewModel = _viewModel;
+            authViewModel = _authViewModel;
         }
 
         private void RegistAccount_Click(object sender, RoutedEventArgs e)
         {
-            if (LoginTextBox.Text == "" || PasswordTextBox.Password == "" || NickTextBox.Text == "")
-                ErrorText.Text = "Заполните поля";
+            if (string.IsNullOrEmpty(LoginTextBox.Text) || string.IsNullOrEmpty(PasswordTextBox.Password) || string.IsNullOrEmpty(LoginTextBox.Text))
+                error = "Заполните поля";
             else
             {
-                // TODO: Логин не должен повторяться
-                App.db.Users.Add(new Users()
+                if (ErrorText.Text == "")
                 {
-                    Nickname = NickTextBox.Text,
-                    Email = LoginTextBox.Text,
-                    Password = PasswordTextBox.Password,
-                    IsDeleted = false,
-                    IsDev = false,
-                });
-                App.db.SaveChanges();
+                    App.db.Users.Add(new Users()
+                    {
+                        Nickname = NickTextBox.Text,
+                        Email = LoginTextBox.Text,
+                        Password = PasswordTextBox.Password,
+                        IsDev = false,
+                        IsDeleted = false,
+                        Description = "",
+                        Balance = 0,
+                    });
+                    App.db.SaveChanges();
 
-                //NavigationService.Navigate(new UserProfile(viewModel.LoggedUser));
+                    authViewModel.LoggedUser = App.db.Users.Where(u => u.Email == LoginTextBox.Text).FirstOrDefault();
+                    authViewModel.SelectedUser = authViewModel.LoggedUser;
+
+                    NavigationService.Navigate(new UserProfile(false, authViewModel));
+                }
+            }
+
+            ErrorText.Text = error;
+        }
+
+        private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            EmailAddressAttribute email = new EmailAddressAttribute();
+            error = "";
+
+            if (!email.IsValid(LoginTextBox.Text))
+            {
+                error = "Неверная почта";
+            }
+            else
+            {
+                if (App.db.Users.Any(u => u.Email == LoginTextBox.Text))
+                {
+                    error = "Почта уже используется";
+                }
+            }
+            ErrorText.Text = error;
+        }
+
+        private void GoBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
             }
         }
     }

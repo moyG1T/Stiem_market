@@ -21,12 +21,36 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Style="{StaticResource BackwardButton}" Width="40"/>
+            <Button Style="{StaticResource BackwardButton}" Width="40" Click="Button_Click"/>
             <TextBox x:Name="SearchBar" Text="{Binding SearchableText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchTextBox}"
                      Width="350" Height="50" VerticalAlignment="Center" Margin="10 0 10 0"/>
             <Button x:Name="CancelButton" Style="{StaticResource CancelButton}" Content="/Resources/search.png"/>
         </StackPanel>
 
-        <ListBox Grid.Column="1" Grid.Row="2"/>
+        <ListBox ItemsSource="{Binding HistoryCollection}" x:Name="HistoryList"
+                 VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Background="Transparent" BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="Auto" Padding="10" Margin="0 5 0 0" CornerRadius="15">
+                        <DockPanel>
+                            <TextBlock Text="{Binding AddDate, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru}" DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
+                            <TextBlock Text="{Binding CartCost, StringFormat= {}{0}₽}" Style="{StaticResource MediumText}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                            
+                            <ListBox ItemsSource="{Binding GameInCarts}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10 0 10 0"
+                                     ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                                     Background="Transparent" BorderThickness="0" Opacity="0.7">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Games.Title}" HorizontalAlignment="Right" Style="{StaticResource MediumText}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

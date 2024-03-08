@@ -29,7 +29,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <Rectangle Fill="{StaticResource TotallyBlack}" Width="2" Height="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="2"></Rectangle>
+        <Rectangle Fill="{StaticResource TotallyBlack}" Width="2" Height="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="2"/>
         <StackPanel MinWidth="660"></StackPanel>
     </Grid>
 </Page>

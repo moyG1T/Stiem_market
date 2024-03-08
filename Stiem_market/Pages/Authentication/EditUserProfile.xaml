@@ -25,10 +25,8 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 25 0 0">
             <StackPanel Orientation="Vertical" Margin="0 0 25 0">
-                <Border BorderBrush="{StaticResource TotallyBlack}" BorderThickness="3" Width="200" Height="200">
-                    <Image x:Name="ProfileImage" Source="{Binding SelectedUser.Avatar}" Stretch="UniformToFill"></Image>
-                </Border>
-                <Button x:Name="SelectAPicture" Style="{StaticResource LoginButton}" Width="150" Margin="0 5 0 5" Click="SelectAPicture_Click">Выбрать аватар</Button>
+                <Image x:Name="ProfileImage" Source="{Binding SelectedUser.Avatar}" Width="200" Height="200" Stretch="UniformToFill"/>
+                <Button x:Name="SelectAPicture" Style="{StaticResource ElevatedButton}" Width="150" Margin="0 5 0 5" Click="SelectAPicture_Click">Выбрать аватар</Button>
             </StackPanel>
 
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Vertical" Width="350">
@@ -42,6 +40,6 @@
                 </DockPanel>
             </StackPanel>
         </StackPanel>
-        <Button x:Name="SaveChanges" Style="{StaticResource ElevatedButton}" Content="Сохранить" Grid.Column="1" Margin="0 0 0 25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="SaveChanges_Click"></Button>
+        <Button x:Name="SaveChanges" Style="{StaticResource HighlightedElevatedButton}" Content="Сохранить" Grid.Column="1" Margin="0 0 0 25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="SaveChanges_Click"></Button>
     </Grid>
 </Page>
