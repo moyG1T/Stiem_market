@@ -52,7 +52,7 @@ namespace Stiem_market.ViewModels
 
         public bool IsUserLoggedIn
         {
-            get { return Properties.Settings.Default.IsUserLoggedIn; }
+            get => Properties.Settings.Default.IsUserLoggedIn;
             set
             {
                 Properties.Settings.Default.IsUserLoggedIn = value;
@@ -225,10 +225,10 @@ namespace Stiem_market.ViewModels
             }
         }
 
-        private string searchableText;
-        public string SearchableText
+        private string searchUsersText;
+        public string SearchUsersText
         {
-            get => searchableText;
+            get => searchUsersText;
             set
             {
                 if (value == "")
@@ -236,8 +236,24 @@ namespace Stiem_market.ViewModels
                 else
                     SearchCollection = App.db.Users.Where(x => x.Nickname.ToLower().Contains(value.ToLower())).ToList();
 
-                searchableText = value;
-                OnPropertyChanged(nameof(SearchableText));
+                searchUsersText = value;
+                OnPropertyChanged(nameof(SearchUsersText));
+            }
+        }
+
+        private string searchFriendsText;
+        public string SearchFriendsText
+        {
+            get => searchFriendsText;
+            set
+            {
+                if (value == "")
+                    FriendsCollection = ConcatFriendList();
+                else
+                    FriendsCollection = ConcatFriendList().Where(x => x.Nickname.ToLower().Contains(value.ToLower())).ToList();
+
+                searchFriendsText = value;
+                OnPropertyChanged(nameof(SearchFriendsText));
             }
         }
 
@@ -255,7 +271,7 @@ namespace Stiem_market.ViewModels
         private IEnumerable<Users> friendsCollection;
         public IEnumerable<Users> FriendsCollection
         {
-            get => friendsCollection;
+            get => friendsCollection ?? ConcatFriendList();
             set
             {
                 friendsCollection = value;
@@ -265,17 +281,10 @@ namespace Stiem_market.ViewModels
 
         public IEnumerable<Users> ConcatFriendList()
         {
-            List<int> IDs = new List<int>();
-            List<Users> users = new List<Users>();
-
-            foreach (var item in App.db.FriendUsers.Where(x => x.User_id == SelectedUser.ID && x.RelationType == 3))
-                IDs.Add((int)item.Friend_id);
-
-            foreach (var item in App.db.FriendUsers.Where(x => x.Friend_id == SelectedUser.ID && x.RelationType == 3))
-                IDs.Add((int)item.User_id);
-
-            foreach (var item in IDs)
-                users.Add(App.db.Users.Where(x => x.ID == item).FirstOrDefault());
+            IEnumerable<Users> users = App.db.Users.Where(u => App.db.FriendUsers.
+                                        Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 3 ||
+                                            fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 3)).ToList();
+                                            
 
             HasFriends = !(users.Count() > 0);
 

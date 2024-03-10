@@ -1,21 +1,32 @@
 ﻿using Stiem_market.Data;
 using Stiem_market.Pages.Authentication;
+using Stiem_market.Pages.FriendTab;
 using Stiem_market.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Stiem_market.Pages.FriendTab
+namespace Stiem_market.Pages.Friend
 {
     /// <summary>
-    /// Логика взаимодействия для SearchUsers.xaml
+    /// Логика взаимодействия для FriendsPage.xaml
     /// </summary>
-    public partial class SearchUsers : Page
+    public partial class FriendsPage : Page
     {
         private AuthenticationViewModel authViewModel;
 
-        public SearchUsers(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
+        public FriendsPage(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
             SearchBar.Focus();
@@ -58,12 +69,9 @@ namespace Stiem_market.Pages.FriendTab
                 CancelButton.IsEnabled = true;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void FindNewFriendsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+            NavigationService.Navigate(new SearchUsers(true, authViewModel));
         }
     }
 }

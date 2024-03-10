@@ -1,0 +1,40 @@
+﻿<Page x:Class="Stiem_market.Pages.Friend.FriendsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stiem_market.Pages.Friend"
+      mc:Ignorable="d" 
+        d:DesignHeight="620" d:DesignWidth="960"
+  Title="FriendsPage">
+
+    <Grid HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Style="{StaticResource BackwardButton}" Width="40" Visibility="Hidden"/>
+            <TextBox x:Name="SearchBar" Text="{Binding SearchFriendsText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchTextBox}"
+                 Width="350" Height="50" VerticalAlignment="Center" Margin="10 0 10 0" Loaded="SearchBar_Loaded" TextChanged="SearchBar_TextChanged"></TextBox>
+            <Button x:Name="CancelButton"  Style="{StaticResource CancelButton}" Content="/Resources/search.png" Click="CancelButton_Click"/>
+        </StackPanel>
+
+        <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding FriendsCollection}"
+         x:Name="UserList" ItemContainerStyle="{StaticResource UserList}" 
+         ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+         Background="Transparent" BorderThickness="0" MouseDoubleClick="UserList_MouseDoubleClick"/>
+
+        <Button x:Name="FindNewFriendsButton" Grid.Column="1" Grid.Row="4" Content="Найти друзей" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextButton}" Click="FindNewFriendsButton_Click"/>
+    </Grid>
+</Page>

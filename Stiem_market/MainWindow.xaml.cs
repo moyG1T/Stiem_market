@@ -6,6 +6,7 @@ using Stiem_market.Pages.Library;
 using Stiem_market.Pages.Store;
 using Stiem_market.Data;
 using Stiem_market.Pages.FriendTab;
+using Stiem_market.Pages.Friend;
 
 namespace Stiem_market
 {
@@ -45,7 +46,7 @@ namespace Stiem_market
 
         private void FriendsTab_Checked(object sender, RoutedEventArgs e)
         {
-            StiemFrame.Navigate(new SearchUsers(false, authViewModel));
+            StiemFrame.Navigate(new FriendsPage(false, authViewModel));
         }
 
         private void CartButton_Click(object sender, RoutedEventArgs e)
