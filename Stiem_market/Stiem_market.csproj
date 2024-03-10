@@ -130,6 +130,7 @@
     <Compile Include="Pages\Store\StorePage.xaml.cs">
       <DependentUpon>StorePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\FriendsUsers.cs" />
     <Compile Include="PartialClasses\UserGames.cs" />
     <Compile Include="PartialClasses\Users.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />

@@ -73,5 +73,15 @@ namespace Stiem_market.Pages.Friend
         {
             NavigationService.Navigate(new SearchUsers(true, authViewModel));
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

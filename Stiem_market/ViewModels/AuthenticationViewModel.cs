@@ -248,12 +248,23 @@ namespace Stiem_market.ViewModels
             set
             {
                 if (value == "")
-                    FriendsCollection = ConcatFriendList();
+                    SearchFriendsCollection = FriendsCollection;
                 else
-                    FriendsCollection = ConcatFriendList().Where(x => x.Nickname.ToLower().Contains(value.ToLower())).ToList();
+                    SearchFriendsCollection = FriendsCollection.Where(x => x.Nickname.ToLower().Contains(value.ToLower())).ToList();
 
                 searchFriendsText = value;
                 OnPropertyChanged(nameof(SearchFriendsText));
+            }
+        }
+
+        private IEnumerable<Users> searchFriendsCollection;
+        public IEnumerable<Users> SearchFriendsCollection
+        {
+            get => searchFriendsCollection ?? FriendsCollection;
+            set
+            {
+                searchFriendsCollection = value;
+                OnPropertyChanged(nameof(SearchFriendsCollection));
             }
         }
 
@@ -271,10 +282,13 @@ namespace Stiem_market.ViewModels
         private IEnumerable<Users> friendsCollection;
         public IEnumerable<Users> FriendsCollection
         {
-            get => friendsCollection ?? ConcatFriendList();
+            get => friendsCollection;
             set
             {
                 friendsCollection = value;
+                // обновляем список поисковика друзей
+                SearchFriendsText = "";
+                SearchFriendsCollection = value;
                 OnPropertyChanged(nameof(FriendsCollection));
             }
         }

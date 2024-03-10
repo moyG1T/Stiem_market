@@ -10,6 +10,11 @@
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="HasFriendsConverter"/>
         <BooleanToVisibilityConverter x:Key="HasGamesConverter"/>
+        
+        <BooleanToVisibilityConverter x:Key="InviteUserConverter"/>
+        <BooleanToVisibilityConverter x:Key="RemoveFriendConverter"/>
+        <BooleanToVisibilityConverter x:Key="AcceptRequestConverter"/>
+        <BooleanToVisibilityConverter x:Key="RemoveRequestConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -40,13 +45,11 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Image x:Name="ProfileAvatar" Source="{Binding SelectedUser.Avatar}" Width="250" Height="250" Stretch="UniformToFill"/>
                 <Button x:Name="EditProfile" Content="Редактировать" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="EditProfile_Click"/>
-                <Button x:Name="InviteUser" Content="Добавить в друзья" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="InviteUser_Click">
-                    <Button.ToolTip>
-                        <ToolTip x:Name="RequestSendToolTip" Background="{StaticResource TotallyBlack}" StaysOpen="False" IsOpen="False" Placement="Mouse">
-                            <TextBlock Text="Заявка отправлена" Style="{StaticResource SmallText}"/>
-                        </ToolTip>
-                    </Button.ToolTip>
-                </Button>
+                
+                <Button x:Name="InviteUser" Content="Добавить в друзья" Visibility="Collapsed" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="InviteUser_Click"/>
+                <Button x:Name="RemoveFriend" Content="Удалить из друзей" Visibility="Collapsed" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="RemoveFriend_Click"/>
+                <Button x:Name="AcceptRequest" Content="Принять заявку" Visibility="Collapsed" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="AcceptRequest_Click"/>
+                <Button x:Name="RemoveRequest" Content="Отозвать заявку" Visibility="Collapsed" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="RemoveRequest_Click"/>
             </StackPanel>
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" Margin="25 0 0 0">
                 <TextBlock x:Name="NicknameText" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"/>

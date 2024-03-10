@@ -30,11 +30,15 @@
             <Button x:Name="CancelButton"  Style="{StaticResource CancelButton}" Content="/Resources/search.png" Click="CancelButton_Click"/>
         </StackPanel>
 
-        <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding FriendsCollection}"
-         x:Name="UserList" ItemContainerStyle="{StaticResource UserList}" 
-         ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-         Background="Transparent" BorderThickness="0" MouseDoubleClick="UserList_MouseDoubleClick"/>
+        <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchFriendsCollection}"
+                 x:Name="UserList" ItemContainerStyle="{StaticResource UserList}" 
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Background="Transparent" BorderThickness="0" MouseDoubleClick="UserList_MouseDoubleClick"/>
 
-        <Button x:Name="FindNewFriendsButton" Grid.Column="1" Grid.Row="4" Content="Найти друзей" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextButton}" Click="FindNewFriendsButton_Click"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="FindNewFriendsButton" Content="Найти друзей" Style="{StaticResource ElevatedButton}" Click="FindNewFriendsButton_Click"/>
+            <Button Content="Подписчики" Style="{StaticResource TextButton}" Click="Button_Click"/>
+            <Button Content="Отправленные заявки" Style="{StaticResource TextButton}" Click="Button_Click_1"/>
+        </StackPanel>
     </Grid>
 </Page>

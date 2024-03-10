@@ -44,26 +44,55 @@ namespace Stiem_market.Pages.Authentication
             if (authViewModel.LoggedUser.ID == authViewModel.SelectedUser.ID)
             {
                 EditProfile.Visibility = Visibility.Visible;
-                InviteUser.Visibility = Visibility.Collapsed;
             }
             else
             {
                 EditProfile.Visibility = Visibility.Collapsed;
-
-                if (authViewModel.FriendsCollection.Where(x => x.ID == authViewModel.SelectedUser.ID).FirstOrDefault() != null)
-                {
-                    InviteUser.Content = "Удалить из друзей";
-                }
+                RefreshFriendButtons();
             }
 
             DataContext = authViewModel;
+        }
+
+        private void RefreshFriendButtons()
+        {
+            var relation = App.db.FriendUsers.Where(x => x.User_id == authViewModel.LoggedUser.ID && x.Friend_id == authViewModel.SelectedUser.ID
+                                                      || x.Friend_id == authViewModel.LoggedUser.ID && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
+
+            InviteUser.Visibility = Visibility.Collapsed;
+            RemoveFriend.Visibility = Visibility.Collapsed;
+            RemoveRequest.Visibility = Visibility.Collapsed;
+            AcceptRequest.Visibility = Visibility.Collapsed;
+
+            if (relation == null)
+            {
+                InviteUser.Visibility = Visibility.Visible;
+                return;
+            }
+
+            if (relation.RelationType == 1)
+            {
+                InviteUser.Visibility = Visibility.Visible;
+            }
+            else if (relation.RelationType == 3)
+            {
+                RemoveFriend.Visibility = Visibility.Visible;
+            }
+            else if (relation.RelationType == 2 && relation.Sender_id == authViewModel.LoggedUser.ID)
+            {
+                RemoveRequest.Visibility = Visibility.Visible;
+            }
+            else if (relation.RelationType == 2 && relation.Sender_id == authViewModel.SelectedUser.ID)
+            {
+                AcceptRequest.Visibility = Visibility.Visible;
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (canNavigateBack)
                 NavigationService.GoBack();
-            authViewModel.SelectedUser = new Users();
+            authViewModel.SelectedUser = authViewModel.LoggedUser;
         }
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
@@ -73,33 +102,73 @@ namespace Stiem_market.Pages.Authentication
 
         private void InviteUser_Click(object sender, RoutedEventArgs e)
         {
-            if (App.db.FriendUsers.Where(x =>
-                                            x.User_id == authViewModel.LoggedUser.ID
-                                         && x.Friend_id == authViewModel.SelectedUser.ID
-                                         || x.Friend_id == authViewModel.LoggedUser.ID
-                                         && x.User_id == authViewModel.SelectedUser.ID)
-                                         .FirstOrDefault() == null)
+            // проверка, что записи между пользователями нет
+            if (App.db.FriendUsers.Where(x => x.User_id == authViewModel.LoggedUser.ID && x.Friend_id == authViewModel.SelectedUser.ID
+                                           || x.Friend_id == authViewModel.LoggedUser.ID && x.User_id == authViewModel.SelectedUser.ID)
+                                              .FirstOrDefault() == null)
             {
+                // заявка отправлена
                 App.db.FriendUsers.Add(new FriendUsers()
                 {
                     User_id = authViewModel.LoggedUser.ID,
                     Friend_id = authViewModel.SelectedUser.ID,
                     RelationType = 2,
-                    AddDate = DateTime.Now
+                    Sender_id = authViewModel.LoggedUser.ID
                 });
-                App.db.SaveChanges();
-                RequestSendToolTip.IsOpen = true;
             }
             else
             {
-                App.db.FriendUsers.Where(x =>
+                var user = App.db.FriendUsers.Where(x =>
                                             x.User_id == authViewModel.LoggedUser.ID
                                          && x.Friend_id == authViewModel.SelectedUser.ID
                                          || x.Friend_id == authViewModel.LoggedUser.ID
-                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault().RelationType = 3;
-                App.db.SaveChanges();
-                RequestSendToolTip.IsOpen = true;
+                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault().RelationType = 2;
             }
+
+            App.db.SaveChanges();
+            RefreshFriendButtons();
+        }
+
+        private void RemoveFriend_Click(object sender, RoutedEventArgs e)
+        {
+            var user = App.db.FriendUsers.Where(x =>
+                                            x.User_id == authViewModel.LoggedUser.ID
+                                         && x.Friend_id == authViewModel.SelectedUser.ID
+                                         || x.Friend_id == authViewModel.LoggedUser.ID
+                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
+            user.RelationType = 1;
+            user.AddDate = null;
+
+            App.db.SaveChanges();
+            RefreshFriendButtons();
+        }
+
+        private void AcceptRequest_Click(object sender, RoutedEventArgs e)
+        {
+            var user = App.db.FriendUsers.Where(x =>
+                                             x.User_id == authViewModel.LoggedUser.ID
+                                          && x.Friend_id == authViewModel.SelectedUser.ID
+                                          || x.Friend_id == authViewModel.LoggedUser.ID
+                                          && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
+            user.RelationType = 3;
+            user.AddDate = DateTime.Now;
+
+            App.db.SaveChanges();
+            RefreshFriendButtons();
+        }
+
+        private void RemoveRequest_Click(object sender, RoutedEventArgs e)
+        {
+            var user = App.db.FriendUsers.Where(x =>
+                                            x.User_id == authViewModel.LoggedUser.ID
+                                         && x.Friend_id == authViewModel.SelectedUser.ID
+                                         || x.Friend_id == authViewModel.LoggedUser.ID
+                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
+            user.RelationType = 1;
+            user.AddDate = null;
+
+            App.db.SaveChanges();
+            RefreshFriendButtons();
         }
     }
 }
