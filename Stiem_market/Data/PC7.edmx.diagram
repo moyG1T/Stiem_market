@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31884ecca436430f880407c26629164d" Name="Diagram1">
+        <EntityTypeShape EntityType="AbvgdeyozhModel.Carts" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.Devs" Width="1.5" PointX="3.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.FriendsRelations" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.FriendUsers" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.GameInCarts" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.Games" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.GameTags" Width="1.5" PointX="8.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.Tags" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.Users" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbvgdeyozhModel.UserToGameRelation" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_Carts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_Carts_UserToGameRelation" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_UserGames_Carts" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_Games_Devs" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_FriendUsers_FriendsRelations" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_FriendUsers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_FriendUsers_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_UserGames_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_GameTags_Games" ManuallyRouted="false" />
+        <AssociationConnector Association="AbvgdeyozhModel.FK_GameTags_Tags" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -51,7 +51,8 @@ namespace Stiem_market.Pages.Authentication
                     });
                     App.db.SaveChanges();
 
-                    authViewModel.LoggedUser = App.db.Users.Where(u => u.Email == LoginTextBox.Text).FirstOrDefault();
+                    authViewModel.UserCollection = App.db.Users.ToList();
+                    authViewModel.LoggedUser = authViewModel.UserCollection.Where(u => u.Email == LoginTextBox.Text).FirstOrDefault();
                     authViewModel.SelectedUser = authViewModel.LoggedUser;
 
                     NavigationService.Navigate(new UserProfile(false, authViewModel));

@@ -168,7 +168,7 @@ namespace Stiem_market.ViewModels
                 Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 3)).ToList();
             HasGames = !(LibraryCollection.Count() > 0);
 
-            HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && h.RelationType == 3).ToList();
+            HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && h.RelationType == 3).OrderByDescending(x => x.ID).ToList();
         }
 
         public bool PayCart()

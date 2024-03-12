@@ -1,0 +1,725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AbvgdeyozhModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="int" />
+          <Property Name="RelationType" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="CartCost" Type="int" />
+        </EntityType>
+        <EntityType Name="Devs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Subtitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FriendsRelations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="FriendUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_id" Type="int" />
+          <Property Name="Friend_id" Type="int" />
+          <Property Name="RelationType" Type="int" />
+          <Property Name="Sender_id" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GameInCarts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Game_id" Type="int" />
+          <Property Name="Cart_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Dev_id" Type="int" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="ImageBin" Type="varbinary(max)" />
+          <Property Name="ImgPath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GameTags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Game_id" Type="int" />
+          <Property Name="Tag_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Avatar" Type="varbinary(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDev" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserToGameRelation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titile" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Carts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_UserToGameRelation">
+          <End Role="UserToGameRelation" Type="Self.UserToGameRelation" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserToGameRelation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="RelationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_FriendsRelations">
+          <End Role="FriendsRelations" Type="Self.FriendsRelations" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FriendsRelations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="RelationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="Friend_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Devs">
+          <End Role="Devs" Type="Self.Devs" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Dev_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameTags_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="GameTags" Type="Self.GameTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameTags">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="GameTags" Type="Self.GameTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameTags">
+              <PropertyRef Name="Tag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGames_Carts">
+          <End Role="Carts" Type="Self.Carts" Multiplicity="0..1" />
+          <End Role="GameInCarts" Type="Self.GameInCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameInCarts">
+              <PropertyRef Name="Cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="GameInCarts" Type="Self.GameInCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameInCarts">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AbvgdeyozhModelContainer">
+          <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Devs" EntityType="Self.Devs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FriendsRelations" EntityType="Self.FriendsRelations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FriendUsers" EntityType="Self.FriendUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameInCarts" EntityType="Self.GameInCarts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameTags" EntityType="Self.GameTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserToGameRelation" EntityType="Self.UserToGameRelation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Carts_Users" Association="Self.FK_Carts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_UserToGameRelation" Association="Self.FK_Carts_UserToGameRelation">
+            <End Role="UserToGameRelation" EntitySet="UserToGameRelation" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_FriendsRelations" Association="Self.FK_FriendUsers_FriendsRelations">
+            <End Role="FriendsRelations" EntitySet="FriendsRelations" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_Users" Association="Self.FK_FriendUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_Users1" Association="Self.FK_FriendUsers_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Devs" Association="Self.FK_Games_Devs">
+            <End Role="Devs" EntitySet="Devs" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameTags_Games" Association="Self.FK_GameTags_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameTags" EntitySet="GameTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameTags_Tags" Association="Self.FK_GameTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="GameTags" EntitySet="GameTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGames_Carts" Association="Self.FK_UserGames_Carts">
+            <End Role="Carts" EntitySet="Carts" />
+            <End Role="GameInCarts" EntitySet="GameInCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGames_Games" Association="Self.FK_UserGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameInCarts" EntitySet="GameInCarts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AbvgdeyozhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int32" />
+          <Property Name="RelationType" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="CartCost" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Carts_Users" FromRole="Carts" ToRole="Users" />
+          <NavigationProperty Name="UserToGameRelation" Relationship="Self.FK_Carts_UserToGameRelation" FromRole="Carts" ToRole="UserToGameRelation" />
+          <NavigationProperty Name="GameInCarts" Relationship="Self.FK_UserGames_Carts" FromRole="Carts" ToRole="GameInCarts" />
+        </EntityType>
+        <EntityType Name="Devs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Games_Devs" FromRole="Devs" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="FriendsRelations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FriendUsers" Relationship="Self.FK_FriendUsers_FriendsRelations" FromRole="FriendsRelations" ToRole="FriendUsers" />
+        </EntityType>
+        <EntityType Name="FriendUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_id" Type="Int32" />
+          <Property Name="Friend_id" Type="Int32" />
+          <Property Name="RelationType" Type="Int32" />
+          <Property Name="Sender_id" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FriendsRelations" Relationship="Self.FK_FriendUsers_FriendsRelations" FromRole="FriendUsers" ToRole="FriendsRelations" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_FriendUsers_Users" FromRole="FriendUsers" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_FriendUsers_Users1" FromRole="FriendUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="GameInCarts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Game_id" Type="Int32" />
+          <Property Name="Cart_id" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_UserGames_Carts" FromRole="GameInCarts" ToRole="Carts" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_UserGames_Games" FromRole="GameInCarts" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Dev_id" Type="Int32" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImgPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Devs" Relationship="Self.FK_Games_Devs" FromRole="Games" ToRole="Devs" />
+          <NavigationProperty Name="GameInCarts" Relationship="Self.FK_UserGames_Games" FromRole="Games" ToRole="GameInCarts" />
+          <NavigationProperty Name="GameTags" Relationship="Self.FK_GameTags_Games" FromRole="Games" ToRole="GameTags" />
+        </EntityType>
+        <EntityType Name="GameTags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Game_id" Type="Int32" />
+          <Property Name="Tag_id" Type="Int32" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_GameTags_Games" FromRole="GameTags" ToRole="Games" />
+          <NavigationProperty Name="Tags" Relationship="Self.FK_GameTags_Tags" FromRole="GameTags" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GameTags" Relationship="Self.FK_GameTags_Tags" FromRole="Tags" ToRole="GameTags" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDev" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_Users" FromRole="Users" ToRole="Carts" />
+          <NavigationProperty Name="FriendUsers" Relationship="Self.FK_FriendUsers_Users" FromRole="Users" ToRole="FriendUsers" />
+          <NavigationProperty Name="FriendUsers1" Relationship="Self.FK_FriendUsers_Users1" FromRole="Users" ToRole="FriendUsers" />
+        </EntityType>
+        <EntityType Name="UserToGameRelation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_UserToGameRelation" FromRole="UserToGameRelation" ToRole="Carts" />
+        </EntityType>
+        <Association Name="FK_Carts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_UserToGameRelation">
+          <End Role="UserToGameRelation" Type="Self.UserToGameRelation" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserToGameRelation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="RelationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGames_Carts">
+          <End Role="Carts" Type="Self.Carts" Multiplicity="0..1" />
+          <End Role="GameInCarts" Type="Self.GameInCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameInCarts">
+              <PropertyRef Name="Cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Devs">
+          <End Role="Devs" Type="Self.Devs" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Devs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Dev_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_FriendsRelations">
+          <End Role="FriendsRelations" Type="Self.FriendsRelations" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FriendsRelations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="RelationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendUsers_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FriendUsers" Type="Self.FriendUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FriendUsers">
+              <PropertyRef Name="Friend_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGames_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="GameInCarts" Type="Self.GameInCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameInCarts">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameTags_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="GameTags" Type="Self.GameTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameTags">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GameTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="GameTags" Type="Self.GameTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameTags">
+              <PropertyRef Name="Tag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AbvgdeyozhEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="Self.Carts" />
+          <EntitySet Name="Devs" EntityType="Self.Devs" />
+          <EntitySet Name="FriendsRelations" EntityType="Self.FriendsRelations" />
+          <EntitySet Name="FriendUsers" EntityType="Self.FriendUsers" />
+          <EntitySet Name="GameInCarts" EntityType="Self.GameInCarts" />
+          <EntitySet Name="Games" EntityType="Self.Games" />
+          <EntitySet Name="GameTags" EntityType="Self.GameTags" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="UserToGameRelation" EntityType="Self.UserToGameRelation" />
+          <AssociationSet Name="FK_Carts_Users" Association="Self.FK_Carts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_UserToGameRelation" Association="Self.FK_Carts_UserToGameRelation">
+            <End Role="UserToGameRelation" EntitySet="UserToGameRelation" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGames_Carts" Association="Self.FK_UserGames_Carts">
+            <End Role="Carts" EntitySet="Carts" />
+            <End Role="GameInCarts" EntitySet="GameInCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Devs" Association="Self.FK_Games_Devs">
+            <End Role="Devs" EntitySet="Devs" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_FriendsRelations" Association="Self.FK_FriendUsers_FriendsRelations">
+            <End Role="FriendsRelations" EntitySet="FriendsRelations" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_Users" Association="Self.FK_FriendUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendUsers_Users1" Association="Self.FK_FriendUsers_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendUsers" EntitySet="FriendUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGames_Games" Association="Self.FK_UserGames_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameInCarts" EntitySet="GameInCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameTags_Games" Association="Self.FK_GameTags_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameTags" EntitySet="GameTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameTags_Tags" Association="Self.FK_GameTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="GameTags" EntitySet="GameTags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AbvgdeyozhModelContainer" CdmEntityContainer="AbvgdeyozhEntities">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.Carts">
+              <MappingFragment StoreEntitySet="Carts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="RelationType" ColumnName="RelationType" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="CartCost" ColumnName="CartCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devs">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.Devs">
+              <MappingFragment StoreEntitySet="Devs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FriendsRelations">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.FriendsRelations">
+              <MappingFragment StoreEntitySet="FriendsRelations">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FriendUsers">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.FriendUsers">
+              <MappingFragment StoreEntitySet="FriendUsers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Friend_id" ColumnName="Friend_id" />
+                <ScalarProperty Name="RelationType" ColumnName="RelationType" />
+                <ScalarProperty Name="Sender_id" ColumnName="Sender_id" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameInCarts">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.GameInCarts">
+              <MappingFragment StoreEntitySet="GameInCarts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Game_id" ColumnName="Game_id" />
+                <ScalarProperty Name="Cart_id" ColumnName="Cart_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.Games">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Dev_id" ColumnName="Dev_id" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
+                <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameTags">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.GameTags">
+              <MappingFragment StoreEntitySet="GameTags">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Game_id" ColumnName="Game_id" />
+                <ScalarProperty Name="Tag_id" ColumnName="Tag_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsDev" ColumnName="IsDev" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserToGameRelation">
+            <EntityTypeMapping TypeName="AbvgdeyozhModel.UserToGameRelation">
+              <MappingFragment StoreEntitySet="UserToGameRelation">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Titile" ColumnName="Titile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

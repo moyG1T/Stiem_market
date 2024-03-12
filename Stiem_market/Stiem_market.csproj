@@ -65,37 +65,52 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Carts.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Devs.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendsRelations.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendUsers.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameInCarts.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Games.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameTags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PC7.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PC7.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PC7.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PC7.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PC7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PC7.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\sysdiagrams.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Tags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Users.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\UserToGameRelation.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\Authentication\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
@@ -229,6 +244,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>StiemDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Data\PC7.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PC7.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\PC7.edmx.diagram">
+      <DependentUpon>PC7.edmx</DependentUpon>
+    </None>
     <None Include="Data\StiemDB.edmx.diagram">
       <DependentUpon>StiemDB.edmx</DependentUpon>
     </None>
@@ -242,6 +264,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\PC7.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PC7.edmx</DependentUpon>
+      <LastGenOutput>PC7.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\PC7.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PC7.edmx</DependentUpon>
+      <LastGenOutput>PC7.cs</LastGenOutput>
+    </Content>
     <Content Include="Data\StiemDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StiemDB.Context.cs</LastGenOutput>

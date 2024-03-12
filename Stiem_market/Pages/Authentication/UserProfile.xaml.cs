@@ -138,6 +138,7 @@ namespace Stiem_market.Pages.Authentication
                                          && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
             user.RelationType = 1;
             user.AddDate = null;
+            user.Sender_id = null;
 
             App.db.SaveChanges();
             RefreshFriendButtons();
@@ -166,6 +167,7 @@ namespace Stiem_market.Pages.Authentication
                                          && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
             user.RelationType = 1;
             user.AddDate = null;
+            user.Sender_id = null;
 
             App.db.SaveChanges();
             RefreshFriendButtons();
