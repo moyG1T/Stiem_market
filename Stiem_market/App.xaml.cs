@@ -14,7 +14,7 @@ namespace Stiem_market
     /// </summary>
     public partial class App : Application
     {
-        //public static StiemEntities db = new StiemEntities();
-        public static AbvgdeyozhEntities db = new AbvgdeyozhEntities();
+        public static StiemEntities db = new StiemEntities();
+        //public static AbvgdeyozhEntities db = new AbvgdeyozhEntities();
     }
 }

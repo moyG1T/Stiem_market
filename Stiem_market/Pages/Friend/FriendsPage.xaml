@@ -5,8 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Stiem_market.Pages.Friend"
       mc:Ignorable="d" 
-        d:DesignHeight="620" d:DesignWidth="960"
-  Title="FriendsPage">
+      d:DesignHeight="620" d:DesignWidth="960"
+      Title="FriendsPage">
+
+    <Page.Resources>
+
+    </Page.Resources>
 
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -16,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="60"/>
@@ -30,15 +34,17 @@
             <Button x:Name="CancelButton"  Style="{StaticResource CancelButton}" Content="/Resources/search.png" Click="CancelButton_Click"/>
         </StackPanel>
 
+        <ComboBox x:Name="FriendFilter" SelectedIndex="{Binding SelectedFilter}" Grid.Row="1" Grid.Column="1"  Height="40" Loaded="FriendFilter_Loaded">
+            <ComboBoxItem Content="Мои друзья"/>
+            <ComboBoxItem Content="Полученные заявки"/>
+            <ComboBoxItem Content="Мои заявки"/>
+        </ComboBox>
+
         <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SearchFriendsCollection}"
                  x:Name="UserList" ItemContainerStyle="{StaticResource UserList}" 
                  ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  Background="Transparent" BorderThickness="0" MouseDoubleClick="UserList_MouseDoubleClick"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="FindNewFriendsButton" Content="Найти друзей" Style="{StaticResource ElevatedButton}" Click="FindNewFriendsButton_Click"/>
-            <Button Content="Подписчики" Style="{StaticResource TextButton}" Click="Button_Click"/>
-            <Button Content="Отправленные заявки" Style="{StaticResource TextButton}" Click="Button_Click_1"/>
-        </StackPanel>
+        <Button x:Name="FindNewFriendsButton" Content="Найти друзей" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ElevatedButton}" Click="FindNewFriendsButton_Click"/>
     </Grid>
 </Page>

@@ -247,15 +247,75 @@ namespace Stiem_market.ViewModels
             get => searchFriendsText;
             set
             {
-                if (value == "")
-                    SearchFriendsCollection = FriendsCollection;
-                else
-                    SearchFriendsCollection = FriendsCollection.Where(x => x.Nickname.ToLower().Contains(value.ToLower())).ToList();
-
                 searchFriendsText = value;
                 OnPropertyChanged(nameof(SearchFriendsText));
+
+                SetFilters();
             }
         }
+
+        private int selectedFilter = 0;
+        public int SelectedFilter
+        {
+            get => selectedFilter;
+            set
+            {
+                selectedFilter = value;
+                OnPropertyChanged(nameof(SelectedFilter));
+
+                SetFilters();
+            }
+        }
+
+        public void SetFilters()
+        {
+            // если поле поиска пустое
+            if (string.IsNullOrEmpty(SearchFriendsText))
+            {
+                switch (SelectedFilter)
+                {
+                    case 0:
+                        SearchFriendsCollection = FriendsCollection;
+                        break;
+                    case 1:
+                        SearchFriendsCollection =
+                            App.db.Users.Where(u => App.db.FriendUsers.
+                                Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID ||
+                                    fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID)).ToList();
+                        break;
+                    case 2:
+                        SearchFriendsCollection
+                            = App.db.Users.Where(u => App.db.FriendUsers.
+                                  Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID ||
+                                      fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID)).ToList();
+                        break;
+                }
+            }
+            // если поле поиска не пустое
+            else
+            {
+                switch (SelectedFilter)
+                {
+                    case 0:
+                        SearchFriendsCollection = FriendsCollection.Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
+                        break;
+                    case 1:
+                        SearchFriendsCollection =
+                            App.db.Users.Where(u => App.db.FriendUsers.
+                                Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID ||
+                                    fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID)).
+                                Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
+                        break;
+                    case 2:
+                        SearchFriendsCollection
+                            = App.db.Users.Where(u => App.db.FriendUsers.
+                                  Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID ||
+                                      fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID)).
+                                  Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
+                        break;
+                }
+            }
+            }
 
         private IEnumerable<Users> searchFriendsCollection;
         public IEnumerable<Users> SearchFriendsCollection
@@ -298,7 +358,7 @@ namespace Stiem_market.ViewModels
             IEnumerable<Users> users = App.db.Users.Where(u => App.db.FriendUsers.
                                         Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 3 ||
                                             fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 3)).ToList();
-                                            
+
 
             HasFriends = !(users.Count() > 0);
 
