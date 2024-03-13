@@ -6,49 +6,49 @@
     <Application.Resources>
         <BooleanToVisibilityConverter x:Key="IsCartEmptyConverter"/>
 
-        <SolidColorBrush x:Key="TotallyBlack" Color="#151515"></SolidColorBrush>
-        <SolidColorBrush x:Key="DarkGray" Color="#202020"></SolidColorBrush>
-        <SolidColorBrush x:Key="LightGray" Color="#252525"></SolidColorBrush>
+        <SolidColorBrush x:Key="TotallyBlack" Color="#151515"/>
+        <SolidColorBrush x:Key="DarkGray" Color="#202020"/>
+        <SolidColorBrush x:Key="LightGray" Color="#252525"/>
 
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="FontFamily" Value="MS Open Sans"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="FontWeight" Value="Light"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="MS Open Sans"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="SmallText">
-            <Setter Property="FontSize" Value="12"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="FontWeight" Value="Light"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="MediumText">
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="FontWeight" Value="Light"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="LargeText">
-            <Setter Property="FontSize" Value="24"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="FontWeight" Value="Regular"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
         <Style TargetType="Window">
-            <Setter Property="Background" Value="{StaticResource DarkGray}"></Setter>
+            <Setter Property="Background" Value="{StaticResource DarkGray}"/>
         </Style>
 
         <Style TargetType="Rectangle">
-            <Setter Property="Fill" Value="{StaticResource TotallyBlack}"></Setter>
+            <Setter Property="Fill" Value="{StaticResource TotallyBlack}"/>
         </Style>
 
         <Style x:Key="MyFocusVisualStyle">
@@ -65,7 +65,7 @@
 
         <Style TargetType="{x:Type TextBox}" x:Key="RoundedTextBox">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="FontFamily" Value="MS Open Sans"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -84,7 +84,7 @@
 
         <Style TargetType="{x:Type TextBox}" x:Key="SearchTextBox">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="FontFamily" Value="MS Open Sans"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -96,7 +96,7 @@
                             MinWidth="200" CornerRadius="12" Padding="4">
                             <DockPanel>
                                 <Image Source="/Resources/search.png" Margin="2"
-                                   DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                                   DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                 <ScrollViewer Margin="0" x:Name="PART_ContentHost" 
                                           DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             </DockPanel>
@@ -108,7 +108,7 @@
 
         <Style TargetType="{x:Type PasswordBox}" x:Key="RoundedPasswordBox">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="FontFamily" Value="MS Open Sans"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -126,7 +126,7 @@
         </Style>
 
         <Style TargetType="Border" x:Key="TagBorder">
-            <Setter Property="Background" Value="{DynamicResource TotallyBlack}"></Setter>
+            <Setter Property="Background" Value="{DynamicResource TotallyBlack}"/>
             <Setter Property="CornerRadius" Value="4"></Setter>
             <Setter Property="Padding" Value="5 2 5 2"></Setter>
             <Setter Property="Margin" Value="2"></Setter>
@@ -215,7 +215,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="HighlightedElevatedButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -239,7 +239,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="TextButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -259,7 +259,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="LogOutButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -280,7 +280,7 @@
         </Style>
 
         <Style TargetType="RadioButton" x:Key="CartRadioButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
@@ -296,7 +296,7 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="TemplateBorder" Property="Opacity" Value="0.8"/>
                             </Trigger>
-                            <Trigger Property="IsChecked" Value="False">
+                            <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="TemplateBorder"  Property="Opacity" Value="1.0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -317,7 +317,7 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="TemplateText" Property="Opacity" Value="0.8"/>
                             </Trigger>
-                            <Trigger Property="IsChecked" Value="False">
+                            <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="TemplateText"  Property="Opacity" Value="1.0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
