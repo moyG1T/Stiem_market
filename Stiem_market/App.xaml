@@ -136,108 +136,60 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Image Source="/Resources/arrow.png" Opacity="0.7"/>
+                        <Image x:Name="TemplateImage"  Source="/Resources/arrow.png" Opacity="0.7"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateImage" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateImage"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Image Source="/Resources/arrow.png" Opacity="1"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Image Source="/Resources/arrow.png" Opacity="0.3"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="ForwardButton">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Image Opacity="0.7">
+                        <Image x:Name="TemplateImage" Opacity="0.7">
                             <Image.Source>
                                 <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
                             </Image.Source>
                         </Image>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateImage" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateImage"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Image Opacity="1">
-                                    <Image.Source>
-                                        <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
-                                    </Image.Source>
-                                </Image>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Image Opacity="0.3">
-                                    <Image.Source>
-                                        <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
-                                    </Image.Source>
-                                </Image>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="CancelButton">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
+                        <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
                             <Image Source="/Resources/cancel.png"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" Opacity="1" Width="40" Height="40" CornerRadius="25" Padding="3">
-                                    <Image Source="/Resources/cancel.png"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" Opacity="0.3" Width="40" Height="40" CornerRadius="25" Padding="3">
-                                    <Image Source="/Resources/cancel.png"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="ElevatedButton">
@@ -245,39 +197,21 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
+                        <Border x:Name="TemplateBorder"  Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
                             <TextBlock Text="{TemplateBinding Content}" Foreground="Black" 
                                    Style="{StaticResource LargeText}" FontSize="16"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="1">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
-                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.3">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
-                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="HighlightedElevatedButton">
@@ -285,39 +219,23 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="White" 
-                                   Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
+                        <Border x:Name="TemplateBorder" Background="Orange" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.8">
+                            <TextBlock x:Name="TemplateText" Text="{TemplateBinding Content}" Foreground="White" 
+                                   Style="{StaticResource LargeText}" FontSize="16"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="1.0"/>
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="White"/>
+                                <Setter TargetName="TemplateText" Property="Foreground" Value="{StaticResource TotallyBlack}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="1">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black"
-                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="Orange" CornerRadius="10" Padding="8 4 8 4" Margin="10 0 10 0" Opacity="0.3">
-                                    <TextBlock Text="{TemplateBinding Content}" Foreground="White"
-                                           Style="{StaticResource LargeText}" FontSize="16"></TextBlock>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="TextButton">
@@ -325,23 +243,19 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <TextBlock Text="{TemplateBinding Content}" Opacity="0.7" 
+                        <TextBlock x:Name="TemplateText"  Text="{TemplateBinding Content}" Opacity="0.7" 
                                Style="{StaticResource LargeText}" FontSize="16" Padding="8 4 8 4"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateText" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateText"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <TextBlock Text="{TemplateBinding Content}" Opacity="1"
-                                       Style="{StaticResource LargeText}" FontSize="16" Padding="8 4 8 4"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="Button" x:Key="LogOutButton">
@@ -349,25 +263,20 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="White" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
+                        <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
                             <Image Source="/Resources/quit.png"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="White" Opacity="0.8" CornerRadius="10" Width="30" Height="30" Padding="3">
-                                    <Image Source="/Resources/quit.png"></Image>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="RadioButton" x:Key="CartRadioButton">
@@ -376,50 +285,24 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <Grid Width="45">
-                            <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
+                            <Border x:Name="TemplateBorder" Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
                                 <Image Source="/Resources/cart.png"></Image>
                             </Border>
                             <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}" Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
                                 <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
                             </Border>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type RadioButton}">
-                                <Grid Width="45">
-                                    <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.8" CornerRadius="10" Width="30" Height="30" Padding="3">
-                                        <Image Source="/Resources/cart.png"></Image>
-                                    </Border>
-                                    <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}"  Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
-                                        <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
-                                    </Border>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type RadioButton}">
-                                <Grid Width="45">
-                                    <Border Background="White" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="30" Height="30" Padding="3">
-                                        <Image Source="/Resources/cart.png"></Image>
-                                    </Border>
-                                    <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}"  Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
-                                        <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
-                                    </Border>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="RadioButton" x:Key="TabButton">
@@ -429,30 +312,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.7"></TextBlock>
+                        <TextBlock x:Name="TemplateText" Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.7"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateText" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="TemplateText"  Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type RadioButton}">
-                                <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.8"></TextBlock>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type RadioButton}">
-                                <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="1"></TextBlock>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="RadioButton" x:Key="SliderButton">
@@ -463,31 +334,19 @@
             <Setter Property="Padding" Value="0"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate>
-                        <Border Background="White" Opacity="0.4" CornerRadius="3"></Border>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="TemplateBorder" Background="White" Opacity="0.4" CornerRadius="3"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border Background="White" Opacity="0.6" CornerRadius="3"></Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border Background="White" Opacity="1" CornerRadius="3"></Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style TargetType="ListBoxItem" x:Key="UserList">
