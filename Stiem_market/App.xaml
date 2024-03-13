@@ -95,7 +95,7 @@
                             Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
                             MinWidth="200" CornerRadius="12" Padding="4">
                             <DockPanel>
-                                <Image Source="/Resources/search.png" Margin="2"
+                                <Image Source="/Resources/search.png" Margin="2" RenderOptions.BitmapScalingMode="Fant"
                                    DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                 <ScrollViewer Margin="0" x:Name="PART_ContentHost" 
                                           DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -136,7 +136,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Image x:Name="TemplateImage"  Source="/Resources/arrow.png" Opacity="0.7"/>
+                        <Image x:Name="TemplateImage" RenderOptions.BitmapScalingMode="Fant" Source="/Resources/arrow.png" Opacity="0.7"/>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="TemplateImage" Property="Opacity" Value="1.0"/>
@@ -156,7 +156,7 @@
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="TemplateImage" Opacity="0.7">
                             <Image.Source>
-                                <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
+                                <BitmapImage UriSource="/Resources/arrow.png" RenderOptions.BitmapScalingMode="Fant" Rotation="Rotate180"/>
                             </Image.Source>
                         </Image>
                         <ControlTemplate.Triggers>
@@ -177,7 +177,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
-                            <Image Source="/Resources/cancel.png"/>
+                            <Image Source="/Resources/cancel.png" RenderOptions.BitmapScalingMode="Fant"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -264,7 +264,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
-                            <Image Source="/Resources/quit.png"/>
+                            <Image Source="/Resources/quit.png" RenderOptions.BitmapScalingMode="Fant"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -286,7 +286,7 @@
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <Grid Width="45">
                             <Border x:Name="TemplateBorder" Background="White" Grid.Column="0" Grid.Row="0" Opacity="0.7" CornerRadius="10" Width="30" Height="30" Padding="3">
-                                <Image Source="/Resources/cart.png"></Image>
+                                <Image Source="/Resources/cart.png" RenderOptions.BitmapScalingMode="Fant"/>
                             </Border>
                             <Border Visibility="{Binding IsCartEmpty, Converter={StaticResource IsCartEmptyConverter}}" Background="Red" Grid.Column="0" Grid.Row="0" Opacity="1" CornerRadius="10" Width="20" Height="20" Padding="3" Margin="25 0 0 25">
                                 <TextBlock Text="{Binding CartCounter}" Style="{StaticResource SmallText}"></TextBlock>
@@ -364,7 +364,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Border Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="3" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
-                                        <Image Source="{Binding Avatar}" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
+                                        <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
                                         <TextBlock Text="{Binding Nickname}" Grid.Column="2" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                                     </Grid>
                                 </DataTemplate>

@@ -5,19 +5,75 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Stiem_market.Pages.Store"
       mc:Ignorable="d" 
-       d:DesignHeight="720" d:DesignWidth="1280"
-  Title="StorePage">
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="StorePage">
+
+    <Page.Resources>
+        <Style x:Key="GameIcon"  TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid Width="280" Height="200" Margin="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+                            <Image x:Name="GameImage" Source="{Binding ImageBin}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"/>
+
+                            <Border x:Name="GameBorder" Grid.Row="1" Background="{StaticResource TotallyBlack}" Opacity="0.66"/>
+
+                            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="5">
+                                <TextBlock Text="{Binding Title}" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Cost, StringFormat={}{0}₽}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                
+                                <ListBox ItemsSource="{Binding GameTags}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel IsItemsHost="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{StaticResource TotallyBlack}" Padding="5 3 5 3" Margin="0 0 5 3" CornerRadius="7">
+                                                <TextBlock Text="{Binding Tags.Title}" Style="{StaticResource SmallText}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!--<Setter TargetName="GameImage" Property=""></Setter>-->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="900" Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="GameBox" ItemsSource="{Binding Games}" Margin="0 40 0 0"
-         ItemContainerStyle="{StaticResource GameList}" Grid.Row="0"
-         VerticalAlignment="Top" HorizontalAlignment="Stretch"
-         ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-         Background="Transparent" BorderThickness="0" MouseDoubleClick="ListBox_MouseDoubleClick"/>
+        <ListBox x:Name="GameList" ItemsSource="{Binding Games}" ItemContainerStyle="{StaticResource GameIcon}"
+                 Grid.Row="0" Grid.Column="1" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 VerticalAlignment="Top" HorizontalAlignment="Center"
+                 Background="Transparent" BorderThickness="0" MouseDoubleClick="ListBox_MouseDoubleClick">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </Page>

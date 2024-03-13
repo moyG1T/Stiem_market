@@ -37,11 +37,11 @@ namespace Stiem_market.Pages.Store
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (GameBox.SelectedItem == null)
+            if (GameList.SelectedItem == null)
                 return;
-            gameViewModel.SelectedGame = GameBox.SelectedItem as Games;
+            gameViewModel.SelectedGame = GameList.SelectedItem as Games;
             NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
-            GameBox.SelectedItem = null;
+            GameList.SelectedItem = null;
         }
     }
 }

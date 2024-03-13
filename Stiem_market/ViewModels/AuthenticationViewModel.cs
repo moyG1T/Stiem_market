@@ -23,6 +23,17 @@ namespace Stiem_market.ViewModels
             UpdateUserGames();
         }
 
+        private List<int> favoriteTags; 
+        public List<int> FavoriteTags
+        {
+            get => favoriteTags;
+            set
+            {
+                favoriteTags = value;
+                OnPropertyChanged(nameof(FavoriteTags));
+            }
+        }
+
         private Users loggedUser;
         public Users LoggedUser
         {
@@ -169,6 +180,16 @@ namespace Stiem_market.ViewModels
             HasGames = !(LibraryCollection.Count() > 0);
 
             HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && h.RelationType == 3).OrderByDescending(x => x.ID).ToList();
+
+            FavoriteTags = App.db.Users.Where(u => u.ID == LoggedUser.ID)
+                                       .SelectMany(u => u.Carts.Where(с => с.RelationType == 3))
+                                       .SelectMany(c => c.GameInCarts)
+                                       .SelectMany(gic => gic.Games.GameTags)
+                                       .Select(gt => gt.Tags.ID)
+                                       .GroupBy(id => id)
+                                       .OrderByDescending(group => group.Count())
+                                       .Select(group => group.Key)
+                                       .ToList();
         }
 
         public bool PayCart()
@@ -250,7 +271,7 @@ namespace Stiem_market.ViewModels
                 searchFriendsText = value;
                 OnPropertyChanged(nameof(SearchFriendsText));
 
-                SetFilters();
+                RelationFilter();
             }
         }
 
@@ -263,59 +284,39 @@ namespace Stiem_market.ViewModels
                 selectedFilter = value;
                 OnPropertyChanged(nameof(SelectedFilter));
 
-                SetFilters();
+                RelationFilter();
             }
         }
 
-        public void SetFilters()
+        public void RelationFilter()
         {
-            // если поле поиска пустое
+            var query = App.db.Users.Where(u => App.db.FriendUsers.
+                Any(fu =>
+                    fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 &&
+                    (
+                        (fu.Sender_id != LoggedUser.ID && SelectedFilter == 1) ||
+                        (fu.Sender_id == LoggedUser.ID && SelectedFilter == 2)
+                    )
+                    ||
+                    fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 &&
+                    (
+                        (fu.Sender_id != LoggedUser.ID && SelectedFilter == 1) ||
+                        (fu.Sender_id == LoggedUser.ID && SelectedFilter == 2)
+                    )
+                )).ToList();
+
             if (string.IsNullOrEmpty(SearchFriendsText))
             {
-                switch (SelectedFilter)
-                {
-                    case 0:
-                        SearchFriendsCollection = FriendsCollection;
-                        break;
-                    case 1:
-                        SearchFriendsCollection =
-                            App.db.Users.Where(u => App.db.FriendUsers.
-                                Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID ||
-                                    fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID)).ToList();
-                        break;
-                    case 2:
-                        SearchFriendsCollection
-                            = App.db.Users.Where(u => App.db.FriendUsers.
-                                  Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID ||
-                                      fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID)).ToList();
-                        break;
-                }
+                SearchFriendsCollection = SelectedFilter == 0 ? FriendsCollection : query;
             }
-            // если поле поиска не пустое
             else
             {
-                switch (SelectedFilter)
-                {
-                    case 0:
-                        SearchFriendsCollection = FriendsCollection.Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
-                        break;
-                    case 1:
-                        SearchFriendsCollection =
-                            App.db.Users.Where(u => App.db.FriendUsers.
-                                Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID ||
-                                    fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id != LoggedUser.ID)).
-                                Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
-                        break;
-                    case 2:
-                        SearchFriendsCollection
-                            = App.db.Users.Where(u => App.db.FriendUsers.
-                                  Any(fu => fu.User_id == SelectedUser.ID && fu.Friend_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID ||
-                                      fu.Friend_id == SelectedUser.ID && fu.User_id == u.ID && fu.RelationType == 2 && fu.Sender_id == LoggedUser.ID)).
-                                  Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower())).ToList();
-                        break;
-                }
+                SearchFriendsCollection = SelectedFilter == 0 ?
+                    FriendsCollection.Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower()))
+                    :
+                    query.Where(x => x.Nickname.ToLower().Contains(SearchFriendsText.ToLower()));
             }
-            }
+        }
 
         private IEnumerable<Users> searchFriendsCollection;
         public IEnumerable<Users> SearchFriendsCollection

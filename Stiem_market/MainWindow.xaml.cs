@@ -7,6 +7,9 @@ using Stiem_market.Pages.Store;
 using Stiem_market.Data;
 using Stiem_market.Pages.FriendTab;
 using Stiem_market.Pages.Friend;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
 
 namespace Stiem_market
 {

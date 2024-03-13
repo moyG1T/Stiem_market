@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="StiemModel.Games" Width="1.5" PointX="3" PointY="8" />
         <EntityTypeShape EntityType="StiemModel.GameTags" Width="1.5" PointX="5.25" PointY="8.375" />
         <EntityTypeShape EntityType="StiemModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="8.25" />
-        <EntityTypeShape EntityType="StiemModel.Tags" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="StiemModel.Tags" Width="1.5" PointX="6.75" PointY="11" />
         <EntityTypeShape EntityType="StiemModel.Users" Width="1.5" PointX="0.75" PointY="3.875" />
         <EntityTypeShape EntityType="StiemModel.UserToGameRelation" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="StiemModel.FK_Carts_Users" />

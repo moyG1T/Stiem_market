@@ -76,7 +76,7 @@ namespace Stiem_market.Pages.Friend
 
         private void FriendFilter_Loaded(object sender, RoutedEventArgs e)
         {
-            authViewModel.SetFilters();
+            authViewModel.RelationFilter();
         }
     }
 }

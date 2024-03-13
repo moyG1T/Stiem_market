@@ -26,7 +26,6 @@ namespace Stiem_market.Data
         public Nullable<int> Dev_id { get; set; }
         public Nullable<int> Cost { get; set; }
         public byte[] ImageBin { get; set; }
-        public string ImgPath { get; set; }
     
         public virtual Devs Devs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
