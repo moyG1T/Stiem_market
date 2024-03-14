@@ -38,7 +38,6 @@ namespace Stiem_market.Pages.Authentication
             else
                 BackButton.Visibility = Visibility.Hidden;
 
-            gameViewModel = new GameViewModel();
             authViewModel = _authViewModel;
 
             if (authViewModel.LoggedUser.ID == authViewModel.SelectedUser.ID)
@@ -122,7 +121,9 @@ namespace Stiem_market.Pages.Authentication
                                             x.User_id == authViewModel.LoggedUser.ID
                                          && x.Friend_id == authViewModel.SelectedUser.ID
                                          || x.Friend_id == authViewModel.LoggedUser.ID
-                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault().RelationType = 2;
+                                         && x.User_id == authViewModel.SelectedUser.ID).FirstOrDefault();
+                user.RelationType = 2;
+                user.Sender_id = authViewModel.LoggedUser.ID;
             }
 
             App.db.SaveChanges();

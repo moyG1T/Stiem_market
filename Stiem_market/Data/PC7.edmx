@@ -349,7 +349,6 @@
           <Property Name="Dev_id" Type="Int32" />
           <Property Name="Cost" Type="Int32" />
           <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="ImgPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Devs" Relationship="Self.FK_Games_Devs" FromRole="Games" ToRole="Devs" />
           <NavigationProperty Name="GameInCarts" Relationship="Self.FK_UserGames_Games" FromRole="Games" ToRole="GameInCarts" />
           <NavigationProperty Name="GameTags" Relationship="Self.FK_GameTags_Games" FromRole="Games" ToRole="GameTags" />
@@ -644,7 +643,6 @@
                 <ScalarProperty Name="Dev_id" ColumnName="Dev_id" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
-                <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

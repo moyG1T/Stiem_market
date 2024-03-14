@@ -65,25 +65,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Carts.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Devs.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendsRelations.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendUsers.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameInCarts.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Games.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameTags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\PC7.Context.cs">
       <AutoGen>True</AutoGen>
@@ -101,16 +101,16 @@
       <DependentUpon>PC7.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\sysdiagrams.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Tags.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Users.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\UserToGameRelation.cs">
-      <DependentUpon>StiemDB.tt</DependentUpon>
+      <DependentUpon>PC7.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\Authentication\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>

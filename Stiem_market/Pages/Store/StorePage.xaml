@@ -13,38 +13,44 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Grid Width="280" Height="200" Margin="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"/>
-                                <RowDefinition Height="100"/>
-                            </Grid.RowDefinitions>
-                            <Image x:Name="GameImage" Source="{Binding ImageBin}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"/>
+                        <Border Background="Transparent" Margin="4">
+                            <Grid x:Name="TemplateGrid" Width="280" Height="200">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="100"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="GameImage" Source="{Binding ImageBin}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"/>
 
-                            <Border x:Name="GameBorder" Grid.Row="1" Background="{StaticResource TotallyBlack}" Opacity="0.66"/>
+                                <Border x:Name="GameBorder" Grid.Row="1" Background="{StaticResource TotallyBlack}" Opacity="0.66"/>
 
-                            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="5">
-                                <TextBlock Text="{Binding Title}" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding Cost, StringFormat={}{0}₽}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                
-                                <ListBox ItemsSource="{Binding GameTags}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0">
-                                    <ListBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel IsItemsHost="True"/>
-                                        </ItemsPanelTemplate>
-                                    </ListBox.ItemsPanel>
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Background="{StaticResource TotallyBlack}" Padding="5 3 5 3" Margin="0 0 5 3" CornerRadius="7">
-                                                <TextBlock Text="{Binding Tags.Title}" Style="{StaticResource SmallText}"/>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </Grid>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="5">
+                                    <TextBlock Text="{Binding Title}" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding Cost, StringFormat={}{0}₽}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+                                    <ListBox ItemsSource="{Binding GameTags}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel IsItemsHost="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="{StaticResource TotallyBlack}" Padding="5 3 5 3" Margin="0 0 5 3" CornerRadius="7">
+                                                    <TextBlock Text="{Binding Tags.Title}" Style="{StaticResource SmallText}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <!--<Setter TargetName="GameImage" Property=""></Setter>-->
+                                <Setter TargetName="TemplateGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform CenterX="140" CenterY="100" ScaleX="0.95" ScaleY="0.95"/>
+                                    </Setter.Value>
+                                </Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -53,27 +59,71 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition MinWidth="900" Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="250"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="900" Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="GameList" ItemsSource="{Binding Games}" ItemContainerStyle="{StaticResource GameIcon}"
-                 Grid.Row="0" Grid.Column="1" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                 VerticalAlignment="Top" HorizontalAlignment="Center"
-                 Background="Transparent" BorderThickness="0" MouseDoubleClick="ListBox_MouseDoubleClick">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-    </Grid>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="Игры с меткой &quot;" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="{Binding Top1FavoriteTag}" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="&quot;" Style="{StaticResource LargeText}"/>
+            </StackPanel>
+            <ScrollViewer x:Name="MyScrollViewer" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     Grid.Row="0" Grid.Column="1" Margin="0 40 0 0">
+                <ListBox x:Name="GameList" ItemsSource="{Binding Top1FavoriteGames}" ItemContainerStyle="{StaticResource GameIcon}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     VerticalAlignment="Top" HorizontalAlignment="Center"
+                     Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ScrollViewer>
+            <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="Игры с меткой &quot;" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="{Binding Top2FavoriteTag}" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="&quot;" Style="{StaticResource LargeText}"/>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding Top2FavoriteGames}" ItemContainerStyle="{StaticResource GameIcon}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     VerticalAlignment="Top" HorizontalAlignment="Center"
+                     Grid.Row="1" Grid.Column="1" Margin="0 40 0 0"
+                     Background="Transparent" BorderThickness="0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="Игры с меткой &quot;" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="{Binding Top3FavoriteTag}" Style="{StaticResource LargeText}"/>
+                <TextBlock Text="&quot;" Style="{StaticResource LargeText}"/>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding Top3FavoriteGames}" ItemContainerStyle="{StaticResource GameIcon}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                     Grid.Row="2" Grid.Column="1" Margin="0 40 0 0"
+                     Background="Transparent" BorderThickness="0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Content="Vparvo" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_Click"/>
+        </Grid>
+    </ScrollViewer>
 </Page>

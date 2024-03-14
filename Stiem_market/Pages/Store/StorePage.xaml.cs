@@ -26,12 +26,12 @@ namespace Stiem_market.Pages.Store
         private GameViewModel gameViewModel;
         private AuthenticationViewModel authViewModel;
 
-        public StorePage(bool _canNavigateBack, AuthenticationViewModel _authViewModel, GameViewModel _gameViewModel)
+        public StorePage(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
 
-            gameViewModel = _gameViewModel;
             authViewModel = _authViewModel;
+            gameViewModel = new GameViewModel(authViewModel.FavoriteTags);
             DataContext = gameViewModel;
         }
 
@@ -42,6 +42,11 @@ namespace Stiem_market.Pages.Store
             gameViewModel.SelectedGame = GameList.SelectedItem as Games;
             NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
             GameList.SelectedItem = null;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset + 200);
         }
     }
 }

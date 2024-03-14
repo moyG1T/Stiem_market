@@ -19,14 +19,12 @@ namespace Stiem_market
     public partial class MainWindow : Window
     {
         private AuthenticationViewModel authViewModel;
-        private GameViewModel gameViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
 
             authViewModel = new AuthenticationViewModel();
-            gameViewModel = new GameViewModel();
             DataContext = authViewModel;
             CartButton.DataContext = authViewModel;
             //Properties.Settings.Default.Reset();
@@ -39,7 +37,7 @@ namespace Stiem_market
 
         private void StoreTab_Checked(object sender, RoutedEventArgs e)
         {
-            StiemFrame.Navigate(new StorePage(false, authViewModel, gameViewModel));
+            StiemFrame.Navigate(new StorePage(false, authViewModel));
         }
 
         private void LibraryTab_Checked(object sender, RoutedEventArgs e)
