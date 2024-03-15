@@ -1,0 +1,30 @@
+﻿<Window x:Class="Stiem_market.Windows.FriendListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stiem_market.Windows"
+        mc:Ignorable="d" Background="{StaticResource LightGray}"
+        Title="{Binding LoggedUser.Nickname, StringFormat='{}Друзья пользователя {0}'}" Height="600" Width="350" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="{StaticResource TotallyBlack}">
+            <TextBlock Text="Ваши друзья" Style="{StaticResource LargeText}"/>
+        </Border>
+
+        <ListBox x:Name="FriendList" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding FriendsCollection}" ItemContainerStyle="{StaticResource UserList}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 Background="Transparent" BorderThickness="0" Grid.Row="1" MouseDoubleClick="ListBox_MouseDoubleClick">
+        </ListBox>
+        
+        <Popup x:Name="SuccessPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
+            <Border Background="{StaticResource DarkGray}" BorderBrush="White" BorderThickness="1" Padding="3">
+                <TextBlock Text="Успех" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 3 3 0"/>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

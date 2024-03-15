@@ -154,9 +154,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Image x:Name="TemplateImage" Opacity="0.7">
+                        <Image x:Name="TemplateImage" Opacity="0.7" RenderOptions.BitmapScalingMode="Fant">
                             <Image.Source>
-                                <BitmapImage UriSource="/Resources/arrow.png" RenderOptions.BitmapScalingMode="Fant" Rotation="Rotate180"/>
+                                <BitmapImage UriSource="/Resources/arrow.png" Rotation="Rotate180"/>
                             </Image.Source>
                         </Image>
                         <ControlTemplate.Triggers>

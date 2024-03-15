@@ -13,7 +13,6 @@
           <Property Name="User_id" Type="int" />
           <Property Name="RelationType" Type="int" />
           <Property Name="AddDate" Type="date" />
-          <Property Name="CartCost" Type="int" />
         </EntityType>
         <EntityType Name="Devs">
           <Key>
@@ -49,6 +48,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Game_id" Type="int" />
           <Property Name="Cart_id" Type="int" />
+          <Property Name="PurchasedCost" Type="int" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -59,7 +59,6 @@
           <Property Name="Dev_id" Type="int" />
           <Property Name="Cost" Type="int" />
           <Property Name="ImageBin" Type="varbinary(max)" />
-          <Property Name="ImgPath" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GameTags">
           <Key>
@@ -345,7 +344,6 @@
           <Property Name="User_id" Type="Int32" />
           <Property Name="RelationType" Type="Int32" />
           <Property Name="AddDate" Type="DateTime" Precision="0" />
-          <Property Name="CartCost" Type="Int32" />
           <NavigationProperty Name="Users" Relationship="StiemModel.FK_Carts_Users" FromRole="Carts" ToRole="Users" />
           <NavigationProperty Name="UserToGameRelation" Relationship="StiemModel.FK_Carts_UserToGameRelation" FromRole="Carts" ToRole="UserToGameRelation" />
           <NavigationProperty Name="GameInCarts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="Carts" ToRole="GameInCarts" />
@@ -377,6 +375,7 @@
           <Property Name="Cart_id" Type="Int32" />
           <NavigationProperty Name="Carts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="GameInCarts" ToRole="Carts" />
           <NavigationProperty Name="Games" Relationship="StiemModel.FK_UserGames_Games" FromRole="GameInCarts" ToRole="Games" />
+          <Property Name="PurchasedCost" Type="Int32" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -587,7 +586,6 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="StiemModel.Carts">
               <MappingFragment StoreEntitySet="Carts">
-                <ScalarProperty Name="CartCost" ColumnName="CartCost" />
                 <ScalarProperty Name="AddDate" ColumnName="AddDate" />
                 <ScalarProperty Name="RelationType" ColumnName="RelationType" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
@@ -616,6 +614,7 @@
           <EntitySetMapping Name="GameInCarts">
             <EntityTypeMapping TypeName="StiemModel.GameInCarts">
               <MappingFragment StoreEntitySet="GameInCarts">
+                <ScalarProperty Name="PurchasedCost" ColumnName="PurchasedCost" />
                 <ScalarProperty Name="Cart_id" ColumnName="Cart_id" />
                 <ScalarProperty Name="Game_id" ColumnName="Game_id" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

@@ -24,7 +24,6 @@ namespace Stiem_market.Data
         public Nullable<int> User_id { get; set; }
         public Nullable<int> RelationType { get; set; }
         public Nullable<System.DateTime> AddDate { get; set; }
-        public Nullable<int> CartCost { get; set; }
     
         public virtual Users Users { get; set; }
         public virtual UserToGameRelation UserToGameRelation { get; set; }

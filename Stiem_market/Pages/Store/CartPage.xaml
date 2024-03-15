@@ -47,16 +47,18 @@
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                 <Button x:Name="MakeABuyButton" Content="Купить для себя" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyButton_Click"/>
-                <Button x:Name="MakeABuyForFriendButton" Content="Купить для друга" Style="{StaticResource HighlightedElevatedButton}"/>
+                <Button x:Name="MakeABuyForFriendButton" Content="Купить для друга" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyForFriendButton_Click"/>
             </StackPanel>
             <Button x:Name="ShowHistoryButton" Content="История покупок" Style="{StaticResource TextButton}" Opacity="0.7" Click="ShowHistoryButton_Click"/>
         </StackPanel>
 
-        <Popup x:Name="MakeABuyPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
-            <StackPanel Orientation="Vertical" Background="{StaticResource DarkGray}">
-                <TextBlock Text="Недостаточно средств" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 3 3 0"/>
-                <TextBlock Text="{Binding LoggedUser.Balance, StringFormat=Баланс: {0}₽}" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 0 3 3"/>
-            </StackPanel>
+        <Popup x:Name="BalanceUnderCost" IsOpen="False" StaysOpen="False" Placement="Mouse">
+            <Border Background="{StaticResource DarkGray}" BorderBrush="Gray" BorderThickness="1">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Недостаточно средств" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding LoggedUser.Balance, StringFormat=Баланс: {0}₽}" Style="{StaticResource SmallText}" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
         </Popup>
     </Grid>
 </Page>

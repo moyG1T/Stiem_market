@@ -44,9 +44,15 @@ namespace Stiem_market.Pages.Store
             GameList.SelectedItem = null;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Minus_Click(object sender, RoutedEventArgs e)
         {
-            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset + 200);
+            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset - 870);
+            
+        }
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset + 870);
+            
         }
     }
 }

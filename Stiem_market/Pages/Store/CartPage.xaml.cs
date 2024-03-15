@@ -1,7 +1,9 @@
 ﻿using Stiem_market.Data;
 using Stiem_market.ViewModels;
+using Stiem_market.Windows;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +14,8 @@ namespace Stiem_market.Pages.Store
     /// </summary>
     public partial class CartPage : Page
     {
+        private FriendListWindow friendListWindow;
+
         private AuthenticationViewModel authViewModel;
         public CartPage(AuthenticationViewModel _authViewModel)
         {
@@ -34,18 +38,46 @@ namespace Stiem_market.Pages.Store
 
         private void MakeABuyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (authViewModel.CartCost > 0)
+            if (authViewModel.CartCost > authViewModel.LoggedUser.Balance)
             {
-                if (authViewModel.PayCart() == false)
-                {
-                    MakeABuyPopup.IsOpen = true;
-                }
+                BalanceUnderCost.IsOpen = true;
+                return;
             }
+
+            if (authViewModel.CartCost > 0)
+                authViewModel.PayCart(authViewModel.LoggedUser);
         }
 
         private void ShowHistoryButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PurchaseHistoryPage(true, authViewModel));
+        }
+
+        private void MakeABuyForFriendButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (authViewModel.CartCost > authViewModel.LoggedUser.Balance)
+            {
+                BalanceUnderCost.IsOpen = true;
+                return;
+            }
+
+            if (authViewModel.CartCost > 0)
+            {
+                if (friendListWindow == null || !friendListWindow.IsVisible)
+                {
+                    friendListWindow = new FriendListWindow(authViewModel);
+
+                    friendListWindow.Closed += (s, args) =>
+                    {
+                        MakeABuyButton.IsEnabled = true;
+                        MakeABuyForFriendButton.IsEnabled = true;
+                    };
+
+                    friendListWindow.Show();
+                    MakeABuyButton.IsEnabled = false;
+                    MakeABuyForFriendButton.IsEnabled = false;
+                }
+            }
         }
     }
 }

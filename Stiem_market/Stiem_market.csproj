@@ -65,25 +65,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Carts.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Devs.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendsRelations.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\FriendUsers.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameInCarts.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Games.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\GameTags.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\PC7.Context.cs">
       <AutoGen>True</AutoGen>
@@ -101,16 +101,16 @@
       <DependentUpon>PC7.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\sysdiagrams.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Tags.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Users.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\UserToGameRelation.cs">
-      <DependentUpon>PC7.tt</DependentUpon>
+      <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\Authentication\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
@@ -145,11 +145,16 @@
     <Compile Include="Pages\Store\StorePage.xaml.cs">
       <DependentUpon>StorePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\Carts.cs" />
     <Compile Include="PartialClasses\FriendsUsers.cs" />
+    <Compile Include="PartialClasses\TagInfo.cs" />
     <Compile Include="PartialClasses\UserGames.cs" />
     <Compile Include="PartialClasses\Users.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="Windows\FriendListWindow.xaml.cs">
+      <DependentUpon>FriendListWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -218,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Store\StorePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FriendListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
