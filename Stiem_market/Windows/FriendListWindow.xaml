@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:Stiem_market.Windows"
         mc:Ignorable="d" Background="{StaticResource LightGray}"
         Title="{Binding LoggedUser.Nickname, StringFormat='{}Друзья пользователя {0}'}" Height="600" Width="350" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="IsGamesSelectedConverter"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -18,9 +23,9 @@
 
         <ListBox x:Name="FriendList" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding FriendsCollection}" ItemContainerStyle="{StaticResource UserList}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                 Background="Transparent" BorderThickness="0" Grid.Row="1" MouseDoubleClick="ListBox_MouseDoubleClick">
-        </ListBox>
-        
+                 Background="Transparent" BorderThickness="0" Grid.Row="1" MouseDoubleClick="FriendList_MouseDoubleClick"/>
+
+
         <Popup x:Name="SuccessPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
             <Border Background="{StaticResource DarkGray}" BorderBrush="White" BorderThickness="1" Padding="3">
                 <TextBlock Text="Успех" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 3 3 0"/>

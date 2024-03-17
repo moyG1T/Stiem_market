@@ -25,7 +25,6 @@ namespace Stiem_market.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Carts> Carts { get; set; }
         public virtual DbSet<Devs> Devs { get; set; }
         public virtual DbSet<FriendsRelations> FriendsRelations { get; set; }
         public virtual DbSet<GameInCarts> GameInCarts { get; set; }
@@ -36,5 +35,6 @@ namespace Stiem_market.Data
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserToGameRelation> UserToGameRelation { get; set; }
         public virtual DbSet<FriendUsers> FriendUsers { get; set; }
+        public virtual DbSet<Carts> Carts { get; set; }
     }
 }

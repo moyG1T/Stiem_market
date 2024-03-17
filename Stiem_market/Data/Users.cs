@@ -17,9 +17,10 @@ namespace Stiem_market.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.Carts = new HashSet<Carts>();
             this.FriendUsers = new HashSet<FriendUsers>();
             this.FriendUsers1 = new HashSet<FriendUsers>();
+            this.Carts = new HashSet<Carts>();
+            this.Carts1 = new HashSet<Carts>();
         }
     
         //public int ID { get; set; }
@@ -33,10 +34,12 @@ namespace Stiem_market.Data
         //public int Balance { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carts> Carts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FriendUsers> FriendUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FriendUsers> FriendUsers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carts> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carts> Carts1 { get; set; }
     }
 }

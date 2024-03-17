@@ -23,18 +23,22 @@
         <ListBox x:Name="CartListBox" ItemsSource="{Binding CartCollection}" Background="Transparent" BorderThickness="0" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Height="100">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="65"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="20*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <Border Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="4" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
-                        <Image Source="{Binding Games.ImageBin}" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
-                        <DockPanel Grid.Column="2">
-                            <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left" DockPanel.Dock="Left"></TextBlock>
+                        <Border Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="5" Width="Auto" Height="Auto" CornerRadius="10" Padding="5"/>
+                        <Image Source="{Binding Games.ImageBin}" Stretch="UniformToFill" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Height="80"/>
+                        <DockPanel Grid.Column="3">
+                            <DockPanel VerticalAlignment="Stretch" Height="60">
+                                <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+                                <Button x:Name="MakeABuyForFriendButton" Content="Купить для друга" Margin="-10 0 -10 0" Style="{StaticResource HighlightedElevatedButton}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Click="MakeABuyForFriendButton_Click"/>
+                            </DockPanel>
                             <Button x:Name="RemoveFromCartButton" Style="{StaticResource CancelButton}" Click="RemoveFromCartButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding Games.Cost, StringFormat={}{0}₽}" Style="{StaticResource MediumText}" Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right"></TextBlock>
                         </DockPanel>
@@ -45,10 +49,7 @@
         <TextBlock Text="{Binding CartCost, StringFormat= Сумма к оплате: {0}₽}" Style="{StaticResource LargeText}" FontSize="16" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                <Button x:Name="MakeABuyButton" Content="Купить для себя" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyButton_Click"/>
-                <Button x:Name="MakeABuyForFriendButton" Content="Купить для друга" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyForFriendButton_Click"/>
-            </StackPanel>
+            <Button x:Name="MakeABuyButton" Content="Купить для себя" Style="{StaticResource HighlightedElevatedButton}" Click="MakeABuyButton_Click"/>
             <Button x:Name="ShowHistoryButton" Content="История покупок" Style="{StaticResource TextButton}" Opacity="0.7" Click="ShowHistoryButton_Click"/>
         </StackPanel>
 

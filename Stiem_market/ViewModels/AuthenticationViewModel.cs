@@ -164,7 +164,7 @@ namespace Stiem_market.ViewModels
         public void UpdateUserGames()
         {
             List<GameInCarts> gameInCarts = App.db.GameInCarts.
-                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && c.RelationType == 2)).ToList();
+                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.Purchaser_id == LoggedUser.ID && c.RelationType == 2)).ToList();
 
             CartCounter = gameInCarts.Count();
             IsCartEmpty = CartCounter != 0;
@@ -177,10 +177,10 @@ namespace Stiem_market.ViewModels
             CartCollection = gameInCarts;
 
             LibraryCollection = App.db.GameInCarts.
-                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.User_id == LoggedUser.ID && (c.RelationType == 3 || c.RelationType == 4))).ToList();
+                Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.Owner_id == LoggedUser.ID && (c.RelationType == 3 || c.RelationType == 4))).ToList();
             HasGames = !(LibraryCollection.Count() > 0);
 
-            HistoryCollection = App.db.Carts.Where(h => h.User_id == LoggedUser.ID && (h.RelationType == 3 || h.RelationType == 4 || h.RelationType == 5)).OrderByDescending(x => x.ID).ToList();
+            HistoryCollection = App.db.Carts.Where(h => h.Purchaser_id == LoggedUser.ID || h.Owner_id == LoggedUser.ID && (h.RelationType == 3 || h.RelationType == 4)).OrderByDescending(x => x.ID).ToList();
 
             FavoriteTags = App.db.Users.Where(u => u.ID == LoggedUser.ID)
                                        .SelectMany(u => u.Carts.Where(с => с.RelationType == 3))
@@ -194,39 +194,23 @@ namespace Stiem_market.ViewModels
 
         public void PayCart(Users user)
         {
+            Carts cart = App.db.Carts.Where(c => c.Purchaser_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
             // Покупка себе
             if (user.ID == LoggedUser.ID)
             {
-                Carts cart = App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
-
                 cart.RelationType = 3;
-                cart.AddDate = DateTime.Now;
-
-                App.db.GameInCarts.ToList().ForEach(gic => gic.PurchasedCost = gic.Games.Cost);
+                cart.Owner_id = user.ID;
             }
             // Покупка в подарок
             else
             {
-                // Проверка, что у друга есть запись
-                if (App.db.Carts.Where(c => c.User_id == user.ID).FirstOrDefault() == null)
-                {
-                    App.db.Carts.Add(new Carts
-                    {
-                        User_id = user.ID,
-                        RelationType = 4,
-                        AddDate = DateTime.Now,
-                    });
-                }
-                else
-                {
-                    App.db.Carts.Where(c => c.User_id == user.ID).FirstOrDefault().RelationType = 4;
-                    App.db.Carts.Where(c => c.User_id == user.ID).FirstOrDefault().AddDate = DateTime.Now;
-                }
-
-                App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().RelationType = 5;
-                App.db.Carts.Where(c => c.User_id == LoggedUser.ID && c.RelationType == 2).FirstOrDefault().AddDate = DateTime.Now;
+                cart.RelationType = 4;
+                cart.Owner_id = user.ID;
             }
+            cart.AddDate = DateTime.Now;
 
+            // Консервация цен продуктов при покупке
+            App.db.GameInCarts.ToList().ForEach(gic => gic.PurchasedCost = gic.Games.Cost);
 
             LoggedUser.Balance -= CartCost;
 

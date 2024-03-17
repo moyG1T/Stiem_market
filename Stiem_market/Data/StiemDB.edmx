@@ -10,7 +10,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="User_id" Type="int" />
+          <Property Name="Owner_id" Type="int" />
+          <Property Name="Purchaser_id" Type="int" />
           <Property Name="RelationType" Type="int" />
           <Property Name="AddDate" Type="date" />
         </EntityType>
@@ -106,7 +107,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Titile" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK_Carts_Users">
+        <Association Name="FK_Carts_Users1">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -114,7 +115,19 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Carts">
-              <PropertyRef Name="User_id" />
+              <PropertyRef Name="Owner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Users2">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="Purchaser_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -238,7 +251,11 @@
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserToGameRelation" EntityType="Self.UserToGameRelation" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Carts_Users" Association="Self.FK_Carts_Users">
+          <AssociationSet Name="FK_Carts_Users1" Association="Self.FK_Carts_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Users2" Association="Self.FK_Carts_Users2">
             <End Role="Users" EntitySet="Users" />
             <End Role="Carts" EntitySet="Carts" />
           </AssociationSet>
@@ -284,7 +301,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="StiemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="StiemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Carts" EntityType="StiemModel.Carts" />
           <EntitySet Name="Devs" EntityType="StiemModel.Devs" />
           <EntitySet Name="FriendsRelations" EntityType="StiemModel.FriendsRelations" />
           <EntitySet Name="GameInCarts" EntityType="StiemModel.GameInCarts" />
@@ -294,18 +310,6 @@
           <EntitySet Name="Tags" EntityType="StiemModel.Tags" />
           <EntitySet Name="Users" EntityType="StiemModel.Users" />
           <EntitySet Name="UserToGameRelation" EntityType="StiemModel.UserToGameRelation" />
-          <AssociationSet Name="FK_Carts_Users" Association="StiemModel.FK_Carts_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Carts" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carts_UserToGameRelation" Association="StiemModel.FK_Carts_UserToGameRelation">
-            <End Role="UserToGameRelation" EntitySet="UserToGameRelation" />
-            <End Role="Carts" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserGames_Carts" Association="StiemModel.FK_UserGames_Carts">
-            <End Role="Carts" EntitySet="Carts" />
-            <End Role="GameInCarts" EntitySet="GameInCarts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Games_Devs" Association="StiemModel.FK_Games_Devs">
             <End Role="Devs" EntitySet="Devs" />
             <End Role="Games" EntitySet="Games" />
@@ -335,19 +339,24 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="FriendUsers" EntitySet="FriendUsers" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Carts">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_id" Type="Int32" />
-          <Property Name="RelationType" Type="Int32" />
-          <Property Name="AddDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Users" Relationship="StiemModel.FK_Carts_Users" FromRole="Carts" ToRole="Users" />
-          <NavigationProperty Name="UserToGameRelation" Relationship="StiemModel.FK_Carts_UserToGameRelation" FromRole="Carts" ToRole="UserToGameRelation" />
-          <NavigationProperty Name="GameInCarts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="Carts" ToRole="GameInCarts" />
-        </EntityType>
+          <EntitySet Name="Carts" EntityType="StiemModel.Carts" />
+          <AssociationSet Name="FK_Carts_Users1" Association="StiemModel.FK_Carts_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_Users2" Association="StiemModel.FK_Carts_Users2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carts_UserToGameRelation" Association="StiemModel.FK_Carts_UserToGameRelation">
+            <End Role="UserToGameRelation" EntitySet="UserToGameRelation" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserGames_Carts" Association="StiemModel.FK_UserGames_Carts">
+            <End Role="Carts" EntitySet="Carts" />
+            <End Role="GameInCarts" EntitySet="GameInCarts" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Devs">
           <Key>
             <PropertyRef Name="ID" />
@@ -373,9 +382,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Game_id" Type="Int32" />
           <Property Name="Cart_id" Type="Int32" />
-          <NavigationProperty Name="Carts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="GameInCarts" ToRole="Carts" />
           <NavigationProperty Name="Games" Relationship="StiemModel.FK_UserGames_Games" FromRole="GameInCarts" ToRole="Games" />
           <Property Name="PurchasedCost" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="GameInCarts" ToRole="Carts" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -431,9 +440,10 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Balance" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carts" Relationship="StiemModel.FK_Carts_Users" FromRole="Users" ToRole="Carts" />
           <NavigationProperty Name="FriendUsers" Relationship="StiemModel.FK_FriendUsers_Users" FromRole="Users" ToRole="FriendUsers" />
           <NavigationProperty Name="FriendUsers1" Relationship="StiemModel.FK_FriendUsers_Users1" FromRole="Users" ToRole="FriendUsers" />
+          <NavigationProperty Name="Carts" Relationship="StiemModel.FK_Carts_Users1" FromRole="Users" ToRole="Carts" />
+          <NavigationProperty Name="Carts1" Relationship="StiemModel.FK_Carts_Users2" FromRole="Users" ToRole="Carts" />
           </EntityType>
         <EntityType Name="UserToGameRelation">
           <Key>
@@ -443,42 +453,6 @@
           <Property Name="Titile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Carts" Relationship="StiemModel.FK_Carts_UserToGameRelation" FromRole="UserToGameRelation" ToRole="Carts" />
         </EntityType>
-        <Association Name="FK_Carts_Users">
-          <End Type="StiemModel.Users" Role="Users" Multiplicity="0..1" />
-          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Carts">
-              <PropertyRef Name="User_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carts_UserToGameRelation">
-          <End Type="StiemModel.UserToGameRelation" Role="UserToGameRelation" Multiplicity="0..1" />
-          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserToGameRelation">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Carts">
-              <PropertyRef Name="RelationType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserGames_Carts">
-          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="0..1" />
-          <End Type="StiemModel.GameInCarts" Role="GameInCarts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Carts">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GameInCarts">
-              <PropertyRef Name="Cart_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Games_Devs">
           <End Type="StiemModel.Devs" Role="Devs" Multiplicity="0..1" />
           <End Type="StiemModel.Games" Role="Games" Multiplicity="*" />
@@ -577,22 +551,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Owner_id" Type="Int32" />
+          <Property Name="Purchaser_id" Type="Int32" />
+          <Property Name="RelationType" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Users" Relationship="StiemModel.FK_Carts_Users1" FromRole="Carts" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="StiemModel.FK_Carts_Users2" FromRole="Carts" ToRole="Users" />
+          <NavigationProperty Name="UserToGameRelation" Relationship="StiemModel.FK_Carts_UserToGameRelation" FromRole="Carts" ToRole="UserToGameRelation" />
+          <NavigationProperty Name="GameInCarts" Relationship="StiemModel.FK_UserGames_Carts" FromRole="Carts" ToRole="GameInCarts" />
+        </EntityType>
+        <Association Name="FK_Carts_Users1">
+          <End Type="StiemModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="Owner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_Users2">
+          <End Type="StiemModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="Purchaser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carts_UserToGameRelation">
+          <End Type="StiemModel.UserToGameRelation" Role="UserToGameRelation" Multiplicity="0..1" />
+          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserToGameRelation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="RelationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGames_Carts">
+          <End Type="StiemModel.Carts" Role="Carts" Multiplicity="0..1" />
+          <End Type="StiemModel.GameInCarts" Role="GameInCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameInCarts">
+              <PropertyRef Name="Cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище StiemModelContainer" CdmEntityContainer="StiemEntities">
-          <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="StiemModel.Carts">
-              <MappingFragment StoreEntitySet="Carts">
-                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
-                <ScalarProperty Name="RelationType" ColumnName="RelationType" />
-                <ScalarProperty Name="User_id" ColumnName="User_id" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Devs">
             <EntityTypeMapping TypeName="StiemModel.Devs">
               <MappingFragment StoreEntitySet="Devs">
@@ -691,6 +717,17 @@
                 <ScalarProperty Name="RelationType" ColumnName="RelationType" />
                 <ScalarProperty Name="Friend_id" ColumnName="Friend_id" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="StiemModel.Carts">
+              <MappingFragment StoreEntitySet="Carts">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="RelationType" ColumnName="RelationType" />
+                <ScalarProperty Name="Purchaser_id" ColumnName="Purchaser_id" />
+                <ScalarProperty Name="Owner_id" ColumnName="Owner_id" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

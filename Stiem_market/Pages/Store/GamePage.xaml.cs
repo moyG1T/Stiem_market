@@ -63,16 +63,16 @@ namespace Stiem_market.Pages.Store
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            Carts cart = App.db.Carts.Where(c => c.User_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
+            Carts cart = App.db.Carts.Where(c => c.Purchaser_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
             if (cart == null)
             {
                 App.db.Carts.Add(new Carts()
                 {
-                    User_id = authViewModel.LoggedUser.ID,
+                    Purchaser_id = authViewModel.LoggedUser.ID,
                     RelationType = 2,
                 });
                 App.db.SaveChanges();
-                cart = App.db.Carts.Where(c => c.User_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
+                cart = App.db.Carts.Where(c => c.Purchaser_id == authViewModel.LoggedUser.ID && c.RelationType == 2).FirstOrDefault();
             }
 
             App.db.GameInCarts.Add(new GameInCarts()

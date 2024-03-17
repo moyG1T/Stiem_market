@@ -353,23 +353,24 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <ContentPresenter Content="{TemplateBinding Content}">
-                            <ContentPresenter.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="65"></ColumnDefinition>
-                                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                                            <ColumnDefinition Width="20*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="20*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                                        <Border Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="3" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
-                                        <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
-                                        <TextBlock Text="{Binding Nickname}" Grid.Column="2" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                                    </Grid>
-                                </DataTemplate>
-                            </ContentPresenter.ContentTemplate>
-                        </ContentPresenter>
+                            <Border x:Name="TemplateBorder" Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="3" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
+                            <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
+                            <TextBlock Text="{Binding Nickname}" Grid.Column="2" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -379,17 +380,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <ContentPresenter Content="{TemplateBinding Content}">
-                            <ContentPresenter.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="5">
-                                        <Image Source="{Binding ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
-                                        <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
-                                        <TextBlock Text="{Binding Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ContentPresenter.ContentTemplate>
-                        </ContentPresenter>
+                        <Grid Margin="5">
+                            <Image Source="{Binding ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
+                            <Border x:Name="TemplateBorder" Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -399,17 +401,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <ContentPresenter Content="{TemplateBinding Content}">
-                            <ContentPresenter.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="5">
-                                        <Image Source="{Binding Games.ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
-                                        <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
-                                        <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ContentPresenter.ContentTemplate>
-                        </ContentPresenter>
+                        <Grid Margin="5">
+                            <Image Source="{Binding Games.ImageBin}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto" Height="100"/>
+                            <Border x:Name="TemplateBorder" Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
+                            <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

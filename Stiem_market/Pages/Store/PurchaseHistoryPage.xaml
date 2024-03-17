@@ -36,7 +36,7 @@
                     <Border Background="{StaticResource TotallyBlack}" Width="Auto" Height="Auto" Padding="10" Margin="0 5 0 0" CornerRadius="15">
                         <DockPanel>
                             <TextBlock Text="{Binding AddDate, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru}" DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
-                            <TextBlock Text="{Binding CartCost, StringFormat= {}{0}₽}" Style="{StaticResource MediumText}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                            <TextBlock Text="{Binding CartCost}" Style="{StaticResource MediumText}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                             
                             <ListBox ItemsSource="{Binding GameInCarts}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10 0 10 0"
                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  

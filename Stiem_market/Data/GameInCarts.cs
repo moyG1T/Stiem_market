@@ -19,7 +19,7 @@ namespace Stiem_market.Data
         public Nullable<int> Cart_id { get; set; }
         public Nullable<int> PurchasedCost { get; set; }
     
-        public virtual Carts Carts { get; set; }
         public virtual Games Games { get; set; }
+        public virtual Carts Carts { get; set; }
     }
 }

@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5896d39ce76d449b9ceed9522cc99176" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="StiemModel.Carts" Width="1.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="StiemModel.Devs" Width="1.5" PointX="0.75" PointY="8.375" />
         <EntityTypeShape EntityType="StiemModel.FriendsRelations" Width="1.5" PointX="3.75" PointY="11.75" />
         <EntityTypeShape EntityType="StiemModel.GameInCarts" Width="1.5" PointX="5.25" PointY="1.5" />
@@ -15,9 +14,6 @@
         <EntityTypeShape EntityType="StiemModel.Tags" Width="1.5" PointX="6.75" PointY="11" />
         <EntityTypeShape EntityType="StiemModel.Users" Width="1.5" PointX="0.75" PointY="3.875" />
         <EntityTypeShape EntityType="StiemModel.UserToGameRelation" Width="1.5" PointX="0.75" PointY="0.75" />
-        <AssociationConnector Association="StiemModel.FK_Carts_Users" />
-        <AssociationConnector Association="StiemModel.FK_Carts_UserToGameRelation" />
-        <AssociationConnector Association="StiemModel.FK_UserGames_Carts" />
         <AssociationConnector Association="StiemModel.FK_Games_Devs" />
         <AssociationConnector Association="StiemModel.FK_UserGames_Games" />
         <AssociationConnector Association="StiemModel.FK_GameTags_Games" />
@@ -26,6 +22,11 @@
         <AssociationConnector Association="StiemModel.FK_FriendUsers_FriendsRelations" />
         <AssociationConnector Association="StiemModel.FK_FriendUsers_Users" />
         <AssociationConnector Association="StiemModel.FK_FriendUsers_Users1" />
+        <EntityTypeShape EntityType="StiemModel.Carts" Width="1.5" PointX="3" PointY="2.75" />
+        <AssociationConnector Association="StiemModel.FK_Carts_Users1" />
+        <AssociationConnector Association="StiemModel.FK_Carts_Users2" />
+        <AssociationConnector Association="StiemModel.FK_Carts_UserToGameRelation" />
+        <AssociationConnector Association="StiemModel.FK_UserGames_Carts" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
