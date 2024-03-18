@@ -8,27 +8,66 @@
         Title="{Binding LoggedUser.Nickname, StringFormat='{}Друзья пользователя {0}'}" Height="600" Width="350" ResizeMode="NoResize">
 
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="IsGamesSelectedConverter"/>
+        <Style TargetType="ListBoxItem" x:Key="SelectingFriendToGift">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border x:Name="TemplateBorder" Background="{StaticResource TotallyBlack}" Grid.ColumnSpan="4" Width="Auto" Height="75" CornerRadius="10" Margin="5" Padding="5"></Border>
+                            <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" Height="40"></Image>
+                            <TextBlock Text="{Binding Nickname}" Grid.Column="2" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <Border Background="{StaticResource TotallyBlack}">
             <TextBlock Text="Ваши друзья" Style="{StaticResource LargeText}"/>
         </Border>
+        <Border Grid.Row="2" Background="{StaticResource TotallyBlack}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Подтверждаю покупку" Margin="0 0 10 0"/>
+                <CheckBox x:Name="Confirmed" IsChecked="False" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
 
-        <ListBox x:Name="FriendList" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding FriendsCollection}" ItemContainerStyle="{StaticResource UserList}"
+        <ListBox x:Name="FriendList" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding FriendsCollection}" ItemContainerStyle="{StaticResource SelectingFriendToGift}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  Background="Transparent" BorderThickness="0" Grid.Row="1" MouseDoubleClick="FriendList_MouseDoubleClick"/>
 
 
-        <Popup x:Name="SuccessPopup" IsOpen="False" StaysOpen="False" Placement="Mouse">
+        <Popup x:Name="NeedToConfirm" IsOpen="False" StaysOpen="False" Placement="Mouse">
             <Border Background="{StaticResource DarkGray}" BorderBrush="White" BorderThickness="1" Padding="3">
-                <TextBlock Text="Успех" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3 3 3 0"/>
+                <TextBlock Text="Подтвердите покупку" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3"/>
+            </Border>
+        </Popup>
+        
+        <Popup x:Name="FriendHasItAlready" IsOpen="False" StaysOpen="False" Placement="Mouse">
+            <Border Background="{StaticResource DarkGray}" BorderBrush="White" BorderThickness="1" Padding="3">
+                <TextBlock Text="У друга уже есть этот товар" Style="{StaticResource SmallText}" HorizontalAlignment="Left" Padding="3"/>
             </Border>
         </Popup>
     </Grid>

@@ -23,7 +23,7 @@
         <ListBox x:Name="CartListBox" ItemsSource="{Binding CartCollection}" Background="Transparent" BorderThickness="0" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="100">
+                    <Grid Height="100" Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"></ColumnDefinition>
                             <ColumnDefinition Width="80"></ColumnDefinition>

@@ -23,6 +23,7 @@ namespace Stiem_market.Pages.Store
     /// </summary>
     public partial class GamePage : Page
     {
+        private StringBuilder stringBuilder;
         private bool canNavigateBack;
         private GameViewModel gameViewModel;
         private AuthenticationViewModel authViewModel;
@@ -37,19 +38,25 @@ namespace Stiem_market.Pages.Store
 
             DataContext = gameViewModel;
 
+            stringBuilder = new StringBuilder();
+            GetInfoText();
+        }
+
+        private void GetInfoText()
+        {
             if (gameViewModel.SelectedGame != null)
             {
+                stringBuilder.Clear();
                 if (authViewModel.LibraryCollection.Any(x => x.Game_id == gameViewModel.SelectedGame.ID))
                 {
-                    InfoText.Text = "Товар в библиотеке";
-                    AddToCart.IsEnabled = false;
+                    stringBuilder.AppendLine("Товар в библиотеке");
                 }
-                else if (authViewModel.CartCollection.Any(x => x.Game_id == gameViewModel.SelectedGame.ID))
+                if (authViewModel.CartCollection.Any(x => x.Game_id == gameViewModel.SelectedGame.ID))
                 {
-                    InfoText.Text = "Товар в корзине";
-                    AddToCart.IsEnabled = false;
+                    stringBuilder.AppendLine("Товар в корзине");
                 }
             }
+            InfoText.Text = stringBuilder.ToString();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -84,8 +91,7 @@ namespace Stiem_market.Pages.Store
             authViewModel.UpdateUserGames();
 
             CartPopup.IsOpen = true;
-            InfoText.Text = "Товар в корзине";
-            AddToCart.IsEnabled = false;
+            GetInfoText();
         }
     }
 }
