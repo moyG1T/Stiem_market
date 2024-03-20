@@ -24,6 +24,8 @@ namespace Stiem_market.Pages.Store
 
             DataContext = authViewModel;
             CartListBox.DataContext = authViewModel;
+
+
         }
 
 

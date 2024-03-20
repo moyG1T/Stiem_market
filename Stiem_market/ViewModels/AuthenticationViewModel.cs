@@ -120,6 +120,8 @@ namespace Stiem_market.ViewModels
                 if (value <= 0)
                     cartCounter = 0;
 
+                IsCartEmpty = value != 0;
+
                 cartCounter = value;
                 OnPropertyChanged(nameof(CartCounter));
             }
@@ -156,8 +158,23 @@ namespace Stiem_market.ViewModels
             get => cartCollection;
             set
             {
+                value.ToList().ForEach(game => game.InLibrary = LibraryCollection.Any(l => l.Game_id == game.Game_id));
+
+                HasDuplicates = !(value.Any(c => c.InLibrary == true) || value.GroupBy(c => c.Game_id).Any(c => c.Count() > 1));
+
                 cartCollection = value;
                 OnPropertyChanged(nameof(CartCollection));
+            }
+        }
+
+        private bool hasDuplicates;
+        public bool HasDuplicates
+        {
+            get => hasDuplicates;
+            private set
+            {
+                hasDuplicates = value;
+                OnPropertyChanged(nameof(HasDuplicates));
             }
         }
 
@@ -167,18 +184,12 @@ namespace Stiem_market.ViewModels
                 Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.Purchaser_id == LoggedUser.ID && c.RelationType == 2)).ToList();
 
             CartCounter = gameInCarts.Count();
-            IsCartEmpty = CartCounter != 0;
-
-            int sum = 0;
-            foreach (var item in gameInCarts)
-                sum += item.Games.Cost ?? 0;
-            CartCost = sum;
-
-            CartCollection = gameInCarts;
+            CartCost = gameInCarts.Sum(s => s.Games.Cost ?? 0);
 
             LibraryCollection = App.db.GameInCarts.
                 Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.Owner_id == LoggedUser.ID && (c.RelationType == 3 || c.RelationType == 5))).ToList();
-            HasGames = !(LibraryCollection.Count() > 0);
+
+            CartCollection = gameInCarts;
 
             HistoryCollection = App.db.Carts.Where(h => (h.Purchaser_id == LoggedUser.ID || h.Owner_id == LoggedUser.ID) && (h.RelationType == 3 || h.RelationType == 5)).OrderByDescending(x => x.ID).ToList();
 
@@ -230,6 +241,7 @@ namespace Stiem_market.ViewModels
             get => libraryCollection;
             set
             {
+                HasGames = value.Count() == 0;
                 libraryCollection = value;
                 OnPropertyChanged(nameof(LibraryCollection));
             }

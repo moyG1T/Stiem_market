@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="PartialClasses\Carts.cs" />
     <Compile Include="PartialClasses\FriendsUsers.cs" />
+    <Compile Include="PartialClasses\GameInCarts.cs" />
     <Compile Include="PartialClasses\TagInfo.cs" />
     <Compile Include="PartialClasses\UserGames.cs" />
     <Compile Include="PartialClasses\Users.cs" />
