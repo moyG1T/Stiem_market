@@ -13,6 +13,7 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="5*"/>
+            <RowDefinition Height="110"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -29,31 +30,39 @@
 
         <Rectangle Fill="White" Opacity="0.1" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="5"/>
 
-        <Image x:Name="GameImage" Stretch="UniformToFill" Source="{Binding SelectedGame.ImageBin}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="3"/>
+        <Image x:Name="GameImage" Stretch="UniformToFill" Source="{Binding SelectedGame.ImageShowcase}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="3"/>
 
         <Button x:Name="BackButton" Style="{StaticResource BackwardButton}" Grid.Row="1" Grid.Column="2" Width="50" Height="50" VerticalAlignment="Top" Click="BackButton_Click"></Button>
 
-        <DockPanel Grid.Column="4" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0 10 0 0">
-            <ListBox Background="{StaticResource DarkGray}" Grid.Column="4" Grid.Row="3" Height="100" DockPanel.Dock="Top">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <ListBox x:Name="ShowcaseList" ItemsSource="{Binding SelectedGame.GameShowcase}" 
+                     Background="Transparent" Grid.Column="4" Grid.Row="3"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="GameSelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="75" Height="75" Margin="5 5 0 5" Background="{StaticResource DarkGray}">
+                        <Image Source="{Binding Image}" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <TextBlock Text="{Binding SelectedGame.Title}" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
-                <TextBlock Text="{Binding SelectedGame.Devs.Title}" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding SelectedGame.Cost, StringFormat={}{0}₽}" HorizontalAlignment="Right" Style="{StaticResource MediumText}"/>
-                <Button x:Name="AddToCart"  Content="Купить" HorizontalAlignment="Right" Style="{StaticResource ElevatedButton}" Click="AddToCart_Click"/>
-                <TextBlock x:Name="InfoText" HorizontalAlignment="Right" Style="{StaticResource MediumText}" Opacity="0.7"/>
-                <Popup x:Name="CartPopup" StaysOpen="False" Placement="Mouse">
-                    <TextBlock x:Name="PopupText" Text="Добавлено в корзину" Style="{StaticResource SmallText}" Background="{StaticResource DarkGray}" Padding="3"></TextBlock>
-                </Popup>
-            </StackPanel>
-        </DockPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Grid.Column="4">
+            <TextBlock Text="{Binding SelectedGame.Title}" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
+            <TextBlock Text="{Binding SelectedGame.Devs.Title}" HorizontalAlignment="Left" Style="{StaticResource MediumText}"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="4">
+            <TextBlock Text="{Binding SelectedGame.Cost, StringFormat={}{0}₽}" HorizontalAlignment="Right" Style="{StaticResource MediumText}"/>
+            <Button x:Name="AddToCart"  Content="Купить" HorizontalAlignment="Right" Style="{StaticResource ElevatedButton}" Click="AddToCart_Click"/>
+            <TextBlock x:Name="InfoText" HorizontalAlignment="Right" Style="{StaticResource MediumText}" Opacity="0.7"/>
+            <Popup x:Name="CartPopup" StaysOpen="False" Placement="Mouse">
+                <TextBlock x:Name="PopupText" Text="Добавлено в корзину" Style="{StaticResource SmallText}" Background="{StaticResource DarkGray}" Padding="3"></TextBlock>
+            </Popup>
+        </StackPanel>
     </Grid>
 </Page>

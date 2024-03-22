@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using Stiem_market;
 using Stiem_market.Data;
 using Stiem_market.PartialClasses;

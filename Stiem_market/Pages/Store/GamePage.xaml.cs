@@ -64,6 +64,7 @@ namespace Stiem_market.Pages.Store
             if (canNavigateBack)
             {
                 NavigationService.GoBack();
+                gameViewModel.SelectedGame.ImageShowcase = null;
                 gameViewModel.SelectedGame = new Games();
             }
         }
@@ -92,6 +93,14 @@ namespace Stiem_market.Pages.Store
 
             CartPopup.IsOpen = true;
             GetInfoText();
+        }
+
+        private void GameSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                gameViewModel.SelectedGame.ImageShowcase = ((GameShowcase)e.AddedItems[0]).Image;
+            }
         }
     }
 }

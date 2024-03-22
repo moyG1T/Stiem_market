@@ -82,6 +82,9 @@
     <Compile Include="Data\Games.cs">
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\GameShowcase.cs">
+      <DependentUpon>StiemDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\GameTags.cs">
       <DependentUpon>StiemDB.tt</DependentUpon>
     </Compile>
@@ -148,6 +151,7 @@
     <Compile Include="PartialClasses\Carts.cs" />
     <Compile Include="PartialClasses\FriendsUsers.cs" />
     <Compile Include="PartialClasses\GameInCarts.cs" />
+    <Compile Include="PartialClasses\Games.cs" />
     <Compile Include="PartialClasses\TagInfo.cs" />
     <Compile Include="PartialClasses\UserGames.cs" />
     <Compile Include="PartialClasses\Users.cs" />

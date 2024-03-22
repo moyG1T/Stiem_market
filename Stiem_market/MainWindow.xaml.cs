@@ -10,6 +10,7 @@ using Stiem_market.Pages.Friend;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Stiem_market
 {
@@ -28,6 +29,9 @@ namespace Stiem_market
             DataContext = authViewModel;
             CartButton.DataContext = authViewModel;
             //Properties.Settings.Default.Reset();
+
+            //App.db.GameShowcase.Where(x => x.Game_id == 1).FirstOrDefault().Image = File.ReadAllBytes(@"C:\Users\Welcome\source\repos\Stiem_market\Stiem_market\Resources\sussy.png");
+            //App.db.SaveChanges();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

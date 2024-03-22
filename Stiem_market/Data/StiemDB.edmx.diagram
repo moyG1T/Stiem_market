@@ -27,6 +27,8 @@
         <AssociationConnector Association="StiemModel.FK_Carts_Users2" />
         <AssociationConnector Association="StiemModel.FK_Carts_UserToGameRelation" />
         <AssociationConnector Association="StiemModel.FK_UserGames_Carts" />
+        <EntityTypeShape EntityType="StiemModel.GameShowcase" Width="1.5" PointX="5.25" PointY="14.5" />
+        <AssociationConnector Association="StiemModel.FK_GameShowcase_Games" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

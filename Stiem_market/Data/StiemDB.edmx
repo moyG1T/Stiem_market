@@ -61,6 +61,14 @@
           <Property Name="Cost" Type="int" />
           <Property Name="ImageBin" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="GameShowcase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Game_id" Type="int" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="GameTags">
           <Key>
             <PropertyRef Name="ID" />
@@ -191,6 +199,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GameShowcase_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
+          <End Role="GameShowcase" Type="Self.GameShowcase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameShowcase">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GameTags_Games">
           <End Role="Games" Type="Self.Games" Multiplicity="0..1" />
           <End Role="GameTags" Type="Self.GameTags" Multiplicity="*" />
@@ -246,6 +266,7 @@
           <EntitySet Name="FriendUsers" EntityType="Self.FriendUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GameInCarts" EntityType="Self.GameInCarts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameShowcase" EntityType="Self.GameShowcase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GameTags" EntityType="Self.GameTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
@@ -278,6 +299,10 @@
           <AssociationSet Name="FK_Games_Devs" Association="Self.FK_Games_Devs">
             <End Role="Devs" EntitySet="Devs" />
             <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GameShowcase_Games" Association="Self.FK_GameShowcase_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameShowcase" EntitySet="GameShowcase" />
           </AssociationSet>
           <AssociationSet Name="FK_GameTags_Games" Association="Self.FK_GameTags_Games">
             <End Role="Games" EntitySet="Games" />
@@ -356,6 +381,11 @@
             <End Role="Carts" EntitySet="Carts" />
             <End Role="GameInCarts" EntitySet="GameInCarts" />
           </AssociationSet>
+          <EntitySet Name="GameShowcase" EntityType="StiemModel.GameShowcase" />
+          <AssociationSet Name="FK_GameShowcase_Games" Association="StiemModel.FK_GameShowcase_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="GameShowcase" EntitySet="GameShowcase" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Devs">
           <Key>
@@ -398,6 +428,7 @@
           <NavigationProperty Name="Devs" Relationship="StiemModel.FK_Games_Devs" FromRole="Games" ToRole="Devs" />
           <NavigationProperty Name="GameInCarts" Relationship="StiemModel.FK_UserGames_Games" FromRole="Games" ToRole="GameInCarts" />
           <NavigationProperty Name="GameTags" Relationship="StiemModel.FK_GameTags_Games" FromRole="Games" ToRole="GameTags" />
+          <NavigationProperty Name="GameShowcase" Relationship="StiemModel.FK_GameShowcase_Games" FromRole="Games" ToRole="GameShowcase" />
         </EntityType>
         <EntityType Name="GameTags">
           <Key>
@@ -613,6 +644,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GameShowcase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Game_id" Type="Int32" />
+          <NavigationProperty Name="Games" Relationship="StiemModel.FK_GameShowcase_Games" FromRole="GameShowcase" ToRole="Games" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_GameShowcase_Games">
+          <End Type="StiemModel.Games" Role="Games" Multiplicity="0..1" />
+          <End Type="StiemModel.GameShowcase" Role="GameShowcase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GameShowcase">
+              <PropertyRef Name="Game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -728,6 +780,15 @@
                 <ScalarProperty Name="RelationType" ColumnName="RelationType" />
                 <ScalarProperty Name="Purchaser_id" ColumnName="Purchaser_id" />
                 <ScalarProperty Name="Owner_id" ColumnName="Owner_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameShowcase">
+            <EntityTypeMapping TypeName="StiemModel.GameShowcase">
+              <MappingFragment StoreEntitySet="GameShowcase">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Game_id" ColumnName="Game_id" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
