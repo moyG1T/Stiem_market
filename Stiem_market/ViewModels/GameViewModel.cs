@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -12,20 +14,39 @@ namespace Stiem.ViewModels
 {
     public class GameViewModel : INotifyPropertyChanged
     {
+        private List<Tags> freeTags;
+        private List<Tags> exceptedTags;
+        private Random random;
         public GameViewModel(List<TagInfo> favTags)
         {
             Games = App.db.Games.ToList();
 
-            if (favTags.Count() > 0)
-            {
-                FavoriteTag = favTags.ElementAt(0).Title;
-                TopFavoriteGames =
-                    new ObservableCollection<Games>(Games.Where(g => g.GameTags.Any(gt => gt.Game_id == g.ID && gt.Tags.ID == favTags.ElementAt(0).ID)));
-            }
+            // находим теги пользователя
+            random = new Random();
+            freeTags = App.db.Tags.ToList();
+            exceptedTags = favTags.Count() > 0 ? favTags.Select(ft => new Tags { ID = ft.ID, Title = ft.Title }).ToList() : new List<Tags>();
+
+            // если у пользователя недостаточно тегов, то будет выбран рандомный из существующих
+            FirstFavGames = favTags.Count() > 0 ? favTags.ElementAt(0) : new TagInfo { Title = SelectRandomTag() };
+            SecondFavGames = favTags.Count() > 1 ? favTags.ElementAt(1) : new TagInfo { Title = SelectRandomTag() };
+            ThirdFavGames = favTags.Count() > 2 ? favTags.ElementAt(2) : new TagInfo { Title = SelectRandomTag() };
         }
 
-        public string FavoriteTag { get; set; }
-        public ObservableCollection<Games> TopFavoriteGames { get; set; }
+        private string SelectRandomTag()
+        {
+            // исключаем теги пользователя из всех имеющихся
+            freeTags = freeTags.Where(ft => !exceptedTags.Any(et => et.ID == ft.ID && et.Title == ft.Title)).ToList();
+            // выбираем рандомный тег, которого нет у пользователя 
+            Tags rndTag = freeTags.ElementAt(random.Next(freeTags.Count() - 1));
+            // добавляем тег к исключениям
+            exceptedTags.Add(rndTag);
+
+            return rndTag.Title;
+        }
+
+        public TagInfo FirstFavGames { get; set; }
+        public TagInfo SecondFavGames { get; set; }
+        public TagInfo ThirdFavGames { get; set; }
 
         private Games selectedGame;
         public Games SelectedGame
