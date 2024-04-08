@@ -46,7 +46,7 @@ namespace Stiem_market
 
         private void LibraryTab_Checked(object sender, RoutedEventArgs e)
         {
-            StiemFrame.Navigate(new LibraryPage(false, authViewModel));
+            StiemFrame.Navigate(new LibraryPage(false, authViewModel.LibraryCollection));
         }
 
         private void FriendsTab_Checked(object sender, RoutedEventArgs e)
