@@ -35,24 +35,77 @@ namespace Stiem_market.Pages.Store
             DataContext = gameViewModel;
         }
 
-        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ScrollViews_Click(object sender, RoutedEventArgs e)
         {
-            if (GameList.SelectedItem == null)
-                return;
-            gameViewModel.SelectedGame = GameList.SelectedItem as Games;
-            NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
-            GameList.SelectedItem = null;
+            ScrollViewer selectedScrollViewer = null;
+            bool isPlus;
+
+            if (sender == FirstMinus || sender == FirstPlus)
+                selectedScrollViewer = FirstScrollViewer;
+            else if (sender == SecondMinus || sender == SecondPlus)
+                selectedScrollViewer = SecondScrollViewer;
+            else if (sender == ThirdMinus || sender == ThirdPlus)
+                selectedScrollViewer = ThirdScrollViewer;
+
+            isPlus = sender == FirstPlus || sender == SecondPlus || sender == ThirdPlus;
+
+            if (selectedScrollViewer != null)
+            {
+                double offsetChange = 870;
+                if (!isPlus)
+                {
+                    offsetChange = -offsetChange;
+                }
+
+                if (selectedScrollViewer.HorizontalOffset == 0 && !isPlus)
+                {
+                    selectedScrollViewer.ScrollToRightEnd();
+                }
+                else if (selectedScrollViewer.HorizontalOffset + offsetChange == selectedScrollViewer.ExtentWidth)
+                {
+                    selectedScrollViewer.ScrollToHorizontalOffset(0);
+                }
+                else
+                {
+                    selectedScrollViewer.ScrollToHorizontalOffset(selectedScrollViewer.HorizontalOffset + offsetChange);
+                }
+            }
         }
 
-        private void Minus_Click(object sender, RoutedEventArgs e)
+
+        private void GameList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset - 870);
-            
+            ListBox listBox = null;
+            if (sender.Equals(FirstGameList))
+            {
+                listBox = FirstGameList;
+            }
+            else if (sender.Equals(SecondGameList))
+            {
+                listBox = SecondGameList;
+            }
+            else if (sender.Equals(ThirdGameList))
+            {
+                listBox = ThirdGameList;
+            }
+
+            if (listBox.SelectedItem == null)
+                return;
+
+            gameViewModel.SelectedGame = listBox.SelectedItem as Games;
+            NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
         }
-        private void Plus_Click(object sender, RoutedEventArgs e)
+
+        private void InnerScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            MyScrollViewer.ScrollToHorizontalOffset(MyScrollViewer.HorizontalOffset + 870);
-            
+            if (e.Delta > 0)
+            {
+                MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - SystemParameters.WheelScrollLines * 16);
+            }
+            else
+            {
+                MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset + SystemParameters.WheelScrollLines * 16);
+            }
         }
     }
 }
