@@ -8,6 +8,10 @@
        d:DesignHeight="620" d:DesignWidth="1280"
   Title="LibraryPage">
 
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="IsSelectedConverter"/>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -16,8 +20,13 @@
             <ColumnDefinition MinWidth="660" Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" MinWidth="300">
-            <ListBox x:Name="GameListBox" ItemsSource="{Binding LibraryCollection}" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" MinWidth="300">
+            <ListBox x:Name="GameListBox" ItemsSource="{Binding LibraryCollection}" SelectedItem="{Binding SelectedGame}"
              HorizontalAlignment="Stretch"
              Background="Transparent" BorderThickness="0"  MinWidth="300">
                 <ListBox.ItemTemplate>
@@ -29,7 +38,28 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <Rectangle Fill="{StaticResource TotallyBlack}" Width="2" Height="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="2"/>
-        <StackPanel MinWidth="660"></StackPanel>
+        <Rectangle Fill="{StaticResource TotallyBlack}" Width="2" Height="Auto" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="2" Grid.RowSpan="2"/>
+
+
+        <Image Source="{Binding SelectedGame.Games.ImageBin}" Grid.Column="3" Stretch="UniformToFill" Visibility="{Binding IsGameSelected, Converter={StaticResource IsSelectedConverter}}"/>
+        <DockPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Margin="10" Visibility="{Binding IsGameSelected, Converter={StaticResource IsSelectedConverter}}">
+            <TextBlock  Text="{Binding SelectedGame.Games.Title}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"/>
+            <Button Content="Играть" HorizontalAlignment="Right">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="LimeGreen" Padding="10 4 10 4">
+                                        <TextBlock Text="{TemplateBinding Content}" Style="{StaticResource LargeText}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </DockPanel>
     </Grid>
 </Page>
