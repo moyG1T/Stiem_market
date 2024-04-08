@@ -59,12 +59,12 @@
         </Style>
     </Page.Resources>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" VirtualizingPanel.ScrollUnit="Pixel">
+    <ScrollViewer x:Name="MainScrollViewer"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" VirtualizingPanel.ScrollUnit="Pixel">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="295"/>
-                <RowDefinition Height="250"/>
-                <RowDefinition Height="250"/>
+                <RowDefinition Height="295"/>
+                <RowDefinition Height="295"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -72,13 +72,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{Binding FavoriteTag, StringFormat= '{}Игры с меткой &quot;{0}&quot;'}" Style="{StaticResource LargeText}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ScrollViewer x:Name="MyScrollViewer" VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     Grid.Row="0" Grid.Column="1" Margin="0 40 0 0" Width="870">
-                <ListBox x:Name="GameList" ItemsSource="{Binding Games}" ItemContainerStyle="{StaticResource GameIcon}"
+            <TextBlock Text="{Binding FirstFavGames.Title, StringFormat= '{}Игры с меткой &quot;{0}&quot;'}" Style="{StaticResource LargeText}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ScrollViewer x:Name="FirstScrollViewer" VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                     Grid.Row="0" Grid.Column="1" Margin="0 40 0 0" Width="870" PreviewMouseWheel="InnerScrollViewer_PreviewMouseWheel">
+                <ListBox x:Name="FirstGameList" ItemsSource="{Binding FirstFavGames.ContainingGames}" ItemContainerStyle="{StaticResource GameIcon}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      VerticalAlignment="Top" HorizontalAlignment="Center"
-                     Background="Transparent" BorderThickness="0" MouseDoubleClick="ListBox_MouseDoubleClick">
+                     Background="Transparent" BorderThickness="0" PreviewMouseLeftButtonUp="GameList_PreviewMouseLeftButtonUp">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True"/>
@@ -88,8 +88,48 @@
             </ScrollViewer>
 
             <DockPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90">
-                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="Minus_Click" Style="{StaticResource BackwardButton}"/>
-                <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="40" Click="Plus_Click" Style="{StaticResource ForwardButton}"/>
+                <Button x:Name="FirstMinus" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource BackwardButton}"/>
+                <Button x:Name="FirstPlus" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource ForwardButton}"/>
+            </DockPanel>
+
+            <TextBlock Text="{Binding SecondFavGames.Title, StringFormat= '{}Игры с меткой &quot;{0}&quot;'}" Style="{StaticResource LargeText}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ScrollViewer x:Name="SecondScrollViewer" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          Grid.Row="1" Grid.Column="1" Margin="0 40 0 0" Width="870" PreviewMouseWheel="InnerScrollViewer_PreviewMouseWheel">
+                <ListBox x:Name="SecondGameList" ItemsSource="{Binding SecondFavGames.ContainingGames}" ItemContainerStyle="{StaticResource GameIcon}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         VerticalAlignment="Top" HorizontalAlignment="Center"
+                         Background="Transparent" BorderThickness="0" PreviewMouseLeftButtonUp="GameList_PreviewMouseLeftButtonUp">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ScrollViewer>
+
+            <DockPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90">
+                <Button x:Name="SecondMinus" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource BackwardButton}"/>
+                <Button x:Name="SecondPlus" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource ForwardButton}"/>
+            </DockPanel>
+
+            <TextBlock Text="{Binding ThirdFavGames.Title, StringFormat= '{}Игры с меткой &quot;{0}&quot;'}" Style="{StaticResource LargeText}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ScrollViewer x:Name="ThirdScrollViewer" VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          Grid.Row="2" Grid.Column="1" Margin="0 40 0 0" Width="870" PreviewMouseWheel="InnerScrollViewer_PreviewMouseWheel">
+                <ListBox x:Name="ThirdGameList" ItemsSource="{Binding ThirdFavGames.ContainingGames}" ItemContainerStyle="{StaticResource GameIcon}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         VerticalAlignment="Top" HorizontalAlignment="Center"
+                         Background="Transparent" BorderThickness="0" PreviewMouseLeftButtonUp="GameList_PreviewMouseLeftButtonUp">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ScrollViewer>
+
+            <DockPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90">
+                <Button x:Name="ThirdMinus" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource BackwardButton}"/>
+                <Button x:Name="ThirdPlus" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40" Click="ScrollViews_Click" Style="{StaticResource ForwardButton}"/>
             </DockPanel>
         </Grid>
     </ScrollViewer>
