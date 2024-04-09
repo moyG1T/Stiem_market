@@ -52,8 +52,8 @@
                 <Button x:Name="RemoveRequest" Content="Отозвать заявку" Visibility="Collapsed" Style="{StaticResource ElevatedButton}" Margin="0 5 0 5" Click="RemoveRequest_Click"/>
             </StackPanel>
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" Margin="25 0 0 0">
-                <TextBlock x:Name="NicknameText" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="DescriptionText" Text="{Binding SelectedUser.Description}" Style="{StaticResource MediumText}" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="NicknameText" TextTrimming="CharacterEllipsis" MaxWidth="200" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource LargeText}" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="DescriptionText" Text="{Binding SelectedUser.Description}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="200" Style="{StaticResource MediumText}" HorizontalAlignment="Left"/>
             </StackPanel>
         </StackPanel>
 

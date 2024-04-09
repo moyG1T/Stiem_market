@@ -298,6 +298,7 @@
       <DependentUpon>StiemDB.edmx</DependentUpon>
       <LastGenOutput>StiemDB.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\tune.png" />
     <Resource Include="Resources\arrow.png" />
     <Resource Include="Resources\cancel.png" />
     <Resource Include="Resources\cart.png" />

@@ -74,7 +74,7 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border Name="Border"
                             Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
-                            MinWidth="200" CornerRadius="12" Padding="4">
+                            Width="200" CornerRadius="12" Padding="4">
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -178,6 +178,26 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
                             <Image Source="/Resources/cancel.png" RenderOptions.BitmapScalingMode="Fant"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="TemplateBorder"  Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="TuneButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="TemplateBorder" Background="White" Opacity="0.7" Width="40" Height="40" CornerRadius="25" Padding="3">
+                            <Image Source="/Resources/tune.png" RenderOptions.BitmapScalingMode="Fant"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -306,13 +326,13 @@
         </Style>
 
         <Style TargetType="RadioButton" x:Key="TabButton">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"></Setter>
-            <Setter Property="Margin" Value="10 0 10 0"></Setter>
-            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
+            <Setter Property="Margin" Value="10 0 10 0"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <TextBlock x:Name="TemplateText" Text="{TemplateBinding Content}" Style="{StaticResource LargeText}" Opacity="0.7"/>
+                        <TextBlock x:Name="TemplateText" Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis" MaxWidth="200" Style="{StaticResource LargeText}" Opacity="0.7"/>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="TemplateText" Property="Opacity" Value="0.8"/>
@@ -385,6 +405,25 @@
                             <Border x:Name="TemplateBorder" Background="{StaticResource TotallyBlack}" Width="Auto" Height="100" Opacity="0.7"/>
                             <TextBlock Text="{Binding Title}" Style="{StaticResource MediumText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="TemplateBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="SimplifiedLibraryList">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="TemplateBorder"  Background="{StaticResource TotallyBlack}" Width="Auto" Height="40" Padding="10 3 10 3" Margin="0 5 0 0" CornerRadius="15">
+                            <TextBlock Text="{Binding Games.Title}" Style="{StaticResource MediumText}" HorizontalAlignment="Left"/>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="TemplateBorder" Property="Background" Value="{StaticResource LightGray}"/>

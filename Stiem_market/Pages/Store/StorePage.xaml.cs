@@ -4,17 +4,10 @@ using Stiem_market.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Stiem_market.Pages.Store
 {
@@ -26,13 +19,48 @@ namespace Stiem_market.Pages.Store
         private GameViewModel gameViewModel;
         private AuthenticationViewModel authViewModel;
 
+        private string greeting;
+        public string Greeting
+        {
+            get
+            {
+                Random random = new Random();
+                bool isGreetings = random.Next(1, 10) > 4;
+
+                if (isGreetings)
+                {
+                    string timeOfDay = "Доброго времени суток";
+                    DateTime currentTime = DateTime.Now;
+                    if (currentTime.Hour >= 5 && currentTime.Hour < 12)
+                        timeOfDay = "Доброе утро";
+                    else if (currentTime.Hour >= 12 && currentTime.Hour < 18)
+                        timeOfDay = "Добрый день";
+                    else if (currentTime.Hour >= 18 && currentTime.Hour < 23)
+                        timeOfDay = "Добрый вечер";
+                    else if (currentTime.Hour >= 23 && currentTime.Hour < 5)
+                        timeOfDay = "Доброй ночи";
+
+                    return $"{timeOfDay}, {greeting}";
+                }
+                else
+                {
+                    List<string> strings = new List<string> { "Ищите новинки?", "Не знаете во что поиграть?", "Игры для всех!" };
+                    return strings.ElementAt(random.Next(strings.Count() - 1));
+                }
+            }
+        }
+
         public StorePage(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
 
+
             authViewModel = _authViewModel;
             gameViewModel = new GameViewModel(authViewModel.FavoriteTags);
             DataContext = gameViewModel;
+
+            greeting = authViewModel.LoggedUser.Nickname;
+            GreetingText.DataContext = this;
         }
 
         private void ScrollViews_Click(object sender, RoutedEventArgs e)

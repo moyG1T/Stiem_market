@@ -191,7 +191,7 @@ namespace Stiem_market.ViewModels
 
             CartCollection = gameInCarts;
 
-            HistoryCollection = App.db.Carts.Where(h => (h.Purchaser_id == LoggedUser.ID || h.Owner_id == LoggedUser.ID) && (h.RelationType == 3 || h.RelationType == 5)).OrderByDescending(x => x.ID).ToList();
+            HistoryCollection = App.db.Carts.Where(h => (h.Purchaser_id == LoggedUser.ID || h.Owner_id == LoggedUser.ID) && (h.RelationType == 3 || h.RelationType == 5)).OrderByDescending(x => x.AddDate).ToList();
 
             FavoriteTags = App.db.Users.Where(u => u.ID == LoggedUser.ID)
                                        .SelectMany(u => u.Carts.Where(с => с.RelationType == 3))

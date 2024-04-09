@@ -32,11 +32,11 @@
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Vertical" Width="350">
                 <DockPanel Margin="0 5 0 5">
                     <TextBlock Text="Ник" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
-                    <TextBox x:Name="NicknameTextBox" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="NicknameTextBox_TextChanged"></TextBox>
+                    <TextBox x:Name="NicknameTextBox" MaxLength="50" Text="{Binding SelectedUser.Nickname}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="NicknameTextBox_TextChanged"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="0 5 0 5">
                     <TextBlock Text="Описание" VerticalAlignment="Center" Style="{StaticResource LargeText}" HorizontalAlignment="Left"></TextBlock>
-                    <TextBox x:Name="DescriptionTextBox" Text="{Binding SelectedUser.Description}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="DescriptionTextBox_TextChanged"></TextBox>
+                    <TextBox x:Name="DescriptionTextBox" MaxLength="200"  Text="{Binding SelectedUser.Description}" Style="{StaticResource RoundedTextBox}"  HorizontalAlignment="Right" TextChanged="DescriptionTextBox_TextChanged"></TextBox>
                 </DockPanel>
             </StackPanel>
         </StackPanel>
