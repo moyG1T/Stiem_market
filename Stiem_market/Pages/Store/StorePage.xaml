@@ -9,7 +9,12 @@
       Title="StorePage">
 
     <Page.Resources>
-        <Style x:Key="GameIcon"  TargetType="ListBoxItem">
+        <Style TargetType="ListBoxItem" x:Key="FocusCrutch">
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        
+        <Style x:Key="GameIcon" TargetType="ListBoxItem">
+            <Setter Property="Focusable" Value="False"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -19,7 +24,7 @@
                                     <RowDefinition Height="100"/>
                                     <RowDefinition Height="100"/>
                                 </Grid.RowDefinitions>
-                                <Image x:Name="GameImage" Source="{Binding ImageBin}" Width="280" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"/>
+                                <Image x:Name="GameImage" Source="{Binding ImageBin, IsAsync=True}" Width="280" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2"/>
 
                                 <Border x:Name="GameBorder" Grid.Row="1" Background="{StaticResource TotallyBlack}" Opacity="0.66"/>
 
@@ -27,7 +32,7 @@
                                     <TextBlock Text="{Binding Title}" FontSize="18" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     <TextBlock Text="{Binding Cost, StringFormat={}{0}₽}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                                    <ListBox ItemsSource="{Binding GameTags}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0">
+                                    <ListBox ItemsSource="{Binding GameTags}" ItemContainerStyle="{StaticResource FocusCrutch}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderThickness="0">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel IsItemsHost="True"/>
@@ -57,6 +62,51 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="ComboBox" x:Key="EditableRoundedComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton x:Name="ToggleButton"
+                                            Template="{StaticResource ComboBoxToggleButton}"
+                                            Grid.ColumnSpan="2"
+                                            Focusable="False"
+                                            ClickMode="Press"
+                                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource SearchTextBox}" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Padding="3"
+                                       IsTabStop="False"
+                                       AcceptsReturn="False"
+                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=OneWay}"
+                                       Background="Transparent"
+                                       BorderThickness="0"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsReadOnly="{TemplateBinding IsReadOnly}"
+                                       IsEnabled="{TemplateBinding IsEnabled}"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"/>
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <ScrollViewer Margin="0 10 0 0" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <ScrollViewer x:Name="MainScrollViewer"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" VirtualizingPanel.ScrollUnit="Pixel">
@@ -76,8 +126,10 @@
             <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="-10 0 -10 0">
                 <TextBlock Name="GreetingText" Text="{Binding Greeting}" TextTrimming="CharacterEllipsis" Style="{StaticResource LargeText}" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
                 <Button x:Name="TuneButton" Style="{StaticResource TuneButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <TextBox x:Name="SearchBar" Style="{StaticResource SearchTextBox}"
-                     Width="350" Height="50" VerticalAlignment="Center" Margin="10 0 10 0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <ComboBox x:Name="Searchbar" ItemsSource="{Binding Games, IsAsync=True}" MaxDropDownHeight="210" Height="50" Width="350" Margin="10 0 10 0" Style="{StaticResource EditableRoundedComboBox}"
+                          IsEditable="True"  IsTextSearchEnabled="True" StaysOpenOnEdit="True" 
+                          TextSearch.TextPath="Title" ItemContainerStyle="{StaticResource GameHintItemStyle}"
+                          HorizontalAlignment="Right" DockPanel.Dock="Right" KeyUp="ComboBox_KeyUp" GotFocus="Searchbar_GotFocus" LostFocus="Searchbar_LostFocus"/>
                 <Button x:Name="CancelButton" Style="{StaticResource CancelButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
             <Rectangle Fill="{StaticResource TotallyBlack}" Height="2" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.ColumnSpan="3"/>

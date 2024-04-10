@@ -93,7 +93,7 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border Name="Border"
                             Background= "White" BorderThickness="1" BorderBrush="{StaticResource TotallyBlack}" 
-                            MinWidth="200" CornerRadius="12" Padding="4">
+                            MinWidth="200" CornerRadius="10" Padding="4">
                             <DockPanel>
                                 <Image Source="/Resources/search.png" Margin="2" RenderOptions.BitmapScalingMode="Fant"
                                    DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -133,6 +133,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="BackwardButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -151,6 +152,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="ForwardButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -173,6 +175,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="CancelButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -193,6 +196,7 @@
         </Style>
 
         <Style TargetType="Button" x:Key="TuneButton">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisualStyle}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -468,7 +472,7 @@
             </Setter>
         </Style>
 
-        <Style TargetType="ComboBoxItem">
+        <Style TargetType="ComboBoxItem" x:Key="ComboBoxItemStyle">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
@@ -477,7 +481,31 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource LightGray}"></Setter>
+                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBoxItem" x:Key="GameHintItemStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="ItemBorder" Background="{StaticResource TotallyBlack}" Height="50" Width="Auto" Grid.ColumnSpan="2"/>
+
+                            <TextBlock Text="{Binding Title}" MaxWidth="200" TextTrimming="CharacterEllipsis" Style="{StaticResource MediumText}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Margin="5"/>
+                            <TextBlock Text="{Binding Cost, StringFormat='{}{0}₽'}" Style="{StaticResource MediumText}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="5"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource LightGray}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -496,7 +524,7 @@
                     Grid.ColumnSpan="2"
                     Background="{StaticResource TotallyBlack}"
                     BorderThickness="0"
-                    CornerRadius="5"/>
+                    CornerRadius="10"/>
                 <Path
                     x:Name="Arrow"
                     Grid.Column="1"
@@ -507,7 +535,7 @@
             </Grid>
         </ControlTemplate>
 
-        <Style TargetType="ComboBox">
+        <Style TargetType="ComboBox" x:Key="RoundedComboBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">

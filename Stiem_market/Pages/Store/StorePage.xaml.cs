@@ -3,11 +3,15 @@ using Stiem_market.Data;
 using Stiem_market.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace Stiem_market.Pages.Store
 {
@@ -27,7 +31,7 @@ namespace Stiem_market.Pages.Store
                 Random random = new Random();
                 bool isGreetings = random.Next(1, 10) > 4;
 
-                if (isGreetings)
+                if (isGreetings || string.IsNullOrEmpty(greeting))
                 {
                     string timeOfDay = "Доброго времени суток";
                     DateTime currentTime = DateTime.Now;
@@ -53,7 +57,6 @@ namespace Stiem_market.Pages.Store
         public StorePage(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
-
 
             authViewModel = _authViewModel;
             gameViewModel = new GameViewModel(authViewModel.FavoriteTags);
@@ -134,6 +137,43 @@ namespace Stiem_market.Pages.Store
             {
                 MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset + SystemParameters.WheelScrollLines * 16);
             }
+        }
+
+        private void ComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            // из-за поиска ломается бекспейс!!!
+            if (string.IsNullOrWhiteSpace(Searchbar.Text))
+            {
+                Searchbar.ItemsSource = gameViewModel.Games;
+            }
+            else
+            {
+                string searchText = Searchbar.Text.ToLower();
+                Searchbar.ItemsSource = gameViewModel.Games.Where(game => game.Title.ToLower().Contains(searchText)).ToList();
+                Searchbar.IsDropDownOpen = true;
+            }
+
+            if (e.Key == Key.Enter)
+            {
+                if (Searchbar.SelectedItem != null)
+                {
+                    gameViewModel.SelectedGame = Searchbar.SelectedItem as Games;
+                    NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
+                    Searchbar.SelectedItem = null;
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void Searchbar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Searchbar.IsDropDownOpen = true;
+        }
+
+        private void Searchbar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Searchbar.IsDropDownOpen = false;
         }
     }
 }
