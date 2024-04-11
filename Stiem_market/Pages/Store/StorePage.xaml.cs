@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -101,30 +102,6 @@ namespace Stiem_market.Pages.Store
                     selectedScrollViewer.ScrollToHorizontalOffset(selectedScrollViewer.HorizontalOffset + offsetChange);
                 }
             }
-        }
-
-
-        private void GameList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            ListBox listBox = null;
-            if (sender.Equals(FirstGameList))
-            {
-                listBox = FirstGameList;
-            }
-            else if (sender.Equals(SecondGameList))
-            {
-                listBox = SecondGameList;
-            }
-            else if (sender.Equals(ThirdGameList))
-            {
-                listBox = ThirdGameList;
-            }
-
-            if (listBox.SelectedItem == null)
-                return;
-
-            gameViewModel.SelectedGame = listBox.SelectedItem as Games;
-            NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
         }
 
         private void InnerScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -225,6 +202,14 @@ namespace Stiem_market.Pages.Store
             }
 
             NavigationService.Navigate(new GameListPage(true, gameViewModel, list, TagsCombo.SelectedItem as Tags, DevsCombo.SelectedItem as Devs ));
+        }
+
+        private void ItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            gameViewModel.SelectedGame = (Games)button.DataContext;
+            NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
         }
     }
 }
