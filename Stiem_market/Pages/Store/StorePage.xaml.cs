@@ -3,15 +3,11 @@ using Stiem_market.Data;
 using Stiem_market.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using System.Windows.Threading;
 
 namespace Stiem_market.Pages.Store
 {
@@ -22,6 +18,8 @@ namespace Stiem_market.Pages.Store
     {
         private GameViewModel gameViewModel;
         private AuthenticationViewModel authViewModel;
+
+        private bool isTuneClosed;
 
         private string greeting;
         public string Greeting
@@ -57,6 +55,8 @@ namespace Stiem_market.Pages.Store
         public StorePage(bool _canNavigateBack, AuthenticationViewModel _authViewModel)
         {
             InitializeComponent();
+            isTuneClosed = false;
+            CancelButton.Visibility = string.IsNullOrEmpty(Searchbar.Text) ? Visibility.Hidden : Visibility.Visible;
 
             authViewModel = _authViewModel;
             gameViewModel = new GameViewModel(authViewModel.FavoriteTags);
@@ -153,6 +153,8 @@ namespace Stiem_market.Pages.Store
                 Searchbar.IsDropDownOpen = true;
             }
 
+            CancelButton.Visibility = string.IsNullOrEmpty(Searchbar.Text) ? Visibility.Hidden : Visibility.Visible;
+
             if (e.Key == Key.Enter)
             {
                 if (Searchbar.SelectedItem != null)
@@ -174,6 +176,55 @@ namespace Stiem_market.Pages.Store
         private void Searchbar_LostFocus(object sender, RoutedEventArgs e)
         {
             Searchbar.IsDropDownOpen = false;
+        }
+
+        private void TuneButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchRow.Height = isTuneClosed ? new GridLength(70, GridUnitType.Pixel) : new GridLength(200, GridUnitType.Pixel);
+            DropFiltersButton_Click(null, null);
+            isTuneClosed = !isTuneClosed;
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Searchbar.Text = "";
+            CancelButton.Visibility = Visibility.Hidden;
+        }
+
+        private void DropFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            TagsCombo.SelectedItem = null;
+            DevsCombo.SelectedItem = null;
+            SearchByFilters.IsEnabled = false;
+        }
+
+        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SearchByFilters.IsEnabled = true;
+        }
+
+        private void SearchByFilters_Click(object sender, RoutedEventArgs e)
+        {
+            IEnumerable<Games> list = App.db.Games.ToList();
+
+            if (TagsCombo.SelectedItem != null && DevsCombo.SelectedItem != null)
+            {
+                list = list
+                    .Where(l =>
+                        l.Devs.ID == (DevsCombo.SelectedItem as Devs).ID
+                        && l.GameTags.Any(gt => gt.Game_id == l.ID && gt.Tags.ID == (TagsCombo.SelectedItem as Tags).ID))
+                    .ToList();
+            }
+            else if (TagsCombo.SelectedItem != null)
+            {
+                list = list.Where(l => l.GameTags.Any(gt => gt.Game_id == l.ID && gt.Tags.ID == (TagsCombo.SelectedItem as Tags).ID)).ToList();
+            }
+            else if (DevsCombo.SelectedItem != null)
+            {
+                list = list.Where(l => l.Devs.ID == (DevsCombo.SelectedItem as Devs).ID).ToList();
+            }
+
+            NavigationService.Navigate(new GameListPage(true, gameViewModel, list, TagsCombo.SelectedItem as Tags, DevsCombo.SelectedItem as Devs ));
         }
     }
 }

@@ -11,8 +11,15 @@
     <Page.Resources>
         <Style TargetType="ListBoxItem" x:Key="FocusCrutch">
             <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
-        
+
         <Style x:Key="GameIcon" TargetType="ListBoxItem">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Template">
@@ -112,7 +119,7 @@
     <ScrollViewer x:Name="MainScrollViewer"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" VirtualizingPanel.ScrollUnit="Pixel">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
+                <RowDefinition x:Name="SearchRow" Height="70"/>
                 <RowDefinition Height="295"/>
                 <RowDefinition Height="295"/>
                 <RowDefinition Height="295"/>
@@ -123,16 +130,31 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="-10 0 -10 0">
-                <TextBlock Name="GreetingText" Text="{Binding Greeting}" TextTrimming="CharacterEllipsis" Style="{StaticResource LargeText}" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
-                <Button x:Name="TuneButton" Style="{StaticResource TuneButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <ComboBox x:Name="Searchbar" ItemsSource="{Binding Games, IsAsync=True}" MaxDropDownHeight="210" Height="50" Width="350" Margin="10 0 10 0" Style="{StaticResource EditableRoundedComboBox}"
-                          IsEditable="True"  IsTextSearchEnabled="True" StaysOpenOnEdit="True" 
+            <Rectangle Fill="{StaticResource TotallyBlack}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3"/>
+            <DockPanel Grid.Row="0" Grid.Column="1" Margin="-10 10 -10 10">
+                <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" DockPanel.Dock="Top">
+                    <TextBlock Name="GreetingText" Text="{Binding Greeting}" TextTrimming="CharacterEllipsis" Style="{StaticResource LargeText}" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
+                    <Button x:Name="TuneButton" Style="{StaticResource TuneButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right" Click="TuneButton_Click"/>
+                    <ComboBox x:Name="Searchbar" ItemsSource="{Binding Games, IsAsync=True}" MaxDropDownHeight="210" Height="50" Width="350" Margin="10 0 10 0" Style="{StaticResource EditableRoundedComboBox}"
+                          IsEditable="True"  IsTextSearchEnabled="True" StaysOpenOnEdit="True" Background="{StaticResource LightGray}"
                           TextSearch.TextPath="Title" ItemContainerStyle="{StaticResource GameHintItemStyle}"
                           HorizontalAlignment="Right" DockPanel.Dock="Right" KeyUp="ComboBox_KeyUp" GotFocus="Searchbar_GotFocus" LostFocus="Searchbar_LostFocus"/>
-                <Button x:Name="CancelButton" Style="{StaticResource CancelButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                    <Button x:Name="CancelButton" Style="{StaticResource CancelButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right" Click="CancelButton_Click"/>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Категории" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="TagsCombo" SelectionChanged="Filter_SelectionChanged" Background="{StaticResource LightGray}" Margin="-10 5 0 0" Height="30" ItemsSource="{Binding TagsCollection, IsAsync=True}" DisplayMemberPath="Title" Width="200" Style="{StaticResource RoundedComboBox}" ItemContainerStyle="{StaticResource TagItemStyle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="20 0 10 0">
+                        <TextBlock Text="Разработчик" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="DevsCombo" SelectionChanged="Filter_SelectionChanged" Background="{StaticResource LightGray}" Margin="-10 5 0 0" Height="30" ItemsSource="{Binding DevsCollection, IsAsync=True}" DisplayMemberPath="Title" Width="200" Style="{StaticResource RoundedComboBox}" ItemContainerStyle="{StaticResource TagItemStyle}"/>
+                    </StackPanel>
+                    <Button x:Name="DropFiltersButton" Style="{StaticResource CancelButton}" Content="/Resources/search.png" Click="DropFiltersButton_Click"/>
+                </StackPanel>
+                <Button x:Name="SearchByFilters" Click="SearchByFilters_Click" Content="Найти" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Style="{StaticResource HighlightedElevatedButton}"/>
             </DockPanel>
-            <Rectangle Fill="{StaticResource TotallyBlack}" Height="2" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.ColumnSpan="3"/>
+
 
             <TextBlock Text="{Binding FirstFavGames.Title, StringFormat= '{}Игры с меткой &quot;{0}&quot;'}" Style="{StaticResource LargeText}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <ScrollViewer x:Name="FirstScrollViewer" VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" 

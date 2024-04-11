@@ -108,6 +108,8 @@ namespace Stiem_market.ViewModels
                 OnPropertyChanged("User");
 
                 FriendsCollection = ConcatFriendList();
+                LibraryCollection = App.db.GameInCarts
+                    .Where(g => App.db.Carts.Any(c => c.ID == g.Cart_id && c.Owner_id == value.ID && (c.RelationType == 3 || c.RelationType == 5))).ToList();
             }
         }
 

@@ -9,6 +9,7 @@ using System.Windows;
 using Stiem_market;
 using Stiem_market.Data;
 using Stiem_market.PartialClasses;
+using static System.Collections.Specialized.NameObjectCollectionBase;
 
 namespace Stiem.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Stiem.ViewModels
         public GameViewModel(List<TagInfo> favTags)
         {
             Games = App.db.Games.ToList();
+            TagsCollection = App.db.Tags.ToList();
+            DevsCollection = App.db.Devs.ToList();
 
             // находим теги пользователя
             random = new Random();
@@ -70,6 +73,27 @@ namespace Stiem.ViewModels
             }
         }
 
+        private IEnumerable<Tags> tagsCollection;
+        public IEnumerable<Tags> TagsCollection
+        {
+            get => tagsCollection;
+            set
+            {
+                tagsCollection = value;
+                OnPropertyChanged(nameof(TagsCollection));
+            }
+        }
+
+        private IEnumerable<Devs> devsCollection;
+        public IEnumerable<Devs> DevsCollection
+        {
+            get => devsCollection;
+            set
+            {
+                devsCollection = value;
+                OnPropertyChanged(nameof(DevsCollection));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

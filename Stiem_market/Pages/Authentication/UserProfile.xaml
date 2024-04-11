@@ -64,7 +64,7 @@
              VerticalAlignment="Top" HorizontalAlignment="Left"
              Grid.Row="2" Grid.Column="4" Margin="0 40 0 0"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             Background="Transparent" BorderThickness="0">
+             Background="Transparent" BorderThickness="0" MouseDoubleClick="GameList_MouseDoubleClick">
         </ListBox>
 
         <TextBlock Text="Друзья" Grid.Row="1" Grid.Column="6" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource LargeText}"/>
@@ -74,6 +74,6 @@
              Grid.Row="1" Grid.Column="6" Grid.RowSpan="2" Margin="0 40 0 0"
              VerticalAlignment="Top" HorizontalAlignment="Stretch"
              ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             Background="Transparent" BorderThickness="0" MinWidth="300"/>
+             Background="Transparent" BorderThickness="0" MinWidth="300" MouseDoubleClick="FriendList_MouseDoubleClick"/>
     </Grid>
 </Page>

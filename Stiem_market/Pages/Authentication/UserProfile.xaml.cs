@@ -1,5 +1,6 @@
 ﻿using Stiem.ViewModels;
 using Stiem_market.Data;
+using Stiem_market.Pages.Store;
 using Stiem_market.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -172,6 +173,19 @@ namespace Stiem_market.Pages.Authentication
 
             App.db.SaveChanges();
             RefreshFriendButtons();
+        }
+
+        private void FriendList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            authViewModel.SelectedUser = FriendList.SelectedItem as Users;
+            NavigationService.Navigate(new UserProfile(true, authViewModel));
+        }
+
+        private void GameList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            gameViewModel = new GameViewModel(authViewModel.FavoriteTags);
+            gameViewModel.SelectedGame = (GameList.SelectedItem as GameInCarts).Games;
+            NavigationService.Navigate(new GamePage(true, authViewModel, gameViewModel));
         }
     }
 }

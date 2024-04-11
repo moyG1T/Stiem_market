@@ -513,6 +513,25 @@
             </Setter>
         </Style>
 
+        <Style TargetType="ComboBoxItem" x:Key="TagItemStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Grid>
+                            <Border x:Name="ItemBorder" Background="{StaticResource TotallyBlack}" Height="50" Width="Auto"/>
+
+                            <TextBlock Text="{Binding Title}" MaxWidth="200" TextTrimming="CharacterEllipsis" Style="{StaticResource MediumText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 5 15 5"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource LightGray}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
             <Grid Height="{TemplateBinding Height}">
                 <Grid.ColumnDefinitions>
@@ -522,7 +541,7 @@
                 <Border
                     x:Name="Border"
                     Grid.ColumnSpan="2"
-                    Background="{StaticResource TotallyBlack}"
+                    Background="{TemplateBinding Background}"
                     BorderThickness="0"
                     CornerRadius="10"/>
                 <Path
@@ -536,11 +555,13 @@
         </ControlTemplate>
 
         <Style TargetType="ComboBox" x:Key="RoundedComboBox">
+            <Setter Property="Focusable" Value="False"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <ToggleButton Name="ToggleButton"
+                                          Background="{TemplateBinding Background}"
                                           Template="{StaticResource ComboBoxToggleButton}"
                                           Grid.Column="2"
                                           Focusable="false"
