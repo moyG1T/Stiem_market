@@ -41,21 +41,25 @@ namespace Stiem_market
 
         private void StoreTab_Checked(object sender, RoutedEventArgs e)
         {
+            authViewModel.SelectedUser = authViewModel.LoggedUser;
             StiemFrame.Navigate(new StorePage(false, authViewModel));
         }
 
         private void LibraryTab_Checked(object sender, RoutedEventArgs e)
         {
+            authViewModel.SelectedUser = authViewModel.LoggedUser;
             StiemFrame.Navigate(new LibraryPage(false, authViewModel.LibraryCollection));
         }
 
         private void FriendsTab_Checked(object sender, RoutedEventArgs e)
         {
+            authViewModel.SelectedUser = authViewModel.LoggedUser;
             StiemFrame.Navigate(new FriendsPage(false, authViewModel));
         }
 
         private void CartButton_Click(object sender, RoutedEventArgs e)
         {
+            authViewModel.SelectedUser = authViewModel.LoggedUser;
             StiemFrame.Navigate(new CartPage(authViewModel));
         }
 
