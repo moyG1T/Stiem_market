@@ -70,13 +70,7 @@ namespace Stiem_market.Pages.Store
                     Button button = sender as Button;
                     friendListWindow = new FriendListWindow(authViewModel, ((GameInCarts)button.DataContext).Games);
 
-                    friendListWindow.Closed += (s, args) =>
-                    {
-                        MakeABuyButton.IsEnabled = true;
-                    };
-
                     friendListWindow.Show();
-                    MakeABuyButton.IsEnabled = false;
                 }
             }
         }

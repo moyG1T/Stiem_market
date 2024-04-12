@@ -11,31 +11,29 @@ namespace Stiem_market.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
-
-    public partial class Games 
+    
+    public partial class Games
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Games()
         {
             this.GameInCarts = new HashSet<GameInCarts>();
-            this.GameTags = new HashSet<GameTags>();
             this.GameShowcase = new HashSet<GameShowcase>();
+            this.GameTags = new HashSet<GameTags>();
         }
-
+    
         public int ID { get; set; }
         public string Title { get; set; }
         public Nullable<int> Dev_id { get; set; }
         public Nullable<int> Cost { get; set; }
         public byte[] ImageBin { get; set; }
-
+    
         public virtual Devs Devs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GameInCarts> GameInCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GameTags> GameTags { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GameShowcase> GameShowcase { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GameTags> GameTags { get; set; }
     }
 }
