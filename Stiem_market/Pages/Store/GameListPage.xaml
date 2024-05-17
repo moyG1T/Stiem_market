@@ -48,6 +48,6 @@
         <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding GameCollection, IsAsync=True}"
                  x:Name="GameList" ItemContainerStyle="{StaticResource GameList}" 
                  ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 Background="Transparent" BorderThickness="0"/>
+                 Background="Transparent" BorderThickness="0" MouseDoubleClick="GameList_MouseDoubleClick"/>
     </Grid>
 </Page>

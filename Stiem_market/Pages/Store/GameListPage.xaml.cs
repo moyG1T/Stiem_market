@@ -1,5 +1,6 @@
 ﻿using Stiem.ViewModels;
 using Stiem_market.Data;
+using Stiem_market.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Stiem_market.Pages.Store
                 OnPropertyChanged(nameof(GameCollection));
             }
         }
-        
+
         private bool noResults = false;
         public bool NoResults
         {
@@ -44,9 +45,11 @@ namespace Stiem_market.Pages.Store
             }
         }
 
-        public GameListPage(bool _canNavigateBack, GameViewModel _gameViewModel, IEnumerable<Games> gameList, Tags tag, Devs dev)
+        private AuthenticationViewModel authenticationViewModel;
+        public GameListPage(bool _canNavigateBack, AuthenticationViewModel _authenticationViewModel, GameViewModel _gameViewModel, IEnumerable<Games> gameList, Tags tag, Devs dev)
         {
             InitializeComponent();
+            authenticationViewModel = _authenticationViewModel;
             gameViewModel = _gameViewModel;
             GameCollection = gameList;
 
@@ -135,6 +138,15 @@ namespace Stiem_market.Pages.Store
         {
             SearchBar.Text = "";
             Filter();
+        }
+
+        private void GameList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (GameList.SelectedItem as Games != null)
+            {
+                gameViewModel.SelectedGame = GameList.SelectedItem as Games;
+                NavigationService.Navigate(new GamePage(true, authenticationViewModel, gameViewModel));
+            }
         }
     }
 }

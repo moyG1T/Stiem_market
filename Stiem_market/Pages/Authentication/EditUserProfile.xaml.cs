@@ -54,7 +54,8 @@ namespace Stiem_market.Pages.Authentication
 
             authViewModel.LoggedUser = authViewModel.SelectedUser;
 
-            NavigationService.GoBack();
+            NavigationService.Navigate(new UserProfile(false, authViewModel));
+            GC.Collect();
         }
 
         private void SelectAPicture_Click(object sender, RoutedEventArgs e)

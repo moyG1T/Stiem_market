@@ -201,7 +201,7 @@ namespace Stiem_market.Pages.Store
                 list = list.Where(l => l.Devs.ID == (DevsCombo.SelectedItem as Devs).ID).ToList();
             }
 
-            NavigationService.Navigate(new GameListPage(true, gameViewModel, list, TagsCombo.SelectedItem as Tags, DevsCombo.SelectedItem as Devs ));
+            NavigationService.Navigate(new GameListPage(true, authViewModel, gameViewModel, list, TagsCombo.SelectedItem as Tags, DevsCombo.SelectedItem as Devs ));
         }
 
         private void ItemButton_Click(object sender, RoutedEventArgs e)
