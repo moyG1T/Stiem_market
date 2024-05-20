@@ -25,6 +25,9 @@ namespace Stiem_market.Pages.Authentication
             authViewModel = _authViewModel;
             DataContext = authViewModel;
 
+            NicknameTextBox.Text = authViewModel.SelectedUser.Nickname;
+            DescriptionTextBox.Text = authViewModel.SelectedUser.Description;
+
             SaveChanges.IsEnabled = false;
         }
 
@@ -66,8 +69,15 @@ namespace Stiem_market.Pages.Authentication
             };
             if (openFileDialog.ShowDialog().GetValueOrDefault())
             {
-                ProfileImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-                SaveChanges.IsEnabled = true;
+                try
+                {
+                    ProfileImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    SaveChanges.IsEnabled = true;
+                }
+                catch (Exception)
+                {
+                    return;
+                }
             }
         }
 
