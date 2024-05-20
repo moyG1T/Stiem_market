@@ -11,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="110"/>
             <RowDefinition Height="10*"/>
@@ -30,7 +30,7 @@
 
         <Rectangle Fill="White" Opacity="0.1" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="5"/>
 
-        <Image x:Name="GameImage" Stretch="UniformToFill" Source="{Binding SelectedGame.ImageShowcase}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="3"/>
+        <Image x:Name="GameImage" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding SelectedGame.ImageShowcase}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="3"/>
 
         <Button x:Name="BackButton" Style="{StaticResource BackwardButton}" Grid.Row="1" Grid.Column="2" Width="50" Height="50" VerticalAlignment="Top" Click="BackButton_Click"></Button>
 
