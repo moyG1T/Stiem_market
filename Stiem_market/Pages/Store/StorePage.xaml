@@ -139,7 +139,7 @@
             <Rectangle Fill="{StaticResource TotallyBlack}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3"/>
             <DockPanel Grid.Row="0" Grid.Column="1" Margin="-10 10 -10 10">
                 <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" DockPanel.Dock="Top">
-                    <TextBlock Name="GreetingText" Text="{Binding Greeting}" TextTrimming="CharacterEllipsis" Style="{StaticResource LargeText}" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
+                    <TextBlock Name="GreetingText" Text="{Binding Greeting}" MaxWidth="500" TextTrimming="CharacterEllipsis" Style="{StaticResource LargeText}" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
                     <Button x:Name="TuneButton" Style="{StaticResource TuneButton}" Content="/Resources/search.png" HorizontalAlignment="Right" DockPanel.Dock="Right" Click="TuneButton_Click"/>
                     <ComboBox x:Name="Searchbar" ItemsSource="{Binding Games, IsAsync=True}" MaxDropDownHeight="210" Height="50" Width="350" Margin="10 0 10 0" Style="{StaticResource EditableRoundedComboBox}"
                           IsEditable="True"  IsTextSearchEnabled="True" StaysOpenOnEdit="True" Background="{StaticResource LightGray}"
